@@ -26,6 +26,7 @@
 
 @php
     $languages = App\Models\Utility::languages();
+
 @endphp
 
 @section('language-bar')
