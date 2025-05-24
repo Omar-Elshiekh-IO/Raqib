@@ -1,0 +1,11 @@
+/.idea
+/.vscode
+/vendor/srmklive/paypal/tests/Mocks/samples/sample2.pdf
+/vendor/srmklive/paypal/tests/Mocks/samples/sample.pdf 
+/.env
+/.editorconfig
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
