@@ -85,6 +85,7 @@
     <link rel="stylesheet" href="{{ asset('assets/fonts/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/material.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
 
     <!-- vendor css -->
 
@@ -126,6 +127,49 @@
 </head>
 
 <body class="{{ $themeColor }}">
+    <!-- Parallax Scroll Effect Start -->
+    <div id="parallax-effect-wrapper">
+        <div class="scrollDist"></div>
+        <main id="parallax-main">
+          <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+            <mask id="m">
+              <g class="cloud1">
+                <rect fill="#fff" width="100%" height="801" y="799" />
+                <image xlink:href="https://assets.codepen.io/721952/cloud1Mask.jpg" width="1200" height="800"/>
+              </g>
+            </mask>
+            <image class="sky" xlink:href="https://assets.codepen.io/721952/sky.jpg"  width="1200" height="590" />
+            <image class="mountBg" xlink:href="https://assets.codepen.io/721952/mountBg.png" width="1200" height="800"/>    
+            <image class="mountMg" xlink:href="https://assets.codepen.io/721952/mountMg.png" width="1200" height="800"/>    
+            <image class="cloud2" xlink:href="https://assets.codepen.io/721952/cloud2.png" width="1200" height="800"/>    
+            <image class="mountFg" xlink:href="https://assets.codepen.io/721952/mountFg.png" width="1200" height="800"/>
+            <image class="cloud1" xlink:href="https://assets.codepen.io/721952/cloud1.png" width="1200" height="800"/>
+            <image class="cloud3" xlink:href="https://assets.codepen.io/721952/cloud3.png" width="1200" height="800"/>
+            <text fill="#fff" x="350" y="200">Swipe down</text>
+            <polyline class="arrow" fill="#fff" points="599,250 599,289 590,279 590,282 600,292 610,282 610,279 601,289 601,250" />
+            <g mask="url(#m)">
+              <rect fill="#fff" width="100%" height="100%" />      
+              <text x="350" y="200" fill="#162a43">FURTHER</text>
+            </g>
+            <rect id="arrow-btn" width="100" height="100" opacity="0" x="550" y="220" style="cursor:pointer"/>
+          </svg>
+        </main>
+        <style>
+        #parallax-effect-wrapper { width:100vw; margin:0; padding:0; }
+        #parallax-main { position:relative; background:#fff; width:100vw; height:800px; overflow:hidden; border-radius:0; box-shadow:none; }
+        .scrollDist { width:100vw; height:200%; position:absolute; top:0; left:0; z-index:-1; }
+        @media (max-width: 1200px) { #parallax-main { width:100vw; } }
+        @media (max-width: 800px) { #parallax-main { height:400px; font-size:40px; } }
+        #parallax-main text {
+          font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+          font-weight: 900;
+          letter-spacing: 2px;
+          font-size: 80px;
+          dominant-baseline: middle;
+        }
+        </style>
+    </div>
+    <!-- Parallax Scroll Effect End -->
     <div class="custom-login">
         <div class="login-bg-img">
             <img src="{{ isset($setting['color_flag']) && $setting['color_flag'] == 'false' ? asset('assets/images/auth/'.$color.'.svg') : asset('assets/images/auth/theme-3.svg') }}" class="login-bg-1">
@@ -253,6 +297,46 @@
             }
         }
     </script>
+    @push('custom-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        gsap.timeline({
+          scrollTrigger:{
+            trigger:'.scrollDist',
+            start:'0 0',
+            end:'100% 100%',
+            scrub:1
+          }
+        })
+        .fromTo('.sky', {y:0},{y:-200}, 0)
+        .fromTo('.cloud1', {y:100},{y:-800}, 0)
+        .fromTo('.cloud2', {y:-150},{y:-500}, 0)
+        .fromTo('.cloud3', {y:-50},{y:-650}, 0)
+        .fromTo('.mountBg', {y:-10},{y:-100}, 0)
+        .fromTo('.mountMg', {y:-30},{y:-250}, 0)
+        .fromTo('.mountFg', {y:-50},{y:-600}, 0);
+
+        const arrowBtn = document.querySelector('#arrow-btn');
+        if(arrowBtn) {
+          arrowBtn.addEventListener('mouseenter', ()=>{
+            gsap.to('.arrow', {y:10, duration:0.8, ease:'back.inOut(3)', overwrite:'auto'}) 
+          });
+          arrowBtn.addEventListener('mouseleave', ()=> {
+            gsap.to('.arrow', {y:0, duration:0.5, ease:'power3.out', overwrite:'auto'}) 
+          });
+          arrowBtn.addEventListener('click', ()=> {
+            gsap.to(window, {scrollTo:innerHeight, duration:1.5, ease:'power1.inOut'});
+          });
+        }
+      }
+    });
+    </script>
+    @endpush
     @stack('custom-scripts')
 
 </body>
