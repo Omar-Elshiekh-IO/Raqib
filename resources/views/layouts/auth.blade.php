@@ -126,6 +126,16 @@
 </head>
 
 <body class="{{ $themeColor }}">
+    <nav class="navbar navbar-expand-md default" style="justify-content: center; width: 100%; background: transparent; z-index: 9999; flex-shrink: 0;">
+        <div class="container" style="justify-content: center;">
+            <div class="collapse navbar-collapse show" id="navbarlogin">
+                <ul class="navbar-nav align-items-center mb-2 mb-lg-0" style="justify-content: center; width: 100%;">
+                    @include('landingpage::layouts.buttons')
+                    @yield('language-bar')
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="custom-login" style="min-height: 100vh; display: flex; flex-direction: column;">
         <div class="custom-login-main" style="flex: 1 0 auto; display: flex; flex-direction: row; min-height: 0; height: 0;">
             <div style="flex: 1 1 0; background: #f7f7f7; overflow: hidden; position: relative; min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center;">
@@ -137,18 +147,7 @@
                 </div>
             </div>
         </div>
-        <footer style="width: 100%; background: transparent; z-index: 9999; flex-shrink: 0;">
-            <nav class="navbar navbar-expand-md default" style="justify-content: center;">
-                <div class="container" style="justify-content: center;">
-                    <div class="collapse navbar-collapse show" id="navbarlogin">
-                        <ul class="navbar-nav align-items-center mb-2 mb-lg-0" style="justify-content: center; width: 100%;">
-                            @include('landingpage::layouts.buttons')
-                            @yield('language-bar')
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </footer>
+        <!-- Footer removed from here -->
     </div>
     <style>
         html, body, .custom-login { height: 100%; min-height: 100vh; }
@@ -188,6 +187,21 @@
                 min-inline-size: 0;
                 max-inline-size: 100%;
             }
+        }
+
+        .navbar {
+            position: relative;
+            z-index: 10000;
+            inline-size: 100%;
+            background: linear-gradient(135deg, rgba(0,80,200,0.85) 60%, rgba(0,120,255,0.65) 100%);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-radius: 0 0 24px 24px;
+        }
+        .navbar-nav {
+            inline-size: 100%;
+            justify-content: center !important;
         }
     </style>
 
