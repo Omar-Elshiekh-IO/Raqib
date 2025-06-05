@@ -129,10 +129,10 @@
     <div class="custom-login" style="min-height: 100vh; display: flex; flex-direction: column;">
         <div class="custom-login-main" style="flex: 1 0 auto; display: flex; flex-direction: row; min-height: 0; height: 0;">
             <div style="flex: 1 1 0; background: #f7f7f7; overflow: hidden; position: relative; min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center;">
-                <img src="{{ asset('assets/images/light-box/l4.jpg') }}" alt="Login Side Image" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                <img src="{{ asset('assets/images/illustration.png') }}" alt="Login Side Image" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <div style="flex: 1 1 0; background: #fff; display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 0;">
-                <div class="card" style="min-width: 350px; max-width: 440px; margin: 0 auto; z-index: 2;">
+                <div class="card login-glass-card">
                     @yield('content')
                 </div>
             </div>
@@ -161,6 +161,33 @@
         @media (max-width: 600px) {
             .custom-login-main > div { height: auto !important; min-height: 0 !important; }
             .card { min-width: 0 !important; max-width: 100% !important; }
+        }
+
+        /* Glassmorphism effect for login card */
+        .login-glass-card {
+            background: linear-gradient(135deg, rgba(0,80,200,0.85) 60%, rgba(0,120,255,0.65) 100%); /* strong blue gradient */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-radius: 24px;
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            color: #fff;
+            padding: 2rem 1.5rem;
+            min-inline-size: 350px;
+            max-inline-size: 440px;
+            margin: 0 auto;
+            z-index: 2;
+            transition: box-shadow 0.3s;
+        }
+        .login-glass-card * {
+            color: #fff !important;
+        }
+        @media (max-inline-size: 600px) {
+            .login-glass-card {
+                padding: 1rem 0.5rem;
+                min-inline-size: 0;
+                max-inline-size: 100%;
+            }
         }
     </style>
 

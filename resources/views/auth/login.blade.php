@@ -110,11 +110,11 @@
             @endif
 
             <div class="d-grid">
-                {{ Form::submit(__('Login'), ['class' => 'btn btn-primary mt-2', 'id' => 'saveBtn']) }}
+                {{ Form::submit(__('Login'), ['class' => 'btn btn-orange mt-2', 'id' => 'saveBtn']) }}
             </div>
             @if ($settings['enable_signup'] == 'on')
                 <p class="my-4 text-center">{{ __("Don't have an account?") }}
-                    <a href="{{ route('register', ['0',$lang]) }}" class="text-primary">{{ __('Register') }}</a>
+                    <a href="{{ route('register', ['0',$lang]) }}" class="text-orange">{{ __('Register') }}</a>
                 </p>
             @endif
         </div>
@@ -141,3 +141,24 @@
         </script>
     @endif
 @endif
+
+<style>
+.text-orange {
+    color: orange !important;
+    font-weight: 600;
+    text-shadow: 0 0 1px #fff, 0 0 2px #fff;
+}
+.btn-orange {
+    background-color: orange !important;
+    border-color: orange !important;
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px 0 rgba(255, 152, 0, 0.15);
+    transition: background 0.2s, border 0.2s;
+}
+.btn-orange:hover, .btn-orange:focus {
+    background-color: #ff9800 !important;
+    border-color: #ff9800 !important;
+    color: #fff !important;
+}
+</style>
