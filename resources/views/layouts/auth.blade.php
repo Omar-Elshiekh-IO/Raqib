@@ -126,40 +126,43 @@
 </head>
 
 <body class="{{ $themeColor }}">
-    <div class="custom-login">
-        <div class="custom-login-inner" style="display: flex; min-block-size: 100vh; align-items: flex-start;">
-            <main class="custom-wrapper" style="flex: 1; display: flex; align-items: flex-start; justify-content: flex-end;">
-                <div class="custom-row" style="inline-size: 100%; display: flex; align-items: flex-start; justify-content: flex-end;">
-                    <div class="card" style="min-inline-size: 350px; max-inline-size: 440px; margin-block-start: 60px; margin-inline-end: 0;">
-                        @yield('content')
-                    </div>
+    <div class="custom-login" style="min-height: 100vh; display: flex; flex-direction: column;">
+        <div class="custom-login-main" style="flex: 1 0 auto; display: flex; flex-direction: row; min-height: 0; height: 0;">
+            <div style="flex: 1 1 0; background: #f7f7f7; overflow: hidden; position: relative; min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center;">
+                <img src="{{ asset('assets/images/light-box/l4.jpg') }}" alt="Login Side Image" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+            </div>
+            <div style="flex: 1 1 0; background: #fff; display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 0;">
+                <div class="card" style="min-width: 350px; max-width: 440px; margin: 0 auto; z-index: 2;">
+                    @yield('content')
                 </div>
-            </main>
-            <footer style="inline-size: 100%; position: absolute; inset-block-end: 0; inset-inline-start: 0;">
-                <nav class="navbar navbar-expand-md default" style="justify-content: center;">
-                    <div class="container" style="justify-content: center;">
-                        <div class="collapse navbar-collapse show" id="navbarlogin">
-                            <ul class="navbar-nav align-items-center mb-2 mb-lg-0" style="justify-content: center; inline-size: 100%;">
-                                @include('landingpage::layouts.buttons')
-                                @yield('language-bar')
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <div class="auth-footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <span>&copy; {{ date('Y') }}
-                                    {{ App\Models\Utility::getValByName('footer_text') ? App\Models\Utility::getValByName('footer_text') : config('app.name', 'Storego Saas') }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            </div>
         </div>
+        <footer style="width: 100%; background: transparent; z-index: 9999; flex-shrink: 0;">
+            <nav class="navbar navbar-expand-md default" style="justify-content: center;">
+                <div class="container" style="justify-content: center;">
+                    <div class="collapse navbar-collapse show" id="navbarlogin">
+                        <ul class="navbar-nav align-items-center mb-2 mb-lg-0" style="justify-content: center; width: 100%;">
+                            @include('landingpage::layouts.buttons')
+                            @yield('language-bar')
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </footer>
     </div>
+    <style>
+        html, body, .custom-login { height: 100%; min-height: 100vh; }
+        .custom-login-main { height: calc(100vh - 60px); /* adjust 60px to your navbar height */ }
+        @media (max-width: 900px) {
+            .custom-login-main { flex-direction: column !important; height: auto !important; }
+            .custom-login-main > div { width: 100% !important; min-width: 0 !important; min-height: 0 !important; height: 50vh !important; }
+            .custom-login-main > div:last-child { height: auto !important; min-height: 0 !important; }
+        }
+        @media (max-width: 600px) {
+            .custom-login-main > div { height: auto !important; min-height: 0 !important; }
+            .card { min-width: 0 !important; max-width: 100% !important; }
+        }
+    </style>
 
     @if ($get_cookie == 'on')
         @include('layouts.cookie_consent')
