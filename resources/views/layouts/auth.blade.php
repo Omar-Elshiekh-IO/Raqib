@@ -127,44 +127,25 @@
 
 <body class="{{ $themeColor }}">
     <div class="custom-login">
-        <div class="custom-login-inner">
-            <header class="dash-header">
-                <nav class="navbar navbar-expand-md default">
-                    <div class="container">
-                        <div class="navbar-brand">
-                            <a class="navbar-brand" href="#">
-                                @if ($setting['cust_darklayout'] == 'on')
-                                    <img class="logo"
-                                        src="{{ $logo . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-light.png') . '?' . time() }}"
-                                        alt="" loading="lazy"/>
-                                @else
-                                    <img class="logo"
-                                        src="{{ $logo . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png') . '?' . time() }}"
-                                        alt="" loading="lazy"/>
-                                @endif
-                            </a>
-                        </div>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarlogin">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarlogin">
-                            <ul class="navbar-nav align-items-center ms-auto mb-2 mb-lg-0">
+        <div class="custom-login-inner" style="display: flex; min-block-size: 100vh; align-items: flex-start;">
+            <main class="custom-wrapper" style="flex: 1; display: flex; align-items: flex-start; justify-content: flex-end;">
+                <div class="custom-row" style="inline-size: 100%; display: flex; align-items: flex-start; justify-content: flex-end;">
+                    <div class="card" style="min-inline-size: 350px; max-inline-size: 440px; margin-block-start: 60px; margin-inline-end: 0;">
+                        @yield('content')
+                    </div>
+                </div>
+            </main>
+            <footer style="inline-size: 100%; position: absolute; inset-block-end: 0; inset-inline-start: 0;">
+                <nav class="navbar navbar-expand-md default" style="justify-content: center;">
+                    <div class="container" style="justify-content: center;">
+                        <div class="collapse navbar-collapse show" id="navbarlogin">
+                            <ul class="navbar-nav align-items-center mb-2 mb-lg-0" style="justify-content: center; inline-size: 100%;">
                                 @include('landingpage::layouts.buttons')
                                 @yield('language-bar')
                             </ul>
                         </div>
                     </div>
                 </nav>
-            </header>
-            <main class="custom-wrapper">
-                <div class="custom-row">
-                    <div class="card">
-                        @yield('content')
-                    </div>
-                </div>
-            </main>
-            <footer>
                 <div class="auth-footer">
                     <div class="container">
                         <div class="row">
