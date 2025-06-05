@@ -127,30 +127,22 @@
 
 <body class="{{ $themeColor }}">
     <div class="custom-login">
-        <div class="login-bg-img">
-            <img src="{{ isset($setting['color_flag']) && $setting['color_flag'] == 'false' ? asset('assets/images/auth/'.$color.'.svg') : asset('assets/images/auth/theme-3.svg') }}" class="login-bg-1">
-            <img src="{{ asset('assets/images/auth/common.svg') }}" class="login-bg-2">
-        </div>
-        <div class="bg-login bg-primary"></div>
         <div class="custom-login-inner">
             <header class="dash-header">
                 <nav class="navbar navbar-expand-md default">
                     <div class="container">
                         <div class="navbar-brand">
-
-                        <a class="navbar-brand" href="#">
-                            @if ($setting['cust_darklayout'] == 'on')
-                                <img class="logo"
-                                    src="{{ $logo . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-light.png') . '?' . time() }}"
-                                    alt="" loading="lazy"/>
-                            @else
-                                <img class="logo"
-                                    src="{{ $logo . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png') . '?' . time() }}"
-                                    alt="" loading="lazy"/>
-                            @endif
-                        </a>
-
-
+                            <a class="navbar-brand" href="#">
+                                @if ($setting['cust_darklayout'] == 'on')
+                                    <img class="logo"
+                                        src="{{ $logo . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-light.png') . '?' . time() }}"
+                                        alt="" loading="lazy"/>
+                                @else
+                                    <img class="logo"
+                                        src="{{ $logo . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png') . '?' . time() }}"
+                                        alt="" loading="lazy"/>
+                                @endif
+                            </a>
                         </div>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarlogin">
