@@ -518,8 +518,16 @@ class DashboardController extends Controller
         if (Auth::check()) {
             if (Auth::user()->type == 'super admin') {
                 $user = Auth::user();
-                $user['total_user'] = $user->countCompany();
-                $user['total_paid_user'] = $user->countPaidCompany();
+
+                $filter = request()->get('filter','all');
+
+                $user['total_user'] = $user->countCompany(); //number of all companies
+                $user['total_paid_user'] = $user->countPaidCompany(); //number of paid companies
+
+                $user['filtered_companies'] = $this->getFilteredCompanies($filter);
+                $user['filtered_paid_companies'] = $this->getFilteredPaidCompanies($filter);
+                $user['current_filter'] = $filter;
+
                 $user['total_orders'] = Order::total_orders();
                 $user['total_orders_price'] = Order::total_orders_price();
                 $user['total_plan'] = Plan::total_plan();
@@ -706,4 +714,55 @@ class DashboardController extends Controller
         return Utility::error_res('Tracker not found.');
     }
 
+    private function getFilteredCompanies($filter){
+      $query = User::where('type','company');
+
+      switch($filter){
+        
+        case 'day':
+          $query->whereDate('created_at','>=', now()->subDay());
+          break;
+        case 'week':
+          $query->whereDate('created_at','>=',now()->subWeek());
+          break;
+        case 'month':
+          $query->whereDate('created_at','>=',now()->subMonth());
+          break;
+        case 'all':
+        default:
+          break;
+      }
+
+      return $query->count();
+    }
+
+    private function getFilteredPaidCompanies($filter){
+      $query = User::where('type','company')->whereHas('orders',function($q){$q->where('payment_status','success');});
+
+      switch ($filter) {
+        case 'day':
+            $query->whereHas('orders', function($q) {
+                $q->whereDate('created_at', '>=', now()->subDay())
+                  ->where('payment_status', 'success');
+            });
+            break;
+        case 'week':
+            $query->whereHas('orders', function($q) {
+                $q->whereDate('created_at', '>=', now()->subWeek())
+                  ->where('payment_status', 'success');
+            });
+            break;
+        case 'month':
+            $query->whereHas('orders', function($q) {
+                $q->whereDate('created_at', '>=', now()->subMonth())
+                  ->where('payment_status', 'success');
+            });
+            break;
+        case 'all':
+        default:
+            break;
+    }
+
+    return $query->count();
+  }
 }

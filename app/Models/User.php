@@ -710,6 +710,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     }
 
+    public function orders(){
+      return $this->hasMany('App\Models\Order','user_id','id');
+    }
     public function currentPlan()
     {
         return $this->hasOne('App\Models\Plan', 'id', 'plan');

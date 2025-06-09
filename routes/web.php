@@ -1167,7 +1167,6 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
         'revalidate',
       ],
     ],

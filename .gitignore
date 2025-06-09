@@ -9,3 +9,6 @@
 /public/storage
 /storage/*.key
 .env
+/storage/debugbar
+/app/Http/Controllers/DashboardController_bkp.php
+/CurrentlyNotNeeded
