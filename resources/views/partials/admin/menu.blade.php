@@ -233,8 +233,15 @@
         width: 220px;
         min-width: 220px;
         max-width: 220px;
-        transition: width 0.2s;
-        /* Remove overflow-y here to avoid double scrollbars */
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Smooth transition for child elements */
+    }
+    .dash-sidebar.sidebar-hoverable .navbar-wrapper,
+    .dash-sidebar.sidebar-hoverable .navbar-content,
+    .dash-sidebar.sidebar-hoverable .main-logo,
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-link,
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-mtext {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .dash-sidebar.sidebar-hoverable .navbar-wrapper {
         height: 100%;
@@ -262,9 +269,51 @@
         max-width: 60px !important;
     }
     .dash-sidebar.sidebar-hoverable:not(:hover) .dash-mtext {
-        display: none !important;
+        opacity: 0;
+        max-width: 0;
+        padding: 0;
+        margin: 0;
+        transition: opacity 0.2s, max-width 0.2s, padding 0.2s, margin 0.2s;
+        pointer-events: none;
+    }
+    .dash-sidebar.sidebar-hoverable:hover .dash-mtext {
+        opacity: 1;
+        max-width: 200px;
+        transition: opacity 0.2s 0.1s, max-width 0.2s 0.1s, padding 0.2s 0.1s, margin 0.2s 0.1s;
+        pointer-events: auto;
     }
     .dash-sidebar.sidebar-hoverable .main-logo {
         justify-content: center;
+    }
+    /* Fix menu item background and alignment in collapsed mode */
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item {
+        text-align: center;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item .dash-link {
+        justify-content: center;
+        align-items: center;
+        padding: 0 !important;
+        margin: 0 !important;
+        min-width: 60px;
+        min-height: 48px;
+        height: 48px;
+        width: 100%;
+        border-radius: 8px;
+    }
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item.active,
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item:hover {
+        background: none !important;
+        box-shadow: none !important;
+    }
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item .dash-link .dash-micon {
+        margin: 0 !important;
+        font-size: 1.5rem;
+    }
+    /* Optional: subtle highlight for active icon in collapsed mode */
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item.active .dash-link {
+        background: #e6f0ff !important;
+        border-radius: 8px;
     }
 </style>
