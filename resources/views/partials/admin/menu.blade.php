@@ -14,9 +14,9 @@
 @endphp
 
 @if (isset($setting['cust_theme_bg']) && $setting['cust_theme_bg'] == 'on')
-    <nav class="dash-sidebar light-sidebar transprent-bg">
+    <nav class="dash-sidebar light-sidebar transprent-bg sidebar-hoverable">
     @else
-        <nav class="dash-sidebar light-sidebar ">
+        <nav class="dash-sidebar light-sidebar sidebar-hoverable">
 @endif
 <div class="navbar-wrapper">
     <div class="m-header main-logo">
@@ -228,3 +228,43 @@
     </div>
 </div>
 </nav>
+<style>
+    .dash-sidebar.sidebar-hoverable {
+        width: 220px;
+        min-width: 220px;
+        max-width: 220px;
+        transition: width 0.2s;
+        /* Remove overflow-y here to avoid double scrollbars */
+    }
+    .dash-sidebar.sidebar-hoverable .navbar-wrapper {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .dash-sidebar.sidebar-hoverable .navbar-content {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+    .dash-sidebar.sidebar-hoverable:hover .navbar-content {
+        overflow-y: auto;
+    }
+    .dash-sidebar.sidebar-hoverable:not(:hover) .navbar-content {
+        overflow-y: hidden !important;
+    }
+    .dash-sidebar.sidebar-hoverable:hover {
+        width: 220px !important;
+        min-width: 220px !important;
+        max-width: 220px !important;
+    }
+    .dash-sidebar.sidebar-hoverable:not(:hover) {
+        width: 60px !important;
+        min-width: 60px !important;
+        max-width: 60px !important;
+    }
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-mtext {
+        display: none !important;
+    }
+    .dash-sidebar.sidebar-hoverable .main-logo {
+        justify-content: center;
+    }
+</style>
