@@ -263,7 +263,6 @@
     <style>
         .dash-layout {
             display: flex;
-            /* Remove width: 100vw to prevent horizontal overflow */
             height: 100vh;
         }
         .dash-main {
@@ -272,7 +271,7 @@
             display: flex;
             flex-direction: column;
             transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-left: 220px; /* default expanded sidebar */
+            margin-left: 220px;
         }
         .dash-sidebar.sidebar-hoverable:not(:hover) ~ .dash-main {
             margin-left: 60px !important;
@@ -283,6 +282,7 @@
             width: 100%;
             height: 100%;
             padding: 0;
+            margin: 0;
             overflow: visible;
         }
         .dash-content {
@@ -291,9 +291,16 @@
             width: 100%;
             max-width: 100%;
             height: 100%;
-            padding: 16px 8px 8px 8px; /* reduce padding for more space */
+            padding: 16px 8px 8px 0; /* remove left padding */
+            margin: 0;
             box-sizing: border-box;
             overflow-x: auto;
+        }
+        /* Remove right margin/padding from sidebar if present */
+        .dash-sidebar .navbar-wrapper,
+        .dash-sidebar .dash-navbar {
+            margin-right: 0 !important;
+            padding-right: 0 !important;
         }
         @media (max-width: 991.98px) {
             .dash-main {
