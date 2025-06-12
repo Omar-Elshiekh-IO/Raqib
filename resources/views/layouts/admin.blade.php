@@ -122,7 +122,6 @@
 
 
 <body class="{{ $themeColor }}">
-
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
         <div class="loader-track">
@@ -130,94 +129,95 @@
         </div>
     </div>
 
-    @include('partials.admin.menu')
-    <!-- [ navigation menu ] end -->
-    <!-- [ Header ] start -->
-    @include('partials.admin.header')
-
-    <!-- Modal -->
-    <div class="modal notification-modal fade" id="notification-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn-close float-end" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                    <h6 class="mt-2">
-                        <i data-feather="monitor" class="me-2"></i>Desktop settings
-                    </h6>
-                    <hr />
-                    <div class="form-check form-switch">
-                        <input type="checkbox" class="form-check-input" id="pcsetting1" checked />
-                        <label class="form-check-label f-w-600 pl-1" for="pcsetting1">Allow desktop notification</label>
-                    </div>
-                    <p class="text-muted ms-5">
-                        you get lettest content at a time when data will updated
-                    </p>
-                    <div class="form-check form-switch">
-                        <input type="checkbox" class="form-check-input" id="pcsetting2" />
-                        <label class="form-check-label f-w-600 pl-1" for="pcsetting2">Store Cookie</label>
-                    </div>
-                    <h6 class="mb-0 mt-5">
-                        <i data-feather="save" class="me-2"></i>Application settings
-                    </h6>
-                    <hr />
-                    <div class="form-check form-switch">
-                        <input type="checkbox" class="form-check-input" id="pcsetting3" />
-                        <label class="form-check-label f-w-600 pl-1" for="pcsetting3">Backup Storage</label>
-                    </div>
-                    <p class="text-muted mb-4 ms-5">
-                        Automaticaly take backup as par schedule
-                    </p>
-                    <div class="form-check form-switch">
-                        <input type="checkbox" class="form-check-input" id="pcsetting4" />
-                        <label class="form-check-label f-w-600 pl-1" for="pcsetting4">Allow guest to print
-                            file</label>
-                    </div>
-                    <h6 class="mb-0 mt-5">
-                        <i data-feather="cpu" class="me-2"></i>System settings
-                    </h6>
-                    <hr />
-                    <div class="form-check form-switch">
-                        <input type="checkbox" class="form-check-input" id="pcsetting5" checked />
-                        <label class="form-check-label f-w-600 pl-1" for="pcsetting5">View other user chat</label>
-                    </div>
-                    <p class="text-muted ms-5">Allow to show public user message</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-danger btn-sm" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-light-primary btn-sm">
-                        Save changes
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- [ Header ] end -->
-
-    <!-- [ Main Content ] start -->
-    <div class="dash-container">
-        <div class="dash-content">
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-                        <div>
-                            <div class="page-header-title">
-                                <h4 class="mb-2">@yield('page-title')</h4>
+    <div class="dash-layout">
+        @include('partials.admin.menu')
+        <div class="dash-main">
+            @include('partials.admin.header')
+            <!-- Modal -->
+            <div class="modal notification-modal fade" id="notification-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            <h6 class="mt-2">
+                                <i data-feather="monitor" class="me-2"></i>Desktop settings
+                            </h6>
+                            <hr />
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="pcsetting1" checked />
+                                <label class="form-check-label f-w-600 pl-1" for="pcsetting1">Allow desktop notification</label>
                             </div>
-                            <ul class="breadcrumb">
-                                @yield('breadcrumb')
-                            </ul>
+                            <p class="text-muted ms-5">
+                                you get lettest content at a time when data will updated
+                            </p>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="pcsetting2" />
+                                <label class="form-check-label f-w-600 pl-1" for="pcsetting2">Store Cookie</label>
+                            </div>
+                            <h6 class="mb-0 mt-5">
+                                <i data-feather="save" class="me-2"></i>Application settings
+                            </h6>
+                            <hr />
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="pcsetting3" />
+                                <label class="form-check-label f-w-600 pl-1" for="pcsetting3">Backup Storage</label>
+                            </div>
+                            <p class="text-muted mb-4 ms-5">
+                                Automaticaly take backup as par schedule
+                            </p>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="pcsetting4" />
+                                <label class="form-check-label f-w-600 pl-1" for="pcsetting4">Allow guest to print
+                                    file</label>
+                            </div>
+                            <h6 class="mb-0 mt-5">
+                                <i data-feather="cpu" class="me-2"></i>System settings
+                            </h6>
+                            <hr />
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="pcsetting5" checked />
+                                <label class="form-check-label f-w-600 pl-1" for="pcsetting5">View other user chat</label>
+                            </div>
+                            <p class="text-muted ms-5">Allow to show public user message</p>
                         </div>
-                        <div class="action-btn-col">
-                            @yield('action-btn')
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-danger btn-sm" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-light-primary btn-sm">
+                                Save changes
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            @yield('content')
-            <!-- [ Main Content ] end -->
+            <!-- [ Header ] end -->
+
+            <!-- [ Main Content ] start -->
+            <div class="dash-container">
+                <div class="dash-content">
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                <div>
+                                    <div class="page-header-title">
+                                        <h4 class="mb-2">@yield('page-title')</h4>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        @yield('breadcrumb')
+                                    </ul>
+                                </div>
+                                <div class="action-btn-col">
+                                    @yield('action-btn')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @yield('content')
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -259,6 +259,67 @@
     </div>
     @include('partials.admin.footer')
     @include('Chatify::layouts.footerLinks')
+
+    <style>
+        .dash-layout {
+            display: flex;
+            /* Remove width: 100vw to prevent horizontal overflow */
+            height: 100vh;
+        }
+        .dash-main {
+            flex: 1 1 0%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-left: 220px; /* default expanded sidebar */
+        }
+        .dash-sidebar.sidebar-hoverable:not(:hover) ~ .dash-main {
+            margin-left: 60px !important;
+        }
+        .dash-container {
+            flex: 1 1 0%;
+            min-width: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            overflow: visible;
+        }
+        .dash-content {
+            flex: 1 1 0%;
+            min-width: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            padding: 16px 8px 8px 8px; /* reduce padding for more space */
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+        @media (max-width: 991.98px) {
+            .dash-main {
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+    <script>
+        // Add/remove a class on body to reflect sidebar hover state for margin control
+        document.addEventListener('DOMContentLoaded', function() {
+            var sidebar = document.querySelector('.dash-sidebar.sidebar-hoverable');
+            var main = document.querySelector('.dash-main');
+            if(sidebar && main) {
+                sidebar.addEventListener('mouseenter', function() {
+                    main.style.marginLeft = '220px';
+                });
+                sidebar.addEventListener('mouseleave', function() {
+                    main.style.marginLeft = '60px';
+                });
+                // Set initial state
+                if(!sidebar.matches(':hover')) {
+                    main.style.marginLeft = '60px';
+                }
+            }
+        });
+    </script>
 
 </body>
 
