@@ -36,10 +36,12 @@
     </div>
 @endsection
 @section('content')
+{{-- TODO: add filter button plans --}}
 <div class="row">
     @foreach ($users as $user)
-        <div class="col-xxl-3 col-lg-4 col-sm-6 mb-4">
-            <div class="user-card d-flex flex-column h-100">
+    <div class="col-xxl-3 col-lg-4 col-sm-6 mb-4">
+      <div class="user-card d-flex flex-column h-100">
+              {{$user->getOrderSumsByCompany($user) }} {{-- move this line to desired location --}} 
                 <div class="user-card-top d-flex align-items-center justify-content-between flex-1 gap-2 mb-3">
                     @if (\Auth::user()->type == 'super admin')
                         <div class="badge bg-primary p-1 px-2">
@@ -199,6 +201,13 @@
                                 <i class="f-16 ti ti-users text-white"></i>
                             </div>
                             {{ $user->totalCompanyVender($user->id) }}
+                        </div>
+                        <div class="user-count d-flex align-items-center gap-2" data-bs-toggle="tooltip"
+                            title="{{ __('Branches') }}">
+                            <div class="user-icon d-flex align-items-center justify-content-center">
+                                <i class="f-16 ti ti-users text-white"></i>
+                            </div>
+                            {{ $user->getBranchesCount() }}
                         </div>
                     </div>
                 @endif

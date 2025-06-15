@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -713,6 +714,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders(){
       return $this->hasMany('App\Models\Order','user_id','id');
     }
+
+    public function getOrderSumsByCompany(User $user)
+    {
+        return $user->orders()->sum('price');
+    }
+
     public function currentPlan()
     {
         return $this->hasOne('App\Models\Plan', 'id', 'plan');
@@ -979,6 +986,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $branch;
     }
+    
+    public function branches():HasMany{
+      return $this->hasMany(Branch::class,'created_by','id');
+    }
+
+  public function getBranchesCount(){
+    return User::branches()->count();
+  }
 
     public function getDepartment($department_id)
     {

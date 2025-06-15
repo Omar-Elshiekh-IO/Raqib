@@ -31,6 +31,7 @@ use App\Models\ProjectTask;
 use App\Models\Purchase;
 use App\Models\Revenue;
 use App\Models\Stage;
+use App\Models\Support;
 use App\Models\Tax;
 use App\Models\Timesheet;
 use App\Models\TimeTracker;
@@ -407,91 +408,91 @@ class DashboardController extends Controller
         }
     }
 
-    public function crm_dashboard_index()
-    {
-        $user = Auth::user();
-        if (Auth::user()->can('show crm dashboard')) {
-            if ($user->type == 'admin') {
-                return view('admin.dashboard');
-            } else {
-                $crm_data = [];
+//     public function crm_dashboard_index()
+//     {
+//         $user = Auth::user();
+//         if (Auth::user()->can('show crm dashboard')) {
+//             if ($user->type == 'admin') {
+//                 return view('admin.dashboard');
+//             } else {
+//                 $crm_data = [];
 
-                $leads = Lead::where('created_by', Auth::user()->creatorId())->get();
-                $deals = Deal::where('created_by', Auth::user()->creatorId())->get();
+//                 $leads = Lead::where('created_by', Auth::user()->creatorId())->get();
+//                 $deals = Deal::where('created_by', Auth::user()->creatorId())->get();
 
-                //count data
-                $crm_data['total_leads'] = $total_leads = count($leads);
-                $crm_data['total_deals'] = $total_deals = count($deals);
-                $crm_data['total_contracts'] = Contract::where('created_by', Auth::user()->creatorId())->count();
+//                 //count data
+//                 $crm_data['total_leads'] = $total_leads = count($leads);
+//                 $crm_data['total_deals'] = $total_deals = count($deals);
+//                 $crm_data['total_contracts'] = Contract::where('created_by', Auth::user()->creatorId())->count();
 
-                //lead status
-//                $user_leads   = $leads->pluck('lead_id')->toArray();
-                $total_leads = count($leads);
-                $lead_status = [];
-                $status = LeadStage::select('lead_stages.*', 'pipelines.name as pipeline')
-                    ->join('pipelines', 'pipelines.id', '=', 'lead_stages.pipeline_id')
-                    ->where('pipelines.created_by', '=', Auth::user()->creatorId())
-                    ->where('lead_stages.created_by', '=', Auth::user()->creatorId())
-                    ->orderBy('lead_stages.pipeline_id')->get();
+//                 //lead status
+// //                $user_leads   = $leads->pluck('lead_id')->toArray();
+//                 $total_leads = count($leads);
+//                 $lead_status = [];
+//                 $status = LeadStage::select('lead_stages.*', 'pipelines.name as pipeline')
+//                     ->join('pipelines', 'pipelines.id', '=', 'lead_stages.pipeline_id')
+//                     ->where('pipelines.created_by', '=', Auth::user()->creatorId())
+//                     ->where('lead_stages.created_by', '=', Auth::user()->creatorId())
+//                     ->orderBy('lead_stages.pipeline_id')->get();
 
-                foreach ($status as $k => $v) {
-                    $lead_status[$k]['lead_stage'] = $v->name;
-                    $lead_status[$k]['lead_total'] = count($v->lead());
-                    $lead_status[$k]['lead_percentage'] = Utility::getCrmPercentage($lead_status[$k]['lead_total'], $total_leads);
+//                 foreach ($status as $k => $v) {
+//                     $lead_status[$k]['lead_stage'] = $v->name;
+//                     $lead_status[$k]['lead_total'] = count($v->lead());
+//                     $lead_status[$k]['lead_percentage'] = Utility::getCrmPercentage($lead_status[$k]['lead_total'], $total_leads);
 
-                }
+//                 }
 
-                $crm_data['lead_status'] = $lead_status;
+//                 $crm_data['lead_status'] = $lead_status;
 
-                //deal status
-//                $user_deal   = $deals->pluck('deal_id')->toArray();
-                $total_deals = count($deals);
-                $deal_status = [];
-                $dealstatuss = Stage::select('stages.*', 'pipelines.name as pipeline')
-                    ->join('pipelines', 'pipelines.id', '=', 'stages.pipeline_id')
-                    ->where('pipelines.created_by', '=', Auth::user()->creatorId())
-                    ->where('stages.created_by', '=', Auth::user()->creatorId())
-                    ->orderBy('stages.pipeline_id')->get();
-                foreach ($dealstatuss as $k => $v) {
-                    $deal_status[$k]['deal_stage'] = $v->name;
-                    $deal_status[$k]['deal_total'] = count($v->deals());
-                    $deal_status[$k]['deal_percentage'] = Utility::getCrmPercentage($deal_status[$k]['deal_total'], $total_deals);
-                }
-                $crm_data['deal_status'] = $deal_status;
+//                 //deal status
+// //                $user_deal   = $deals->pluck('deal_id')->toArray();
+//                 $total_deals = count($deals);
+//                 $deal_status = [];
+//                 $dealstatuss = Stage::select('stages.*', 'pipelines.name as pipeline')
+//                     ->join('pipelines', 'pipelines.id', '=', 'stages.pipeline_id')
+//                     ->where('pipelines.created_by', '=', Auth::user()->creatorId())
+//                     ->where('stages.created_by', '=', Auth::user()->creatorId())
+//                     ->orderBy('stages.pipeline_id')->get();
+//                 foreach ($dealstatuss as $k => $v) {
+//                     $deal_status[$k]['deal_stage'] = $v->name;
+//                     $deal_status[$k]['deal_total'] = count($v->deals());
+//                     $deal_status[$k]['deal_percentage'] = Utility::getCrmPercentage($deal_status[$k]['deal_total'], $total_deals);
+//                 }
+//                 $crm_data['deal_status'] = $deal_status;
 
-                $crm_data['latestContract'] = Contract::where('created_by', '=', Auth::user()->creatorId())->orderBy('id', 'desc')->limit(5)->with(['clients', 'projects', 'types'])->get();
+//                 $crm_data['latestContract'] = Contract::where('created_by', '=', Auth::user()->creatorId())->orderBy('id', 'desc')->limit(5)->with(['clients', 'projects', 'types'])->get();
 
-                return view('dashboard.crm-dashboard', compact('crm_data'));
-            }
-        } else {
-            return $this->pos_dashboard_index();
-        }
-    }
+//                 return view('dashboard.crm-dashboard', compact('crm_data'));
+//             }
+//         } else {
+//             return $this->pos_dashboard_index();
+//         }
+//     }
 
-    public function pos_dashboard_index()
-    {
-        $user = Auth::user();
-        if (Auth::user()->can('show pos dashboard')) {
-            if ($user->type == 'admin') {
-                return view('admin.dashboard');
-            } else {
-                $pos_data = [];
-                $pos_data['monthlyPosAmount'] = Pos::totalPosAmount(true);
-                $pos_data['totalPosAmount'] = Pos::totalPosAmount();
-                $pos_data['monthlyPurchaseAmount'] = Purchase::totalPurchaseAmount(true);
-                $pos_data['totalPurchaseAmount'] = Purchase::totalPurchaseAmount();
+//     public function pos_dashboard_index()
+//     {
+//         $user = Auth::user();
+//         if (Auth::user()->can('show pos dashboard')) {
+//             if ($user->type == 'admin') {
+//                 return view('admin.dashboard');
+//             } else {
+//                 $pos_data = [];
+//                 $pos_data['monthlyPosAmount'] = Pos::totalPosAmount(true);
+//                 $pos_data['totalPosAmount'] = Pos::totalPosAmount();
+//                 $pos_data['monthlyPurchaseAmount'] = Purchase::totalPurchaseAmount(true);
+//                 $pos_data['totalPurchaseAmount'] = Purchase::totalPurchaseAmount();
 
-                $purchasesArray = Purchase::getPurchaseReportChart();
-                $posesArray = Pos::getPosReportChart();
+//                 $purchasesArray = Purchase::getPurchaseReportChart();
+//                 $posesArray = Pos::getPosReportChart();
 
-                return view('dashboard.pos-dashboard', compact('pos_data', 'purchasesArray', 'posesArray'));
-            }
-        } else {
-            return $this->hrm_dashboard_index();
-        }
-    }
+//                 return view('dashboard.pos-dashboard', compact('pos_data', 'purchasesArray', 'posesArray'));
+//             }
+//         } else {
+//             return $this->hrm_dashboard_index();
+//         }
+//     }
 
-    // Load Dashboard user's using ajax
+
     public function filterView(Request $request)
     {
         $usr = Auth::user();
@@ -531,6 +532,8 @@ class DashboardController extends Controller
                 $user['total_orders'] = Order::total_orders();
                 $user['total_orders_price'] = Order::total_orders_price();
                 $user['total_plan'] = Plan::total_plan();
+
+                $user['tickets_data'] = $this->getSupportData();
                 if(!empty(Plan::most_purchese_plan()))
                 {
                     $plan = Plan::find(Plan::most_purchese_plan()['plan']);
@@ -765,4 +768,25 @@ class DashboardController extends Controller
 
     return $query->count();
   }
+
+  /**
+ * Get support data for super admin (all companies)
+ */
+private function getSupportData()
+{
+    $supportData = [];
+    
+    // Total open tickets
+    $supportData['total_open_tickets'] = Support::where('status', 'open')->count();
+    
+    // Total closed tickets
+    $supportData['total_closed_tickets'] = Support::where('status', 'closed')->count();
+    
+    // Recently closed tickets (last 7 days)
+    $supportData['recently_closed_tickets'] = Support::where('status', 'closed')
+        ->where('updated_at', '>=', now()->subDays(7))
+        ->count();
+
+    return $supportData;
+}
 }

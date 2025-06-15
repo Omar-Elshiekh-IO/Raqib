@@ -85,6 +85,8 @@
                             </div>
                         @endif
                         @if (\Auth::user()->type == 'super admin' && $plan->price > 0)
+                        {{$plan->created_at}} {{-- plan creation time style it --}}
+                        {{$plan->updated_at}} {{-- plan last edit time style it --}}
                         <div class="d-flex flex-row-reverse m-0 p-0 active-tag">
                             <div class="form-check form-switch custom-switch-v1 float-end">
                                 <input type="checkbox" name="plan_disable"
@@ -93,7 +95,7 @@
                                 data-name="{{ __('plan') }}"
                                 {{ $plan->is_disable == 1 ? 'checked' : '' }}>
                             <label class="form-check-label" for="plan_disable"></label>
-                            </div>
+                          </div>
                         </div>
                     @endif
                         <h1 class="mb-4 f-w-600 ">

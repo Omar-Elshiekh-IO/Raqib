@@ -29,23 +29,77 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
 
-  public function index()
-  {
+  // public function index()
+  // {
+  //   User::defaultEmail();
+
+  //   $user = Auth::user();
+    
+  //   if (Auth::user()->can('manage user')) {
+  //     if (Auth::user()->type == 'super admin') {
+  //       $users = User::where('created_by', '=', $user->creatorId())->where('type', '=', 'company')->with(['currentPlan'])->get();
+  //     } else {
+  //       $users = User::where('created_by', '=', $user->creatorId())->where('type', '!=', 'client')->with(['currentPlan'])->get();
+  //     }
+
+  //     return view('user.index')->with('users', $users);
+  //   } else {
+  //     return redirect()->back();
+  //   }
+  // }
+
+  public function index(Request $request)
+{
     User::defaultEmail();
 
     $user = Auth::user();
+    
     if (Auth::user()->can('manage user')) {
-      if (Auth::user()->type == 'super admin') {
-        $users = User::where('created_by', '=', $user->creatorId())->where('type', '=', 'company')->with(['currentPlan'])->get();
-      } else {
-        $users = User::where('created_by', '=', $user->creatorId())->where('type', '!=', 'client')->with(['currentPlan'])->get();
-      }
+        // Start building the query
+        $query = User::where('created_by', '=', $user->creatorId());
+        
+        if (Auth::user()->type == 'super admin') {
+            $query->where('type', '=', 'company');
+        } else {
+            $query->where('type', '!=', 'client');
+        }
+        
+        // Add plan filtering
+        $query->with(['currentPlan']);
+        
+                // Manual join with plans table since plan_id is not a foreign key
+        $query->leftJoin('plans', 'users.plan', '=', 'plans.id');
+        
+        // Filter by plan type if provided
+        if ($request->filled('plan_type')) {
+            $query->where('plans.name', $request->plan_type);
+        }
 
-      return view('user.index')->with('users', $users);
+        // If filtering by users without plans
+        if ($request->filled('free_plan') && $request->free_plan == '1') {
+            $query->where('plan','=',1);
+        }
+        
+        // Select users columns to avoid conflicts
+        $query->select('users.*', 'plans.name as plan_name');
+        
+        
+        $users = $query->get();
+        
+        // Get available plan types and statuses for the filter dropdown
+        $planTypes = Plan::distinct()->pluck('name'); // Adjust column name as needed
+
+        return view('user.index')->with([
+            'users' => $users,
+            'planTypes' => $planTypes,
+            'selectedPlanType' => $request->plan_type,
+            'selectedPlanStatus' => $request->plan_status,
+            'selectedNoPlan' => $request->no_plan
+        ]);
     } else {
-      return redirect()->back();
+        return redirect()->back();
     }
-  }
+}
 
   public function create()
   {
@@ -73,6 +127,9 @@ class UserController extends Controller
           [
             'name' => 'required|max:120',
             'email' => 'required|email|unique:users',
+            'businessName' => 'string|max:120',
+            'taxNumber' => 'min:9|max:9',
+            'address' => 'required|string|max:255'
           ]
         );
         if ($validator->fails()) {
@@ -103,6 +160,9 @@ class UserController extends Controller
         $user = new User();
         $user['name'] = $request->name;
         $user['email'] = $request->email;
+        $user['business_name'] = $request->businessName;
+        $user['tax_number'] = $request->taxNumber;
+        $user['address'] = $request->address;
         $psw = $request->password;
         $user['password'] = !empty($userpassword) ? \Hash::make($userpassword) : null;
         $user['type'] = 'company';
@@ -696,4 +756,6 @@ class UserController extends Controller
       }
     }
   }
+
+
 }
