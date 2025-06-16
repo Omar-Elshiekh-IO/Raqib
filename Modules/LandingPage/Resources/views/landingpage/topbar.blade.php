@@ -67,6 +67,7 @@
                                     <div class="form-group col-12">
                                         {{ Form::label('content', __('Message'), ['class' => 'col-form-label text-dark']) }}<x-required></x-required>
                                         {{ Form::textarea('topbar_notification_msg',$settings['topbar_notification_msg'], ['class' => 'summernote-simple form-control', 'required' => 'required', 'placeholder' => __('Write here...')]) }}
+                                        
                                     </div>
 
                                 </div>

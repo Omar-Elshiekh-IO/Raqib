@@ -141,7 +141,7 @@
                         <a class="navbar-brand" href="#">
                             @if ($setting['cust_darklayout'] == 'on')
                                 <img class="logo"
-                                    src="{{ $logo . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-light.png') . '?' . time() }}"
+                                    src="{{ $logo . (isset($company_logos) && !empty($company_logos) ? $company_logos : 'logo-light.png') . '?' . time() }}"
                                     alt="" loading="lazy"/>
                             @else
                                 <img class="logo"

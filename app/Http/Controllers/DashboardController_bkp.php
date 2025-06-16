@@ -528,15 +528,21 @@ class DashboardController extends Controller
 
         if (Auth::check()) {
             if (Auth::user()->type == 'super admin') {
-                $user = \Auth::user();
+                $user = Auth::user();
+
                 $user['total_user'] = $user->countCompany();
                 $user['total_paid_user'] = $user->countPaidCompany();
+
                 $user['total_orders'] = Order::total_orders();
                 $user['total_orders_price'] = Order::total_orders_price();
+
                 $user['total_plan'] = Plan::total_plan();
+
                 if (!empty(Plan::most_purchese_plan())) {
+                  
                     $plan = Plan::find(Plan::most_purchese_plan()['plan']);
                     $user['most_purchese_plan'] = $plan->name;
+
                 } else {
                     $user['most_purchese_plan'] = '-';
                 }

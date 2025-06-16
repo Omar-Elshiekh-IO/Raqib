@@ -21,7 +21,8 @@
                     <table class="table datatable">
                         <thead>
                             <tr>
-                                <th>{{__('Name')}}</th>
+                                <th>{{__('Company Name')}}</th>
+                                <th>{{__('Phone Number')}}</th>
                                 <th>{{__('Plan Name')}}</th>
                                 <th>{{__('Total Users')}}</th>
                                 <th>{{__('Total Customers')}}</th>
@@ -40,6 +41,9 @@
                                     <tr>
                                         <td>
                                             <div class="font-style ">{{ $prequest->user->name }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="font-style ">{{ $prequest->user->phone }}</div>
                                         </td>
                                         <td>
                                             <div class="font-style ">{{ $prequest->plan->name }}</div>
