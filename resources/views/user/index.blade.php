@@ -186,28 +186,32 @@
                             <div class="user-icon d-flex align-items-center justify-content-center">
                                 <i class="f-16 ti ti-users text-white"></i>
                             </div>
-                            {{ $user->totalCompanyUser($user->id) }}
+                            {{-- {{ $user->totalCompanyUser($user->id) }} --}}
+                            {{$user->total_users}}
                         </div>
                         <div class="user-count d-flex align-items-center gap-2" data-bs-toggle="tooltip"
                             title="{{ __('Customers') }}">
                             <div class="user-icon d-flex align-items-center justify-content-center">
                                 <i class="f-16 ti ti-users text-white"></i>
                             </div>
-                            {{ $user->totalCompanyCustomer($user->id) }}
+                            {{-- {{ $user->totalCompanyCustomer($user->id) }} --}}
+                            {{$user->total_customers}}
                         </div>
                         <div class="user-count d-flex align-items-center gap-2" data-bs-toggle="tooltip"
                             title="{{ __('Vendors') }}">
                             <div class="user-icon d-flex align-items-center justify-content-center">
                                 <i class="f-16 ti ti-users text-white"></i>
                             </div>
-                            {{ $user->totalCompanyVender($user->id) }}
+                            {{-- {{ $user->totalCompanyVender($user->id) }} --}}
+                            {{$user->total_vendors}}
                         </div>
                         <div class="user-count d-flex align-items-center gap-2" data-bs-toggle="tooltip"
                             title="{{ __('Branches') }}">
                             <div class="user-icon d-flex align-items-center justify-content-center">
                                 <i class="f-16 ti ti-users text-white"></i>
                             </div>
-                            {{ $user->getBranchesCount() }}
+                            {{-- {{ $user->getBranchesCount() }} --}}
+                            {{$user->total_branches}}
                         </div>
                     </div>
                 @endif

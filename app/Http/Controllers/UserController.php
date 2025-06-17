@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Customer;
 use App\Models\CustomField;
 use App\Models\Employee;
 use App\Models\ExperienceCertificate;
@@ -14,6 +16,7 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Models\UserToDo;
 use App\Models\Utility;
+use App\Models\Vender;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +58,7 @@ class UserController extends Controller
     $user = Auth::user();
     
     if (Auth::user()->can('manage user')) {
-        // Start building the query
+      
         $query = User::where('created_by', '=', $user->creatorId());
         
         if (Auth::user()->type == 'super admin') {
@@ -85,6 +88,35 @@ class UserController extends Controller
         
         
         $users = $query->get();
+
+        $userIds = $users->pluck('id')->toArray();
+
+        $userCounts = User::selectRaw('created_by, count(*) as total')
+            ->whereIn('created_by', $userIds)
+            ->groupBy('created_by')
+            ->pluck('total', 'created_by');
+
+        $customerCounts = Customer::selectRaw('created_by, count(*) as total')
+            ->whereIn('created_by', $userIds)
+            ->groupBy('created_by')
+            ->pluck('total', 'created_by');
+
+        $venderCounts = Vender::selectRaw('created_by, count(*) as total')
+            ->whereIn('created_by', $userIds)
+            ->groupBy('created_by')
+            ->pluck('total', 'created_by');
+
+        $branchCounts = Branch::selectRaw('created_by, count(*) as total')
+        ->whereIn('created_by', $userIds)
+        ->groupBy('created_by')
+        ->pluck('total', 'created_by');
+
+        foreach ($users as $user) {
+            $user->total_users = $userCounts[$user->id] ?? 0;
+            $user->total_customers = $customerCounts[$user->id] ?? 0;
+            $user->total_venders = $venderCounts[$user->id] ?? 0;
+            $user->total_branches = $branchCounts[$user->id] ?? 0;
+        }
         
         // Get available plan types and statuses for the filter dropdown
         $planTypes = Plan::distinct()->pluck('name'); // Adjust column name as needed
