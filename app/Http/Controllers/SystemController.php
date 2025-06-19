@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Mail;
 
 class SystemController extends Controller
 {
+  private const LOGO_DIR = "app/public/uploads/logo/";
     public function index()
     {
         if (\Auth::user()->can('manage system settings')) {
@@ -45,7 +46,7 @@ class SystemController extends Controller
         if (\Auth::user()->can('manage system settings')) {
             if ($request->logo_dark) {
                 $logoName = 'logo-dark.png';
-                $dir = 'uploads/logo/';
+                $dir = $this::LOGO_DIR;
                 $validation = [
                     'mimes:' . 'png',
                     'max:' . '20480',
@@ -62,7 +63,7 @@ class SystemController extends Controller
 
                 $logoName = 'logo-light.png';
 
-                $dir = 'uploads/logo';
+                $dir = $this::LOGO_DIR;
                 $validation = [
                     'mimes:' . 'png',
                     'max:' . '20480',
@@ -78,7 +79,7 @@ class SystemController extends Controller
             if ($request->favicon) {
 
                 $favicon = 'favicon.png';
-                $dir = 'uploads/logo';
+                $dir = $this::LOGO_DIR;
                 $validation = [
                     'mimes:' . 'png',
                     'max:' . '20480',
@@ -379,7 +380,7 @@ class SystemController extends Controller
                 ];
 
                 $logoName = $user->id . '-logo-dark.png';
-                $dir = 'uploads/logo';
+                $dir = $this::LOGO_DIR;
                 $path = Utility::upload_file($request, 'company_logo_dark', $logoName, $dir, $validation);
                 if ($path['flag'] == 1) {
                     $logo = $path['url'];
@@ -404,7 +405,7 @@ class SystemController extends Controller
                     'max:' . '20480',
                 ];
                 $logoName = $user->id . '-logo-light.png';
-                $dir = 'uploads/logo';
+                $dir = $this::LOGO_DIR;
                 $path = Utility::upload_file($request, 'company_logo_light', $logoName, $dir, $validation);
                 if ($path['flag'] == 1) {
                     $logo = $path['url'];
@@ -431,7 +432,7 @@ class SystemController extends Controller
 
                 $favicon = $user->id . '-favicon.png';
 
-                $dir = 'uploads/logo/';
+                $dir = $this::LOGO_DIR;
                 $path = Utility::upload_file($request, 'company_favicon', $favicon, $dir, $validation);
                 if ($path['flag'] == 1) {
                 } else {

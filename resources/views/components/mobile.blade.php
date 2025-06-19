@@ -1,3 +1,13 @@
+@props([
+    'label',
+    'name',
+    'value' => '',
+    'required' => false,
+    'placeholder' => '',
+    'class' => 'form-control',
+    'id' => $name, // use $name as default if id is not passed
+    'divClass' => 'mb-3',
+])
 <div class="{{ $divClass }}">
     <div class="form-group">
         {{Form::label($name,$label,['class'=>'form-label'])}}@if($required)<x-required></x-required> @endif

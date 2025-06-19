@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @php
-    $profile=\App\Models\Utility::get_file('uploads/avatar/');
+    $profile = Storage::url('uploads/avatar/');
 @endphp
 @section('page-title')
     {{__('Profile Account')}}

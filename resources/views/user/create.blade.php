@@ -24,7 +24,39 @@
                     @enderror
                 </div>
             </div>
-
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ Form::label('businessName', __('Business Name'), ['class' => 'form-label']) }}<x-required></x-required>
+                    {{ Form::text('businessName', null, ['class' => 'form-control', 'placeholder' => __('Enter Business Name'), 'required' => 'required']) }}
+                    @error('business-name')
+                        <small class="invalid-business-name" role="alert">
+                            <strong class="text-danger">{{ $message }}</strong>
+                        </small>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ Form::label('taxNumber', __('Tax Number'), ['class' => 'form-label']) }}<x-required></x-required>
+                    {{ Form::text('taxNumber', null, ['class' => 'form-control', 'placeholder' => __('Enter Tax Number'), 'required' => 'required','pattern' => '[0-9]*','inputmode' => 'numeric','maxlength'=>9]) }}
+                    @error('tax-number')
+                        <small class="invalid-tax-number" role="alert">
+                            <strong class="text-danger">{{ $message }}</strong>
+                        </small>
+                    @enderror
+                </div>
+            </div>
+            <div class="row-md-6">
+                <div class="form-group">
+                    {{ Form::label('address', __('Address'), ['class' => 'form-label']) }}<x-required></x-required>
+                    {{ Form::text('address', null, ['class' => 'form-control', 'placeholder' => __('Enter Company Address'), 'required' => 'required']) }}
+                    @error('address')
+                        <small class="invalid-address" role="alert">
+                            <strong class="text-danger">{{ $message }}</strong>
+                        </small>
+                    @enderror
+                </div>
+            </div>
 
             {!! Form::hidden('role', 'company', null, ['class' => 'form-control select2', 'required' => 'required']) !!}
             <div class="col-md-6 mb-3 form-group mt-4">

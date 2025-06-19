@@ -335,7 +335,7 @@ Route::get('/config-cache', function () {
 
 
 //================================= Invoice Payment Gateways  ====================================//
-Route::group(['middleware' => ['verified']], function () {
+Route::group(['middleware' => ['verified','XSS']], function () {
 
   // Route::get('/home', [DashboardController::class, 'account_dashboard_index'])->name('home')->middleware([  'revalidate']);
 
@@ -370,7 +370,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS',
         'revalidate',
       ],
     ],
@@ -393,6 +393,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
+        'XSS',
         'revalidate',
       ],
     ],
@@ -450,7 +451,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS',
         'revalidate',
       ],
     ],
@@ -464,7 +465,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS',
         'revalidate',
       ],
     ],
@@ -477,7 +478,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS',
         'revalidate',
       ],
     ],
@@ -490,7 +491,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS',
         'revalidate',
       ],
     ],
@@ -511,7 +512,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -540,7 +541,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -561,7 +562,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -592,7 +593,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -619,7 +620,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -632,7 +633,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -670,7 +671,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -706,7 +707,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -719,7 +720,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1167,7 +1168,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS',
         'revalidate',
       ],
     ],
@@ -1194,7 +1195,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS'
       ],
     ],
     function () {
@@ -1241,6 +1242,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
+        'XSS',
         'revalidate',
       ],
     ],
@@ -1284,7 +1286,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1454,7 +1456,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1472,7 +1474,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1566,7 +1568,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1750,7 +1752,7 @@ Route::group(['middleware' => ['verified']], function () {
     [
       'middleware' => [
         'auth',
-         
+        'XSS',
         'revalidate',
       ],
     ],

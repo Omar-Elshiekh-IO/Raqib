@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ApiAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
@@ -13,7 +14,7 @@ use App\Http\Controllers\ApiController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('login', [ApiController::class, 'login']);
+// Route::post('login', [ApiController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
@@ -22,4 +23,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('add-tracker', [ApiController::class, 'addTracker']);
     Route::post('stop-tracker', [ApiController::class, 'stopTracker']);
     Route::post('upload-photos', [ApiController::class, 'uploadImage']);
+});
+
+Route::prefix("v1")->group(function(){
+  Route::post('login',[ApiAuthController::class,'login']);
 });

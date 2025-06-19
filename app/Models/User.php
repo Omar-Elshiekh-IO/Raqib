@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -710,6 +711,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     }
 
+    public function orders(){
+      return $this->hasMany('App\Models\Order','user_id','id');
+    }
+
+    public function getOrderSumsByCompany(User $user)
+    {
+        return $user->orders()->sum('price');
+    }
+
     public function currentPlan()
     {
         return $this->hasOne('App\Models\Plan', 'id', 'plan');
@@ -976,6 +986,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $branch;
     }
+    
+    public function branches():HasMany{
+      return $this->hasMany(Branch::class,'created_by','id');
+    }
+
+  public function getBranchesCount(){
+    return User::branches()->count();
+  }
 
     public function getDepartment($department_id)
     {
@@ -1266,19 +1284,18 @@ class User extends Authenticatable implements MustVerifyEmail
             'Project Assign Member',
         ];
 
+        $existingTemplates = EmailTemplate::pluck('name')->toArray();
+
         foreach ($emailTemplate as $eTemp) {
-            $emailTemp = EmailTemplate::where('name', $eTemp)->count();
-            if ($emailTemp == 0) {
-                EmailTemplate::create(
-                    [
-                        'name' => $eTemp,
-                        'from' => env('APP_NAME'),
-                        'slug' => strtolower(str_replace(' ', '_', $eTemp)),
-                        'created_by' => 1,
-                    ]
-                );
+            if (!in_array($eTemp, $existingTemplates)) {
+                EmailTemplate::create([
+                    'name' => $eTemp,
+                    'from' => env('APP_NAME'),
+                    'slug' => strtolower(str_replace(' ', '_', $eTemp)),
+                    'created_by' => 1,
+                ]);
             }
-        }
+}
 
         $defaultTemplate = [
             'new_user' => [
@@ -4009,20 +4026,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
         $email = EmailTemplate::all();
 
-        foreach ($email as $e) {
-            foreach ($defaultTemplate[$e->slug]['lang'] as $lang => $content) {
-                $emailNoti = EmailTemplateLang::where('parent_id', $e->id)->where('lang', $lang)->count();
-                if ($emailNoti == 0) {
-                    EmailTemplateLang::create(
-                        [
-                            'parent_id' => $e->id,
-                            'lang' => $lang,
-                            'subject' => $defaultTemplate[$e->slug]['subject'],
-                            'content' => $content,
-                        ]
-                    );
-                }
+        $existingLangs = EmailTemplateLang::select('parent_id', 'lang')
+            ->get()
+            ->groupBy('parent_id')
+            ->map(function ($items) {
+                return $items->pluck('lang')->toArray();
+            });
 
+        foreach ($defaultTemplate as $slug => $data) {
+            $parentId = $email[$slug]->id ?? null;
+            if (!$parentId) continue;
+            foreach ($data['lang'] as $lang => $content) {
+                $alreadyExists = in_array($lang, $existingLangs[$parentId] ?? []);
+                if (!$alreadyExists) {
+                    EmailTemplateLang::create([
+                        'parent_id' => $parentId,
+                        'lang' => $lang,
+                        'subject' => $data['subject'],
+                        'content' => $content,
+                    ]);
+                }
             }
         }
     }
