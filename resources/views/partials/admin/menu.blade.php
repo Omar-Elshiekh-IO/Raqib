@@ -345,4 +345,58 @@
         align-items: center;
         justify-content: center;
     }
+    /* Glassmorphism sidebar background */
+    .dash-sidebar.sidebar-hoverable {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(12px) saturate(1.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10), 0 1.5px 0 0 rgba(111, 217, 67, 0.10);
+        border-inline-end: 1.5px solid rgba(200, 220, 255, 0.25);
+    }
+    /* Vibrant accent bar for active menu item */
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item.active .dash-link::before {
+        content: '';
+        display: block;
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-start: 10%;
+        inset-block-end: 10%;
+        inline-size: 5px;
+        border-radius: 6px;
+        background: linear-gradient(180deg, #6fd943 0%, #3c9ee5 100%);
+        box-shadow: 0 2px 8px 0 rgba(63, 201, 255, 0.15);
+        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 2;
+    }
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-link {
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    /* Active menu item style */
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item.active .dash-link {
+        background: rgba(111, 217, 67, 0.10);
+        color: #3c9ee5;
+        font-weight: 600;
+        box-shadow: 0 4px 16px 0 rgba(63, 201, 255, 0.08);
+        border-radius: 12px;
+    }
+    /* Hover effect for menu items */
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-link:hover {
+        background: rgba(60, 158, 229, 0.08);
+        color: #6fd943;
+        box-shadow: 0 2px 8px 0 rgba(111, 217, 67, 0.10);
+        border-radius: 12px;
+    }
+    /* Icon pop effect on hover */
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-link:hover .dash-micon {
+        transform: scale(1.15) rotate(-8deg);
+        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-link .dash-micon {
+        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    /* Add a subtle shadow to the sidebar */
+    .dash-sidebar.sidebar-hoverable {
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10), 0 1.5px 0 0 rgba(111, 217, 67, 0.10);
+    }
 </style>
