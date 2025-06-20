@@ -399,4 +399,20 @@
     .dash-sidebar.sidebar-hoverable {
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10), 0 1.5px 0 0 rgba(111, 217, 67, 0.10);
     }
+    .dash-sidebar.sidebar-hoverable {
+        /* Remove the old border and use a pseudo-element for the separator */
+        border-inline-end: none;
+        position: relative;
+    }
+    .dash-sidebar.sidebar-hoverable::after {
+        content: '';
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-end: -8px;
+        inline-size: 2px;
+        block-size: 100%;
+        background: rgba(200, 220, 255, 0.25);
+        z-index: 10;
+        pointer-events: none;
+    }
 </style>
