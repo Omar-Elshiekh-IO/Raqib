@@ -233,7 +233,7 @@
         width: 220px;
         min-width: 220px;
         max-width: 220px;
-        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), min-width 0.45s cubic-bezier(0.22, 1, 0.36, 1), max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
         /* Smooth transition for child elements */
     }
     .dash-sidebar.sidebar-hoverable .navbar-wrapper,
@@ -241,7 +241,7 @@
     .dash-sidebar.sidebar-hoverable .main-logo,
     .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-link,
     .dash-sidebar.sidebar-hoverable .dash-navbar .dash-item .dash-mtext {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .dash-sidebar.sidebar-hoverable .navbar-wrapper {
         height: 100%;
@@ -273,13 +273,13 @@
         max-width: 0;
         padding: 0;
         margin: 0;
-        transition: opacity 0.2s, max-width 0.2s, padding 0.2s, margin 0.2s;
+        transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1), max-width 0.3s cubic-bezier(0.22, 1, 0.36, 1), padding 0.3s cubic-bezier(0.22, 1, 0.36, 1), margin 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         pointer-events: none;
     }
     .dash-sidebar.sidebar-hoverable:hover .dash-mtext {
         opacity: 1;
         max-width: 200px;
-        transition: opacity 0.2s 0.1s, max-width 0.2s 0.1s, padding 0.2s 0.1s, margin 0.2s 0.1s;
+        transition: opacity 0.3s 0.1s cubic-bezier(0.22, 1, 0.36, 1), max-width 0.3s 0.1s cubic-bezier(0.22, 1, 0.36, 1), padding 0.3s 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin 0.3s 0.1s cubic-bezier(0.22, 1, 0.36, 1);
         pointer-events: auto;
     }
     .dash-sidebar.sidebar-hoverable .main-logo {
@@ -313,7 +313,36 @@
     }
     /* Optional: subtle highlight for active icon in collapsed mode */
     .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item.active .dash-link {
-        background: #e6f0ff !important;
-        border-radius: 8px;
+        background: linear-gradient(90deg, #e6f0ff 60%, #f8fbff 100%) !important;
+        border-radius: 10px;
+        box-shadow: 0 1px 4px 0 rgba(81, 69, 157, 0.06);
+        border: 1px solid #d0e3ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 4px 0;
+        padding: 0 8px;
+        min-block-size: 48px;
+        block-size: 48px;
+    }
+    /* Enhanced highlight for active menu item in expanded mode */
+    .dash-sidebar.sidebar-hoverable:hover .dash-navbar .dash-item.active .dash-link {
+        background: linear-gradient(90deg, #e6f0ff 60%, #f8fbff 100%);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px 0 rgba(81, 69, 157, 0.08);
+        border: 1px solid #d0e3ff;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 4px 0;
+        padding: 0 16px;
+        min-block-size: 48px;
+        block-size: 48px;
+    }
+    /* Ensure icon and text are centered in collapsed mode */
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-navbar .dash-item .dash-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
