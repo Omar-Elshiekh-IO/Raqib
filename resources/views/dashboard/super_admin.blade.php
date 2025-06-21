@@ -9,17 +9,31 @@
         --primary-color: #6fd944; /* fallback, will be set dynamically */
     }
     .dashboard-3d-card {
-        background: #fff !important;
+        /* Glassmorphism styles */
+        background: linear-gradient(135deg, rgba(255,255,255,0.65) 60%, rgba(255,255,255,0.35) 100%) !important;
         border-radius: 1.25rem;
         box-shadow:
-            0 2px 8px 0 rgba(31, 38, 135, 0.10),
-            0 8px 32px 0 rgba(31, 38, 135, 0.12),
-            0 16px 48px 0 rgba(31, 38, 135, 0.10),
+            0 4px 24px 0 rgba(31, 38, 135, 0.12),
             0 1.5px 8px 0 rgba(0,0,0,0.08);
-        border: 1px solid rgba(0,0,0,0.05);
-        transition: box-shadow 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1), background 0.4s, color 0.4s;
+        border: 1.5px solid rgba(255,255,255,0.35);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
         position: relative;
         overflow: hidden;
+        transition: box-shadow 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1), background 0.4s, color 0.4s, border-color 0.4s;
+    }
+    .dashboard-3d-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border-radius: inherit;
+        background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, rgba(111,217,68,0.10) 100%);
+        z-index: 1;
+    }
+    .dashboard-3d-card > * {
+        position: relative;
+        z-index: 2;
     }
     /* Text/icons use primary color by default on white */
     .dashboard-3d-card h2.fw-bold,
@@ -28,49 +42,63 @@
     .dashboard-3d-card .dashboard-3d-icon svg {
         color: var(--primary-color) !important;
         transition: color 0.4s;
+        text-shadow: 0 1px 6px rgba(255,255,255,0.25);
     }
     .dashboard-3d-card .fw-semibold.text-dark {
         color: #111 !important;
         transition: color 0.4s;
+        text-shadow: 0 1px 6px rgba(255,255,255,0.18);
     }
-    /* On hover, card becomes black, text/icons become white for contrast */
+    /* On hover, card becomes more vibrant and glassy */
     .dashboard-3d-card:hover {
-        background: #111 !important;
+        background: linear-gradient(135deg, rgba(255,255,255,0.80) 60%, rgba(111,217,68,0.18) 100%) !important;
         box-shadow:
             0 8px 32px 0 rgba(31, 38, 135, 0.18),
             0 24px 64px 0 rgba(31, 38, 135, 0.16),
             0 2px 16px 0 rgba(0,0,0,0.12);
+        border-color: rgba(111,217,68,0.25);
         transform: translateY(-8px) scale(1.07) rotateX(2deg);
-        transition: box-shadow 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1), background 0.4s, color 0.4s;
+        transition: box-shadow 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1), background 0.4s, color 0.4s, border-color 0.4s;
     }
     .dashboard-3d-card:hover .dashboard-3d-icon svg,
     .dashboard-3d-card:hover h2.fw-bold,
     .dashboard-3d-card:hover h6.text-muted,
     .dashboard-3d-card:hover .small.text-muted,
     .dashboard-3d-card:hover .fw-semibold.text-dark {
-        color: #fff !important;
+        color: #111 !important;
+        text-shadow: 0 2px 8px rgba(255,255,255,0.18);
         transition: color 0.4s;
     }
     body.dark-mode .dashboard-3d-card {
-        background: #111 !important;
+        background: linear-gradient(135deg, rgba(34,34,34,0.65) 60%, rgba(34,34,34,0.35) 100%) !important;
         border-color: rgba(255,255,255,0.08);
         color: #fff;
-        transition: background 0.4s, color 0.4s, box-shadow 0.4s, transform 0.4s;
+        transition: background 0.4s, color 0.4s, box-shadow 0.4s, transform 0.4s, border-color 0.4s;
+    }
+    body.dark-mode .dashboard-3d-card::before {
+        background: linear-gradient(120deg, rgba(255,255,255,0.10) 0%, rgba(111,217,68,0.08) 100%);
     }
     body.dark-mode .dashboard-3d-card:hover {
-        background: #fff !important;
+        background: linear-gradient(135deg, rgba(255,255,255,0.80) 60%, rgba(111,217,68,0.18) 100%) !important;
         color: #111;
-        transition: background 0.4s, color 0.4s, box-shadow 0.4s, transform 0.4s;
+        border-color: rgba(111,217,68,0.25);
+        transition: background 0.4s, color 0.4s, box-shadow 0.4s, transform 0.4s, border-color 0.4s;
     }
     body.dark-mode .dashboard-3d-card:hover .dashboard-3d-icon svg,
     body.dark-mode .dashboard-3d-card:hover h2.fw-bold,
     body.dark-mode .dashboard-3d-card:hover h6.text-muted,
-    body-dark-mode .dashboard-3d-card:hover .small.text-muted,
+    body.dark-mode .dashboard-3d-card:hover .small.text-muted,
     body.dark-mode .dashboard-3d-card:hover .fw-semibold.text-dark {
         color: #111 !important;
+        text-shadow: 0 2px 8px rgba(255,255,255,0.18);
         transition: color 0.4s;
     }
-
+    /* RTL support */
+    [dir="rtl"] .dashboard-3d-card .dropdown.position-absolute.end-0 {
+        right: auto;
+        left: 0;
+    }
+    /* Responsive adjustments remain unchanged */
     @media (max-width: 576px) {
         .dashboard-3d-card .dropdown-menu {
             min-width: 100vw !important;
