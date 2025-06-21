@@ -87,10 +87,7 @@
                     </div>
                 </div>
             </div>
-          
-           
-                                         <!-- Transparent Layout option removed -->
-       
+
             <div class="col-xxl-3 col-sm-6 col-12">
                 <div class="card h-100 mb-0">
                     <div class="card-header p-3">
