@@ -520,14 +520,16 @@ class DashboardController extends Controller
             if (Auth::user()->type == 'super admin') {
                 $user = Auth::user();
 
-                $filter = request()->get('filter','all');
+                // Use 'company_filter' from request, default to 'all'
+                $companyFilter = request()->get('company_filter', 'all');
 
                 $user['total_user'] = $user->countCompany(); //number of all companies
                 $user['total_paid_user'] = $user->countPaidCompany(); //number of paid companies
 
-                $user['filtered_companies'] = $this->getFilteredCompanies($filter);
-                $user['filtered_paid_companies'] = $this->getFilteredPaidCompanies($filter);
-                $user['current_filter'] = $filter;
+                // Get filtered counts
+                $user['filtered_companies'] = $this->getFilteredCompanies($companyFilter);
+                $user['filtered_paid_companies'] = $this->getFilteredPaidCompanies($companyFilter);
+                $user['current_filter'] = $companyFilter;
 
                 $user['total_orders'] = Order::total_orders();
                 $user['total_orders_price'] = Order::total_orders_price();
