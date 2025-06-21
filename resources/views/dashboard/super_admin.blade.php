@@ -70,6 +70,28 @@
         color: #111 !important;
         transition: color 0.4s;
     }
+
+    @media (max-width: 576px) {
+        .dashboard-3d-card .dropdown-menu {
+            min-width: 100vw !important;
+            left: 0 !important;
+            right: 0 !important;
+            transform: none !important;
+            position: fixed !important;
+            bottom: 0;
+            top: auto !important;
+            border-radius: 1.25rem 1.25rem 0 0;
+            box-shadow: 0 -2px 16px rgba(0,0,0,0.12);
+            z-index: 1055;
+            max-height: 50vh;
+            overflow-y: auto;
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+        .dashboard-3d-card .dropdown-menu .dropdown-item {
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+        }
+    }
 </style>
 <script>
     // Dynamically set --primary-color from theme or custom color
@@ -205,14 +227,15 @@
                     </svg>
                 </div>
                 <div class="dropdown position-absolute end-0 top-0 m-3">
-                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="companyFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ ucfirst($user['current_filter'] ?? request('company_filter', 'all')) }}
+                    <button class="btn btn-sm btn-light border dropdown-toggle d-flex align-items-center gap-2" type="button" id="companyFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="min-width: 90px;">
+                        <span class="d-none d-sm-inline">{{ ucfirst($user['current_filter'] ?? request('company_filter', 'all')) }}</span>
+                        <span class="d-inline d-sm-none"><i class="fas fa-filter"></i></span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="companyFilterDropdown">
-                        <li><a class="dropdown-item" href="?company_filter=day">{{ __('Day') }}</a></li>
-                        <li><a class="dropdown-item" href="?company_filter=week">{{ __('Week') }}</a></li>
-                        <li><a class="dropdown-item" href="?company_filter=month">{{ __('Month') }}</a></li>
-                        <li><a class="dropdown-item" href="?company_filter=all">{{ __('All') }}</a></li>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm animate__animated animate__fadeIn" aria-labelledby="companyFilterDropdown" style="min-width: 120px;">
+                        <li><a class="dropdown-item py-2 px-3" href="?company_filter=day">{{ __('Day') }}</a></li>
+                        <li><a class="dropdown-item py-2 px-3" href="?company_filter=week">{{ __('Week') }}</a></li>
+                        <li><a class="dropdown-item py-2 px-3" href="?company_filter=month">{{ __('Month') }}</a></li>
+                        <li><a class="dropdown-item py-2 px-3" href="?company_filter=all">{{ __('All') }}</a></li>
                     </ul>
                 </div>
                 <h6 class="text-muted mb-1 mt-2">{{ __('Total Companies') }}</h6>
