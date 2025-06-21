@@ -264,7 +264,7 @@
                 <h6 class="text-muted mb-1 mt-2">{{ __('Total Companies') }}</h6>
                 <h2 class="fw-bold mb-0">{{ $user['filtered_companies'] ?? $user->total_user }}</h2>
                 <div class="small text-muted mt-2">
-                    {{ __('Paid Companies:') }} <span class="fw-semibold text-dark">{{ $user['filtered_paid_companies'] ?? ($user->total_paid_companies ?? 0) }}</span>
+                    {{ __('Paid Companies:') }} <span class="fw-semibold text-dark">{{ $user['filtered_paid_companies'] ?? $user->total_paid_user ?? 0 }}</span>
                 </div>
             </div>
         </div>
