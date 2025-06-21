@@ -481,7 +481,7 @@
                                 <div class="col-lg-4 col-sm-6 col-md-6">
                                     <div class="card mb-0">
                                         <div class="card-header p-3">
-                                            <h5>{{ __('Logo dark') }}</h5>
+                                            <h5>{{ __('Logo light') }}</h5>
                                         </div>
                                         <div class="card-body p-3">
                                             <div class="setting-card setting-logo-box">
@@ -512,7 +512,7 @@
                                 <div class="col-lg-4 col-sm-6 col-md-6">
                                     <div class="card mb-0">
                                         <div class="card-header p-3">
-                                            <h5>{{ __('Logo Light') }}</h5>
+                                            <h5>{{ __('Logo dark') }}</h5>
                                         </div>
                                         <div class="card-body p-3">
                                             <div class=" setting-card setting-logo-box">

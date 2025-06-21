@@ -78,32 +78,20 @@ body.custom-color {
     min-width: 255px;
     /*max-width: 255px;*/
 }
-/*a.b-brand {*/
-/*    height: 100%;*/
-/*    width: 100%;*/
-/*}*/
-.dash-sidebar .main-logo a img {
-    width: 100%;
+a.b-brand {
     height: 100%;
-    -o-object-fit: contain;
-    object-fit: contain;
+    width: 100%;
+}
+.dash-sidebar .main-logo a img {
     width: auto !important;
-    height: auto;
-    max-width: -webkit-fill-available !important;
-    max-height: -webkit-fill-available !important;
-    max-width: -moz-available;
-    max-height: -moz-available;
-    margin: 0 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    height: 130px !important;
+    max-height: 150px !important;
+    margin-top: -35px !important;
+    margin-bottom: 0;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    vertical-align: middle;
+    object-fit: contain;
 }
 .price-card {
     text-align: center;
@@ -541,27 +529,15 @@ a.b-brand {
     width: 100%;
 }
 .dash-sidebar .main-logo a img {
-    width: 100%;
-    height: 100%;
-    -o-object-fit: contain;
-    object-fit: contain;
     width: auto !important;
-    height: auto;
-    max-width: -webkit-fill-available !important;
-    max-height: -webkit-fill-available !important;
-    max-width: -moz-available;
-    max-height: -moz-available;
-    margin: 0 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    height: 130px !important;
+    max-height: 150px !important;
+    margin-top: -35px !important;
+    margin-bottom: 0;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    vertical-align: middle;
+    object-fit: contain;
 }
 .m-view-btn {
     width: 65px;
@@ -2276,7 +2252,7 @@ body.theme-10 .border-primary {
     fill: #FFA21D;
 }
 
-.dash-info-card:nth-child(4n + 4) .info-card-inner .star-bg path,
+.dash-info
 .pos-dash-card:nth-child(4n + 4) .pos-card-inner .star-bg path {
     fill: #3EC9D6;
 }
@@ -2808,10 +2784,6 @@ body.theme-10 .border-primary {
     width: 25px;
 }
 
-.staff-info-card .staff-info-icon svg path {
-    fill: #fff;
-}
-
 /* report-card css */
 .report-card .card-body {
     padding: 15px;
@@ -2915,12 +2887,6 @@ body.theme-10 .border-primary {
 .project-dash-card .project-card-inner .project-icon svg {
     height: 24px;
     width: 24px;
-}
-
-.leave-card .leave-card-inner .leave-icon svg path,
-.crm-dash-card .crm-card-inner .crm-icon svg path,
-.project-dash-card .project-card-inner .project-icon svg path {
-    fill: #fff;
 }
 
 

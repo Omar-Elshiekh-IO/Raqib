@@ -302,40 +302,8 @@
             var custthemedark = document.querySelector("#cust-darklayout");
             custthemedark.addEventListener("click", function() {
                 if (custthemedark.checked) {
-                    $('#main-style-link').attr('href', '{{ config('app.url') }}' +
-                        '/public/assets/css/style-dark.css');
-                    document.body.style.background = 'linear-gradient(141.55deg, #22242C 3.46%, #22242C 99.86%)';
-
-                    $('.dash-sidebar .main-logo a img').attr('src',
-                        '{{ isset($logo_light) && !empty($logo_light) ? $logo . $logo_light : $logo . '/logo-light.png' }}'
-                    );
-
-                } else {
-                    $('#main-style-link').attr('href', '{{ config('app.url') }}' + '/public/assets/css/style.css');
-                    document.body.style.setProperty('background',
-                        'linear-gradient(141.55deg, rgba(240, 244, 243, 0) 3.46%, #f0f4f3 99.86%)', 'important');
-
-                    $('.dash-sidebar .main-logo a img').attr('src',
-                        '{{ isset($logo_light) && !empty($logo_light) ? $logo . $logo_light : $logo . '/logo-dark.png' }}'
-                    );
-
-                }
-            });
-        }
-
-        if ($('#cust-theme-bg').length > 0) {
-            var custthemebg = document.querySelector("#cust-theme-bg");
-            custthemebg.addEventListener("click", function() {
-                if (custthemebg.checked) {
-                    document.querySelector(".dash-sidebar").classList.add("transprent-bg");
-                    document
-                        .querySelector(".dash-header:not(.dash-mob-header)")
-                        .classList.add("transprent-bg");
-                } else {
-                    document.querySelector(".dash-sidebar").classList.remove("transprent-bg");
-                    document
-                        .querySelector(".dash-header:not(.dash-mob-header)")
-                        .classList.remove("transprent-bg");
+                    // Restore to default (remove inline style)
+                    document.querySelector('.dash-main').style.background = '';
                 }
             });
         }

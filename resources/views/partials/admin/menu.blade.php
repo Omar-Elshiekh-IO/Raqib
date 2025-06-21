@@ -407,10 +407,10 @@
     .dash-sidebar.sidebar-hoverable::after {
         content: '';
         position: absolute;
-        inset-block-start: 0;
+        inset-block-start: 130px; /* Height of the logo image (matches .main-logo a img height) + margin-top offset */
         inset-inline-end: -8px;
         inline-size: 2px;
-        block-size: 100%;
+        block-size: calc(100% - 130px);
         background: rgba(200, 220, 255, 0.25);
         z-index: 10;
         pointer-events: none;

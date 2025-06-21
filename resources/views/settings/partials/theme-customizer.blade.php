@@ -87,25 +87,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-3 col-sm-6 col-12">
-                <div class="card h-100 mb-0">
-                    <div class="card-header p-3">
-                        <h6 class="mb-0 d-flex align-items-center gap-2">
-                            <i data-feather="layout"></i>{{ __('Sidebar settings') }}
-                        </h6>
-                    </div>
-                    <div class="card-body p-3">
-                        <div class="form-check form-switch d-flex gap-2 flex-column p-0">
-                            <label class="form-check-label f-w-600 pl-1"
-                                for="cust-theme-bg">{{ __('Transparent layout') }}</label>
-                            <input type="checkbox" class="form-check-input mx-0"
-                                id="cust-theme-bg" name="cust_theme_bg"
-                                {{ !empty($settings['cust_theme_bg']) && $settings['cust_theme_bg'] == 'on' ? 'checked' : '' }} />
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
+           
+                                         <!-- Transparent Layout option removed -->
+       
             <div class="col-xxl-3 col-sm-6 col-12">
                 <div class="card h-100 mb-0">
                     <div class="card-header p-3">
