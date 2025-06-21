@@ -8,22 +8,8 @@
     :root {
         --primary-color: #6fd944; /* fallback, will be set dynamically */
     }
-    body[class*="theme-"] .dashboard-3d-card h2.fw-bold,
-    body[class*="theme-"] .dashboard-3d-card h6.text-muted,
-    body[class*="theme-"] .dashboard-3d-card .small.text-muted,
-    body[class*="theme-"] .dashboard-3d-card .dashboard-3d-icon svg {
-        color: var(--theme-color) !important;
-        transition: color 0.4s;
-    }
-    body.custom-color .dashboard-3d-card h2.fw-bold,
-    body.custom-color .dashboard-3d-card h6.text-muted,
-    body.custom-color .dashboard-3d-card .small.text-muted,
-    body.custom-color .dashboard-3d-card .dashboard-3d-icon svg {
-        color: var(--color-customColor) !important;
-        transition: color 0.4s;
-    }
     .dashboard-3d-card {
-        background: var(--bs-card-bg, #fff);
+        background: #fff !important;
         border-radius: 1.25rem;
         box-shadow:
             0 2px 8px 0 rgba(31, 38, 135, 0.10),
@@ -35,92 +21,51 @@
         position: relative;
         overflow: hidden;
     }
-    .dashboard-3d-card:before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 1.25rem;
-        pointer-events: none;
-        box-shadow:
-            0 1.5px 8px 0 rgba(0,0,0,0.10),
-            0 8px 32px 0 rgba(31, 38, 135, 0.10),
-            0 24px 64px 0 rgba(31, 38, 135, 0.08);
-        opacity: 0.7;
-        z-index: 0;
-        transition: opacity 0.4s;
+    /* Text/icons use primary color by default on white */
+    .dashboard-3d-card h2.fw-bold,
+    .dashboard-3d-card h6.text-muted,
+    .dashboard-3d-card .small.text-muted,
+    .dashboard-3d-card .dashboard-3d-icon svg {
+        color: var(--primary-color) !important;
+        transition: color 0.4s;
     }
+    .dashboard-3d-card .fw-semibold.text-dark {
+        color: #111 !important;
+        transition: color 0.4s;
+    }
+    /* On hover, card becomes black, text/icons become white for contrast */
     .dashboard-3d-card:hover {
+        background: #111 !important;
         box-shadow:
             0 8px 32px 0 rgba(31, 38, 135, 0.18),
             0 24px 64px 0 rgba(31, 38, 135, 0.16),
             0 2px 16px 0 rgba(0,0,0,0.12);
         transform: translateY(-8px) scale(1.07) rotateX(2deg);
-        background: #111 !important;
         transition: box-shadow 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1), background 0.4s, color 0.4s;
-    }
-    .dashboard-3d-card:hover:before {
-        opacity: 0.9;
-        transition: opacity 0.4s;
-    }
-    .dashboard-3d-card h2.fw-bold,
-    .dashboard-3d-card h6.text-muted,
-    .dashboard-3d-card .small.text-muted,
-    .dashboard-3d-card .dashboard-3d-icon svg {
-        color: var(--primary-color);
-        transition: color 0.4s;
     }
     .dashboard-3d-card:hover .dashboard-3d-icon svg,
     .dashboard-3d-card:hover h2.fw-bold,
     .dashboard-3d-card:hover h6.text-muted,
-    .dashboard-3d-card:hover .small.text-muted {
+    .dashboard-3d-card:hover .small.text-muted,
+    .dashboard-3d-card:hover .fw-semibold.text-dark {
         color: #fff !important;
         transition: color 0.4s;
     }
     body.dark-mode .dashboard-3d-card {
-        background: #23243a;
+        background: #111 !important;
         border-color: rgba(255,255,255,0.08);
+        color: #fff;
         transition: background 0.4s, color 0.4s, box-shadow 0.4s, transform 0.4s;
     }
     body.dark-mode .dashboard-3d-card:hover {
         background: #fff !important;
+        color: #111;
         transition: background 0.4s, color 0.4s, box-shadow 0.4s, transform 0.4s;
     }
     body.dark-mode .dashboard-3d-card:hover .dashboard-3d-icon svg,
     body.dark-mode .dashboard-3d-card:hover h2.fw-bold,
     body.dark-mode .dashboard-3d-card:hover h6.text-muted,
-    body.dark-mode .dashboard-3d-card:hover .small.text-muted {
-        color: #111 !important;
-        transition: color 0.4s;
-    }
-    .dashboard-3d-icon svg {
-        color: var(--primary-color);
-        filter: drop-shadow(0 2px 8px rgba(111,217,68,0.15));
-        transition: color 0.4s;
-        z-index: 1;
-        position: relative;
-    }
-    .dashboard-3d-card h2.fw-bold {
-        color: var(--primary-color);
-        transition: color 0.4s;
-        z-index: 1;
-        position: relative;
-    }
-    .dashboard-3d-card h6.text-muted,
-    .dashboard-3d-card .small.text-muted {
-        color: var(--primary-color);
-        opacity: 0.85;
-        transition: color 0.4s;
-        z-index: 1;
-        position: relative;
-    }
-    .dashboard-3d-card .card-body {
-        z-index: 1;
-        position: relative;
-    }
-    .dashboard-3d-card:hover .fw-semibold.text-dark {
-        color: #fff !important;
-        transition: color 0.4s;
-    }
+    body-dark-mode .dashboard-3d-card:hover .small.text-muted,
     body.dark-mode .dashboard-3d-card:hover .fw-semibold.text-dark {
         color: #111 !important;
         transition: color 0.4s;
@@ -132,11 +77,26 @@
         var style = getComputedStyle(document.body);
         var themeColor = style.getPropertyValue('--theme-color');
         var customColor = style.getPropertyValue('--color-customColor');
+        var primary = '#6fd944';
         if(document.body.classList.contains('custom-color') && customColor) {
-            document.documentElement.style.setProperty('--primary-color', customColor.trim());
+            primary = customColor.trim();
         } else if(themeColor) {
-            document.documentElement.style.setProperty('--primary-color', themeColor.trim());
+            primary = themeColor.trim();
         }
+        document.documentElement.style.setProperty('--primary-color', primary);
+        // Check if primary color is dark, add data-primary-dark to cards
+        function isDark(hex) {
+            hex = hex.replace('#','');
+            if(hex.length === 3) hex = hex.split('').map(x=>x+x).join('');
+            var r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
+            // Perceived brightness
+            return (r*0.299 + g*0.587 + b*0.114) < 128;
+        }
+        var dark = isDark(primary);
+        document.querySelectorAll('.dashboard-3d-card').forEach(function(card){
+            if(dark) card.setAttribute('data-primary-dark','true');
+            else card.removeAttribute('data-primary-dark');
+        });
     });
 </script>
 @endpush
@@ -199,12 +159,10 @@
         <div class="card dashboard-3d-card h-100">
             <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <div class="dashboard-3d-icon">
-                    {{-- Total Plans Icon --}}
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M8 17l4 4 4-4"></path>
-                        <path d="M12 12v9"></path>
-                        <path d="M20.39 18.39A9 9 0 1 0 5.61 3.61 9 9 0 0 0 20.39 18.39z"></path>
+                    {{-- New Total Plans Icon --}}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="4"/>
+                        <path d="M7 7h10M7 12h10M7 17h6"/>
                     </svg>
                 </div>
                 <h6 class="text-muted mb-1">{{ __('Total Plans') }}</h6>
@@ -220,12 +178,10 @@
         <div class="card dashboard-3d-card h-100">
             <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <div class="dashboard-3d-icon">
-                    {{-- Total Orders Icon --}}
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    {{-- New Total Orders Icon --}}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2"/>
+                        <path d="M16 3v4M8 3v4M2 11h20"/>
                     </svg>
                 </div>
                 <h6 class="text-muted mb-1">{{ __('Total Orders') }}</h6>
@@ -241,13 +197,11 @@
         <div class="card dashboard-3d-card h-100">
             <div class="card-body d-flex flex-column align-items-center justify-content-center position-relative w-100">
                 <div class="dashboard-3d-icon">
-                    {{-- Companies Icon --}}
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 21V5a2 2 0 0 1 2-2h3v18"></path>
-                        <path d="M9 21h6"></path>
-                        <path d="M14 21V3h3a2 2 0 0 1 2 2v16"></path>
-                        <path d="M9 8h6"></path>
+                    {{-- New Companies Icon --}}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="7" width="7" height="13" rx="2"/>
+                        <rect x="14" y="3" width="7" height="17" rx="2"/>
+                        <path d="M7 10v4M17 6v4"/>
                     </svg>
                 </div>
                 <div class="dropdown position-absolute end-0 top-0 m-3">
