@@ -48,18 +48,57 @@
         z-index: 2;
     }
     /* Text/icons use primary color by default on white */
-    .dashboard-3d-card h2.fw-bold,
-    .dashboard-3d-card h6.text-muted,
-    .dashboard-3d-card .small.text-muted,
-    .dashboard-3d-card .dashboard-3d-icon svg {
+    .dashboard-3d-card h2.fw-bold {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 0.25rem;
         color: var(--primary-color) !important;
-        transition: color 0.4s;
-        text-shadow: 0 1px 6px rgba(255,255,255,0.25);
+        text-shadow: 0 2px 12px rgba(0,0,0,0.10), 0 1px 0 #fff;
+    }
+    .dashboard-3d-card h6.text-muted {
+        font-size: 1.15rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: #555 !important;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.08);
+    }
+    .dashboard-3d-card .small.text-muted {
+        font-size: 1rem;
+        color: #888 !important;
+        margin-top: 0.5rem;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.08);
     }
     .dashboard-3d-card .fw-semibold.text-dark {
-        color: #111 !important;
-        transition: color 0.4s;
-        text-shadow: 0 1px 6px rgba(255,255,255,0.18);
+        color: #222 !important;
+        font-weight: 700;
+        text-shadow: 0 1px 8px rgba(255,255,255,0.10);
+    }
+    .dashboard-3d-card .dashboard-3d-icon {
+        margin-bottom: 0.5rem;
+        background: rgba(255,255,255,0.7);
+        border-radius: 50%;
+        padding: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .dashboard-3d-card .dashboard-3d-icon svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: var(--primary-color) !important;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+    }
+    .dashboard-3d-card .card-body {
+        padding: 2.25rem 1.5rem 1.5rem 1.5rem;
+        text-align: center;
+        backdrop-filter: blur(2px);
+        border-radius: 1rem;
+    }
+    .dashboard-3d-card .dropdown {
+        font-size: 1rem;
     }
     /* On hover, card becomes more vibrant and glassy */
     .dashboard-3d-card:hover {
