@@ -6,7 +6,7 @@
 @push('css-page')
 <style>
     :root {
-        --primary-color: #6fd944; /* fallback, will be set dynamically */
+        --primary-color: var(--theme-color); /* fallback, will be set dynamically */
     }
     .dashboard-3d-card {
         /* Glassmorphism styles */
@@ -22,16 +22,28 @@
         overflow: hidden;
         transition: box-shadow 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1), background 0.4s, color 0.4s, border-color 0.4s;
     }
-    .dashboard-3d-card::before {
-        content: '';
+    .dashboard-3d-bg {
         position: absolute;
-        inset: 0;
+        top: -60px;
+        right: -60px;
+        width: 120px;
+        height: 120px;
+        background: var(--theme-color, #6fd944); /* Use theme color variable */
+        opacity: 0.7;
+        border-radius: 50%;
+        z-index: 0;
+        transition: transform 0.5s cubic-bezier(.4,2,.6,1), opacity 0.5s, background 0.5s;
+        transform: scale(1);
         pointer-events: none;
-        border-radius: inherit;
-        background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, rgba(111,217,68,0.10) 100%);
-        z-index: 1;
     }
-    .dashboard-3d-card > * {
+    body.custom-color .dashboard-3d-bg {
+        background: var(--color-customColor, #6fd944);
+    }
+    .dashboard-3d-card:hover .dashboard-3d-bg {
+        transform: scale(8);
+        opacity: 1;
+    }
+    .dashboard-3d-card > *:not(.dashboard-3d-bg) {
         position: relative;
         z-index: 2;
     }
@@ -207,6 +219,7 @@
 <div class="row mb-4 gy-4">
     <div class="col-xxl-4 col-md-6 col-12">
         <div class="card dashboard-3d-card h-100">
+            <div class="dashboard-3d-bg"></div>
             <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <div class="dashboard-3d-icon">
                     {{-- New Total Plans Icon --}}
@@ -226,6 +239,7 @@
 
     <div class="col-xxl-4 col-md-6 col-12">
         <div class="card dashboard-3d-card h-100">
+            <div class="dashboard-3d-bg"></div>
             <div class="card-body d-flex flex-column align-items-center justify-content-center">
                 <div class="dashboard-3d-icon">
                     {{-- New Total Orders Icon --}}
@@ -245,6 +259,7 @@
 
     <div class="col-xxl-4 col-md-6 col-12">
         <div class="card dashboard-3d-card h-100">
+            <div class="dashboard-3d-bg"></div>
             <div class="card-body d-flex flex-column align-items-center justify-content-center position-relative w-100">
                 <div class="dashboard-3d-icon">
                     {{-- New Companies Icon --}}
