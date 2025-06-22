@@ -13,11 +13,7 @@
     $userPlan = \App\Models\Plan::getPlan(\Auth::user()->show_dashboard());
 @endphp
 
-@if (isset($setting['cust_theme_bg']) && $setting['cust_theme_bg'] == 'on')
-    <nav class="dash-sidebar light-sidebar transprent-bg sidebar-hoverable">
-    @else
-        <nav class="dash-sidebar light-sidebar sidebar-hoverable">
-@endif
+<nav class="dash-sidebar light-sidebar transprent-bg sidebar-hoverable">
 <div class="navbar-wrapper">
     <div class="m-header main-logo">
         <a href="#" class="b-brand">
