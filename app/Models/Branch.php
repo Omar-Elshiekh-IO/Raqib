@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Branch extends Model
 {
     protected $fillable = [
-        'name','created_by'
+        'name','created_by', 'latitude', 'longitude','login_range'
     ];
 
     public function user():BelongsTo{
