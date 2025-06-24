@@ -23,14 +23,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                {{ Form::label('Image', __('Image'), ['class' => 'form-label']) }}
-                <input type="file" name="other_features_image" class="form-control file-validate">
-                <p id="" class="file-error text-danger"></p>
-            </div>
-        </div>
-
+        {{-- Removed image upload for Other Features Image --}}
     </div>
 </div>
 <div class="modal-footer">

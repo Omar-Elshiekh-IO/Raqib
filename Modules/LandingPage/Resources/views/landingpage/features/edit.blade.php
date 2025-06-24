@@ -16,14 +16,9 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                {{ Form::label('Logo', __('Logo'), ['class' => 'form-label']) }}
-                <input type="file" name="feature_logo" class="form-control file-validate">
-                <p id="" class="file-error text-danger"></p>
-            </div>
-        </div>
-
+        {{-- Removed image upload for Feature Logo --}}
+        {{-- <input type="file" name="feature_logo" class="form-control file-validate"> --}}
+        {{-- <p id="" class="file-error text-danger"></p> --}}
     </div>
 </div>
 <div class="modal-footer">

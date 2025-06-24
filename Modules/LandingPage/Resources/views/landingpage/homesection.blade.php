@@ -209,15 +209,6 @@
                                                     <img id="image" src="{{$logo.'/'. $settings['home_banner']}}"
                                                         class="big-logo img_setting">
                                                 </div>
-                                                <div class="choose-files mt-5">
-                                                    <label for="home_banner">
-                                                        <div class=" bg-primary company_logo_update" style="cursor: pointer;">
-                                                            <i class="ti ti-upload px-1"></i>{{ __('Choose file here') }}
-                                                        </div>
-                                                        <input type="file" name="home_banner" id="home_banner" class="form-control file file-validate" data-filename="home_banner">
-                                                    <p id="" class="file-error text-danger"></p>
-                                                    </label>
-                                                </div>
                                                 @error('home_banner')
                                                     <div class="row">
                                                     <span class="invalid-logo" role="alert">
@@ -242,9 +233,6 @@
                                                         <div class="card mb-3 border shadow-none product_Image" >
                                                             <div class="px-2 py-2">
                                                                 <div class="row align-items-center">
-                                                                    <div class="col">
-                                                                        <input type="file"  class="form-control" name="home_logo" accept="image/*" onchange="updateImagePreview(this)">
-                                                                    </div>
                                                                     <div class="col-auto">
                                                                         <p class="card-text small text-muted">
                                                                             {{-- <img class="rounded" src="{{ $logo.'/placeholder.png' }}" width="70px" alt="Image placeholder" data-dz-thumbnail=""> --}}

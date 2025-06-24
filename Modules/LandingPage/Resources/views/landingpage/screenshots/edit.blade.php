@@ -9,14 +9,8 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="form-group">
-                {{ Form::label('screenshot', __('Screenshot'), ['class' => 'form-label']) }}
-                <input type="file" name="screenshots" class="form-control file-validate">
-                <p id="" class="file-error text-danger"></p>
-            </div>
-        </div>
-
+        {{-- Removed image upload for Screenshot --}}
+        {{-- <input type="file" name="screenshots" class="form-control file-validate"> --}}
     </div>
 </div>
 <div class="modal-footer">
