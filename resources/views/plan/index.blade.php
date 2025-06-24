@@ -85,8 +85,10 @@
                             </div>
                         @endif
                         @if (\Auth::user()->type == 'super admin' && $plan->price > 0)
-                        {{$plan->created_at}} {{-- plan creation time style it --}}
-                        {{$plan->updated_at}} {{-- plan last edit time style it --}}
+                        <div class="mb-2">
+                            <span class="badge bg-light text-dark me-2"><i class="ti ti-calendar-plus"></i> {{ __('Created:') }} {{ $plan->created_at->format('Y-m-d H:i') }}</span>
+                            <span class="badge bg-light text-dark"><i class="ti ti-calendar-edit"></i> {{ __('Updated:') }} {{ $plan->updated_at->format('Y-m-d H:i') }}</span>
+                        </div>
                         <div class="d-flex flex-row-reverse m-0 p-0 active-tag">
                             <div class="form-check form-switch custom-switch-v1 float-end">
                                 <input type="checkbox" name="plan_disable"
