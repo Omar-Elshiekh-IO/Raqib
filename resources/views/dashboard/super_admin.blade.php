@@ -11,7 +11,7 @@
     .dashboard-3d-card {
         /* Glassmorphism styles */
         background: linear-gradient(135deg, rgba(255,255,255,0.65) 60%, rgba(255,255,255,0.35) 100%) !important;
-        border-radius: 1.25rem;
+        border-radius: 0.85rem;
         box-shadow:
             0 4px 24px 0 rgba(31, 38, 135, 0.12),
             0 1.5px 8px 0 rgba(0,0,0,0.08);
@@ -49,45 +49,46 @@
     }
     /* Text/icons use primary color by default on white */
     .dashboard-3d-card h2.fw-bold {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
         font-weight: 800;
         letter-spacing: -1px;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.15rem;
         color: var(--primary-color) !important;
         text-shadow: 0 2px 12px rgba(0,0,0,0.10), 0 1px 0 #fff;
     }
     .dashboard-3d-card h6.text-muted {
-        font-size: 1.15rem;
+        font-size: 0.95rem;
         font-weight: 600;
         letter-spacing: 0.02em;
         color: #555 !important;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
         text-shadow: 0 1px 8px rgba(0,0,0,0.08);
     }
     .dashboard-3d-card .small.text-muted {
-        font-size: 1rem;
+        font-size: 0.85rem;
         color: #888 !important;
-        margin-top: 0.5rem;
+        margin-top: 0.25rem;
         text-shadow: 0 1px 8px rgba(0,0,0,0.08);
     }
     .dashboard-3d-card .fw-semibold.text-dark {
         color: #222 !important;
         font-weight: 700;
         text-shadow: 0 1px 8px rgba(255,255,255,0.10);
+        font-size: 0.95rem;
     }
     .dashboard-3d-card .dashboard-3d-icon {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
         background: rgba(255,255,255,0.7);
         border-radius: 50%;
-        padding: 0.75rem;
+        padding: 0.5rem;
         box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         display: flex;
         align-items: center;
         justify-content: center;
     }
     .dashboard-3d-card .dashboard-3d-icon svg {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 1.7rem;
+        height: 1.7rem;
         color: var(--primary-color) !important;
         filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
     }
