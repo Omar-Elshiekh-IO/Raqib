@@ -220,7 +220,7 @@
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required />
                 <div style="margin: 10px 0 20px 0; text-align: left; width: 100%;">
                     <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; font-weight: 500; color: #222;">
-                        <input type="checkbox" name="terms" required style="margin-right: 10px; accent-color: var(--accent-main, #2B8B68); width: 16px; height: 16px;" />
+                        <input type="checkbox" name="terms" required style="margin-inline-end: 10px; accent-color: var(--accent-main, #2B8B68); inline-size: 16px; block-size: 16px;" />
                         <span style="font-size: 13px; color: #222; font-weight: 500;">
                             I agree to the
                             <a href="/terms" target="_blank" style="color: var(--accent-main, #2B8B68); text-decoration: underline; font-weight: 500; font-size: 13px;">Terms and Conditions</a>
