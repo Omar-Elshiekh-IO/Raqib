@@ -18,7 +18,7 @@ use App\Http\Controllers\ApiController;
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-    Route::post('logout', [ApiController::class, 'logout']);
+    // Route::post('logout', [ApiController::class, 'logout']);
     Route::get('get-projects', [ApiController::class, 'getProjects']);
     Route::post('add-tracker', [ApiController::class, 'addTracker']);
     Route::post('stop-tracker', [ApiController::class, 'stopTracker']);
