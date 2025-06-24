@@ -263,7 +263,7 @@
     <style>
         .dash-layout {
             display: flex;
-            height: 100vh;
+            /* height: 100vh; */ /* Remove to prevent double scrollbars */
         }
         .dash-main {
             flex: 1 1 0%;
@@ -280,7 +280,7 @@
             flex: 1 1 0%;
             min-width: 0;
             width: 100%;
-            height: 100%;
+            /* height: 100%; */ /* Remove to prevent double scrollbars */
             padding: 0;
             margin: 0;
             overflow: visible;
@@ -290,11 +290,13 @@
             min-width: 0;
             width: 100%;
             max-width: 100%;
-            height: 100%;
-            padding: 16px 8px 8px 0; /* remove left padding */
+            /* height: 100%; */ /* Remove to prevent double scrollbars */
+            min-height: 100vh; /* Ensure content fills viewport */
+            padding: 16px 8px 8px 0;
             margin: 0;
             box-sizing: border-box;
-            overflow-x: auto;
+            overflow-y: auto; /* Only vertical scroll if needed */
+            overflow-x: visible; /* Remove horizontal auto scroll */
         }
         /* Remove right margin/padding from sidebar if present */
         .dash-sidebar .navbar-wrapper,

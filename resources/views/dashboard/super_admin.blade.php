@@ -172,6 +172,25 @@
             padding: 1rem 1.5rem;
         }
     }
+
+    html, body {
+        height: auto !important;
+        min-height: 100% !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+    }
+    body {
+        overflow-y: auto !important;
+    }
+    html {
+        overflow-y: visible !important;
+    }
+    /* Prevent double scrollbars on main content wrappers */
+    .container, .row, main, .content, .page-content, .wrapper {
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
+    }
 </style>
 <script>
     // Dynamically set --primary-color from theme or custom color
