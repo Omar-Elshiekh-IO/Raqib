@@ -266,7 +266,7 @@
                     <button class="ghost" id="signIn" type="button">Sign In</button>
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <h1>Welcome in Raqeeb</h1>
+                    <h1>Welcome in Raqib</h1>
                     <p>Enter your personal details and start journey with us</p>
                     <button class="ghost" id="signUp" type="button">Sign Up</button>
                 </div>

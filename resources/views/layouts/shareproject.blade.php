@@ -16,7 +16,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{$SITE_RTL['SITE_RTL'] == 'on'?'rtl':''}}">
 <head>
     <title>
-        {{ Utility::getValByName('title_text') ? Utility::getValByName('title_text') : config('app.name', 'ERPGo') }}
+        {{ Utility::getValByName('title_text') ? Utility::getValByName('title_text') : config('app.name', 'Raqib') }}
         - @yield('page-title')</title>
     <meta charset="utf-8" />
     <meta

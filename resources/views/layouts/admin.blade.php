@@ -35,7 +35,7 @@
 <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
 
 <head>
-    <title>{{ $setting['title_text'] ? $setting['title_text'] : config('app.name', 'ERPGO') }} - @yield('page-title')
+    <title>{{ $setting['title_text'] ? $setting['title_text'] : config('app.name', 'Raqib') }} - @yield('page-title')
     </title>
 
     <meta name="title" content="{{ $metatitle }}">

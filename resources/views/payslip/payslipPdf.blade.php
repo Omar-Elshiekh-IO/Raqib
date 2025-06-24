@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="col-md-6 text-md-right mb-0">
                                     <ul class="list-unstyled mb-md-2 mb-0">
-                                        <li class="mb-1"> <strong class="d-block">{{$settings_data['company_name'] ?? 'ERPGo'}} : </strong>{{$settings_data['company_address']}} , {{$settings_data['company_city']}},
+                                        <li class="mb-1"> <strong class="d-block">{{$settings_data['company_name'] ?? 'Raqib'}} : </strong>{{$settings_data['company_address']}} , {{$settings_data['company_city']}},
                                             {{$settings_data['company_state']}}-{{$settings_data['company_zipcode']}}</li>
                                             <li><strong>{{__('Salary Slip')}} : </strong>{{ $user->dateFormat( $payslip->salary_month)}}</li>
                                     </ul>

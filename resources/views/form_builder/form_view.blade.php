@@ -26,7 +26,7 @@ else {
 <html lang="en">
 <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
 <head>
-    <title>{{(Utility::getValByName('title_text')) ? Utility::getValByName('title_text') : config('app.name', 'ERPGO')}} - Form Builder</title>
+    <title>{{(Utility::getValByName('title_text')) ? Utility::getValByName('title_text') : config('app.name', 'Raqib')}} - Form Builder</title>
 
     <meta name="title" content="{{$metatitle}}">
     <meta name="description" content="{{$metsdesc}}">

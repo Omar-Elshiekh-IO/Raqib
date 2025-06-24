@@ -9,17 +9,20 @@ File: style.css
 body {
     margin: 0;
     overflow-x: hidden;
-    /*background: #FFFFFF !important;*/
+    background: #fff !important;
+    color: #08253F;
 }
 
 a {
     outline: none;
     text-decoration: none;
+    color: #2B8B68;
 }
 
 a:focus, a:hover {
     outline: none;
     text-decoration: none;
+    color: #08253F;
 }
 
 .bg-dark {
@@ -67,7 +70,7 @@ a:focus, a:hover {
 }
 
 .main-header .navbar .navbar-nav .nav-item .nav-link {
-    color: #002332;
+    color: #08253F;
     font-weight: 500;
 }
 
@@ -531,4 +534,45 @@ a:focus, a:hover {
         width: 30px;
         height: 30px;
     }
+}
+
+/* Banner and logo styling */
+img[alt="Raqeeb Logo"] {
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(8,37,63,0.08);
+    padding: 10px;
+}
+
+img[alt="Banner"] {
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(8,37,63,0.12);
+    border: 6px solid #fff;
+}
+
+/* Button styles */
+.btn-primary, .btn.btn-lg {
+    background: #2B8B68 !important;
+    color: #fff !important;
+    border-radius: 30px !important;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover, .btn.btn-lg:hover {
+    background: #08253F !important;
+    color: #fff !important;
+}
+
+/* Heading styles */
+h1, .display-4 {
+    color: #2B8B68;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+h2, h3, h4, h5, h6 {
+    color: #08253F;
 }
