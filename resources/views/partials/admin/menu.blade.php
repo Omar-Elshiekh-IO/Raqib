@@ -171,12 +171,6 @@
                     </li>
                 @endif
 
-                <li class="dash-item dash-hasmenu  {{ Request::segment(1) == '' ? 'active' : '' }}">
-                    <a href="{{ route('referral-program.index') }}" class="dash-link">
-                        <span class="dash-micon"><i class="ti ti-discount-2"></i></span><span
-                            class="dash-mtext">{{ __('Referral Program') }}</span>
-                    </a>
-                </li>
 
 
                 @if (Gate::check('manage coupon'))

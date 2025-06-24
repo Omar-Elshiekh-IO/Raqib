@@ -27,12 +27,7 @@
                             class="dash-link">{{ __('Setup Subscription Plan') }}</a>
                     </li>
                 @endif
-                <li
-                    class="dash-item{{ Request::route()->getName() == 'referral-program.company' ? ' active' : '' }}">
-                    <a href="{{ route('referral-program.company') }}"
-                        class="dash-link">{{ __('Referral Program') }}</a>
-                </li>
-
+           
                 @if (Gate::check('manage order') && Auth::user()->type == 'company')
                     <li class="dash-item {{ Request::segment(1) == 'order' ? 'active' : '' }}">
                         <a href="{{ route('order.index') }}" class="dash-link">{{ __('Order') }}</a>

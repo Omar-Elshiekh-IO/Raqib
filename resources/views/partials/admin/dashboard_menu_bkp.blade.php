@@ -1403,12 +1403,7 @@
                                     class="dash-link">{{ __('Setup Subscription Plan') }}</a>
                             </li>
                         @endif
-                        <li
-                        class="dash-item{{ Request::route()->getName() == 'referral-program.company' ? ' active' : '' }}">
-                        <a href="{{ route('referral-program.company') }}"
-                            class="dash-link">{{ __('Referral Program') }}</a>
-                        </li>
-
+                        
                         @if (Gate::check('manage order') && Auth::user()->type == 'company')
                             <li class="dash-item {{ Request::segment(1) == 'order' ? 'active' : '' }}">
                                 <a href="{{ route('order.index') }}" class="dash-link">{{ __('Order') }}</a>
@@ -1556,12 +1551,7 @@
                 </li>
             @endif
 
-                <li class="dash-item dash-hasmenu  {{ Request::segment(1) == '' ? 'active' : '' }}">
-                    <a href="{{ route('referral-program.index') }}" class="dash-link">
-                        <span class="dash-micon"><i class="ti ti-discount-2"></i></span><span
-                            class="dash-mtext">{{ __('Referral Program') }}</span>
-                    </a>
-                </li>
+        
 
 
                 @if (Gate::check('manage coupon'))
