@@ -9,10 +9,17 @@
 @endsection
 @section('content')
     @if (!empty($employee))
+        <div class="card">
+          <h5 class="card-header">Employee Information</h5>
+          <div class="card-body">
+            <p class="id text-lg">Employee ID: {{ \Auth::user()->employeeIdFormat($employee->employee_id) }}</p>
+            <p class="name text-lg">Employee Name: {{$employee->name}}</p>
+          </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-was-here ">
                         <div class="card min-height-253">
                             <div class="card-header d-flex align-items-center gap-2 flex-wrap justify-content-between">
                                 <h5 class="mb-0">{{ __('Employee Salary') }}</h5>
@@ -63,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-was-here ">
                         <div class="card min-height-253">
 
                             <div class="card-header d-flex align-items-center gap-2 flex-wrap justify-content-between ">
@@ -158,7 +165,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-was-here ">
                         <div class="card  min-height-253">
                             <div class="card-header d-flex align-items-center gap-2 flex-wrap justify-content-between">
                                         <h5 class="mb-0">{{ __('Commission') }}</h5>
@@ -251,7 +258,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-was-here ">
                         <div class="card min-height-253">
                             <div class="card-header d-flex align-items-center gap-2 flex-wrap justify-content-between">
 
@@ -344,7 +351,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-was-here ">
                         <div class="card min-height-253">
                             <div class="card-header d-flex align-items-center gap-2 flex-wrap justify-content-between">
                                         <h5 class="mb-0">{{ __('Saturation Deduction') }}</h5>
@@ -441,7 +448,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-was-here ">
                         <div class="card min-height-253">
                             <div class="card-header d-flex align-items-center gap-2 flex-wrap justify-content-between">
                                         <h5 class="mb-0">{{ __('Other Payment') }}</h5>
@@ -533,7 +540,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-was-here ">
                         <div class="card">
                             <div class="card-header d-flex align-items-center gap-2 flex-wrap justify-content-between">
                                         <h5 class="mb-0">{{ __('Overtime') }}</h5>

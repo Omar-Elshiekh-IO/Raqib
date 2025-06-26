@@ -54,6 +54,15 @@
             </a>
         </li>
     @endcan
+    @can('manage work shift')
+        <li class="nav-item" role="presentation">
+            <a href="{{ route('work-shift.index') }}" class="list-group-item list-group-item-action border-0">
+                <button class="nav-link {{ request()->is('work-shift*') ? 'active' : '' }} " id="work-setting-tab"
+                    data-bs-toggle="pill" data-bs-target="#work-setting"
+                    type="button">{{ __('Work Type') }}</button>
+            </a>
+        </li>
+    @endcan
     @can('manage allowance option')
         <li class="nav-item" role="presentation">
             <a href="{{ route('allowanceoption.index') }}" class="list-group-item list-group-item-action border-0">
@@ -138,6 +147,15 @@
                 <button class="nav-link {{ request()->is('performanceType*') ? 'active' : '' }} "
                     id="performance-setting-tab" data-bs-toggle="pill" data-bs-target="#performance-setting"
                     type="button">{{ __('Performance Type') }}</button>
+            </a>
+        </li>
+    @endcan
+    @can('manage employment type')
+        <li class="nav-item" role="presentation">
+            <a href="{{ route('employment-type.index') }}" class="list-group-item list-group-item-action border-0">
+                <button class="nav-link {{ request()->is('employment-type*') ? 'active' : '' }} "
+                    id="employment-setting-tab" data-bs-toggle="pill" data-bs-target="#employment-setting"
+                    type="button">{{ __('Employment Type') }}</button>
             </a>
         </li>
     @endcan

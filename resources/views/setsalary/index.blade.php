@@ -17,24 +17,30 @@
                             <tr>
                                 <th>{{__('Employee Id')}}</th>
                                 <th>{{__('Name')}}</th>
+                                <th>{{__('Job Title')}}</th>
                                 <th>{{__('Payroll Type') }}</th>
                                 <th>{{__('Salary') }}</th>
                                 <th>{{__('Net Salary') }}</th>
+                                <th>{{__('Payment Method')}}</th>
+                                <th>{{__('Last Updated At')}}</th>
                                 <th width="200px">{{__('Action')}}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($employees as $employee)
-                                <tr>
+                                <tr class="capitalize">
                                     <td class="Id">
                                         <a href="{{route('setsalary.show',$employee->id)}}" class="btn btn-outline-primary" data-toggle="tooltip" data-original-title="{{__('View')}}">
                                             {{ \Auth::user()->employeeIdFormat($employee->employee_id) }}
                                         </a>
                                     </td>
                                     <td>{{ $employee->name }}</td>
+                                    <td>{{ $employee->designation->name }}</td>
                                     <td>{{ !empty($employee->salaryType) ? $employee->salaryType->name : '-' }}</td>
                                     <td>{{  \Auth::user()->priceFormat($employee->salary) }}</td>
                                     <td>{{  !empty($employee->get_net_salary()) ?\Auth::user()->priceFormat($employee->get_net_salary()):'' }}</td>
+                                    <td>{{ $employee->payment_method }}</td>
+                                    <td>{{ $employee->updated_at }}</td>
                                     <td>
                                     <div class="action-btn me-2">
                                         <a href="{{route('setsalary.show',$employee->id)}}" class="mx-3 btn btn-sm align-items-center bg-warning" data-bs-toggle="tooltip" title="{{__('Set Salary')}}" data-original-title="{{__('View')}}">

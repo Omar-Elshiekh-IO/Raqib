@@ -1434,11 +1434,11 @@
                                         class="dash-link">{{ __('Referral Program') }}</a>
                                 </li>
 
-                                @if (Gate::check('manage order') && Auth::user()->type == 'company')
+                                {{-- @if (Gate::check('manage order') && Auth::user()->type == 'company')
                                     <li class="dash-item {{ Request::segment(1) == 'order' ? 'active' : '' }}">
                                         <a href="{{ route('order.index') }}" class="dash-link">{{ __('Order') }}</a>
                                     </li>
-                                @endif
+                                @endif --}}
                             </ul>
                         </li>
                     @endif
@@ -1595,14 +1595,14 @@
                         </a>
                     </li>
                 @endif
-                @if (Gate::check('manage order'))
+                {{-- @if (Gate::check('manage order'))
                     <li class="dash-item dash-hasmenu  {{ Request::segment(1) == 'orders' ? 'active' : '' }}">
                         <a href="{{ route('order.index') }}" class="dash-link">
                             <span class="dash-micon"><i class="ti ti-shopping-cart-plus"></i></span><span
                                 class="dash-mtext">{{ __('Order') }}</span>
                         </a>
                     </li>
-                @endif
+                @endif --}}
                 <li
                     class="dash-item dash-hasmenu {{ Request::segment(1) == 'email_template' || Request::route()->getName() == 'manage.email.language' ? ' active dash-trigger' : 'collapsed' }}">
                     <a href="{{ route('email_template.index') }}" class="dash-link">

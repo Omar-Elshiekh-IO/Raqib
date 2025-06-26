@@ -39,6 +39,9 @@
                                 <th>{{__('Branch') }}</th>
                                 <th>{{__('Department') }}</th>
                                 <th>{{__('Designation') }}</th>
+                                <th>{{__('Manager') }}</th>
+                                <th>{{__('Work Shift') }}</th>
+                                <th>{{__('Employment Type') }}</th>
                                 <th>{{__('Date Of Joining') }}</th>
                                 <th> {{__('Last Login')}}</th>
                                 <th width="200px">{{__('Action')}}</th>
@@ -69,6 +72,21 @@
                                     @endif
                                     @if($employee->designation_id)
                                         <td class="font-style">{{$employee->designation ? $employee->designation->name:''}}</td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                    @if($employee->manager)
+                                        <td class="font-style">{{$employee->manager->name ? $employee->manager->name:''}}</td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                    @if($employee->workShift)
+                                        <td class="font-style">{{$employee->workShift->title ? $employee->workShift->title:''}}</td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                    @if($employee->employmentType)
+                                        <td class="font-style">{{$employee->employmentType->title ? $employee->employmentType->title:''}}</td>
                                     @else
                                         <td>-</td>
                                     @endif

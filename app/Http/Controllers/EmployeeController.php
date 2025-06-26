@@ -11,6 +11,7 @@ use App\Models\Designation;
 use App\Models\Document;
 use App\Models\Employee;
 use App\Models\EmployeeDocument;
+use App\Models\EmploymentType;
 use App\Models\ExperienceCertificate;
 use App\Models\JoiningLetter;
 use App\Models\NOC;
@@ -19,6 +20,7 @@ use App\Models\Plan;
 use App\Models\Termination;
 use App\Models\User;
 use App\Models\Utility;
+use App\Models\WorkShift;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +48,7 @@ class EmployeeController extends Controller
             }
             else
             {
-                $employees = Employee::where('created_by', \Auth::user()->creatorId())->with(['designation','branch','department'])->get();
+                $employees = Employee::where('created_by', \Auth::user()->creatorId())->with(['designation','branch','department','workShift','employmentType'])->get();
             }
 
             return view('employee.index', compact('employees'));
@@ -66,10 +68,13 @@ class EmployeeController extends Controller
             $branches         = Branch::where('created_by', \Auth::user()->creatorId())->get()->pluck('name', 'id');
             $departments      = Department::where('created_by', \Auth::user()->creatorId())->get()->pluck('name', 'id');
             $designations     = Designation::where('created_by', \Auth::user()->creatorId())->get()->pluck('name', 'id');
-            $employees        = User::where('created_by', \Auth::user()->creatorId())->get();
+            $employees        = User::where('created_by', Auth::user()->creatorId())->get();
             $employeesId      = \Auth::user()->employeeIdFormat($this->employeeNumber());
+            $workShifts       = WorkShift::where('created_by', Auth::user()->creatorId())->get()->pluck('title','id');
+            $employmentTypes       = EmploymentType::where('created_by', Auth::user()->creatorId())->get()->pluck('title','id');
 
-            return view('employee.create', compact('employees', 'employeesId', 'departments', 'designations', 'documents', 'branches', 'company_settings'));
+            $managers         = Employee::where('created_by',Auth::user()->creatorId())->pluck('name', 'id')->toArray();
+            return view('employee.create', compact('employees', 'employeesId', 'departments', 'designations', 'documents', 'branches', 'company_settings', 'managers','workShifts','employmentTypes'));
         }
         else
         {
@@ -92,6 +97,8 @@ class EmployeeController extends Controller
                                    'branch_id' => 'required',
                                    'department_id' => 'required',
                                    'designation_id' => 'required',
+                                   'work_shift' => 'required',
+                                   'employment_type' => 'required',
                                 //    'biometric_emp_id' => 'required',
                                ]
             );
@@ -142,6 +149,7 @@ class EmployeeController extends Controller
             {
                 $document_implode = null;
             }
+            // dd([$request->work_shift,$request->employment_type]);
 
             $employee = Employee::create(
                 [
@@ -168,6 +176,9 @@ class EmployeeController extends Controller
                     'branch_location' => $request['branch_location'],
                     'tax_payer_id' => $request['tax_payer_id'],
                     'created_by' => \Auth::user()->creatorId(),
+                    'manager_id' => $request->manager_id,
+                    'work_shift_id' => $request->work_shift,
+                    'employment_type_id' => $request->employment_type
                 ]
             );
             if($request->hasFile('document'))
@@ -246,11 +257,14 @@ class EmployeeController extends Controller
             $employee     = Employee::find($id);
 //            $employeesId  = \Auth::user()->employeeIdFormat($employee->employee_id);
             $employeesId  = \Auth::user()->employeeIdFormat(!empty($employee) ? $employee->employee_id : '');
+            $workShifts       = WorkShift::where('created_by', Auth::user()->creatorId())->get()->pluck('title','id');
+            $employmentTypes       = EmploymentType::where('created_by', Auth::user()->creatorId())->get()->pluck('title','id');
 
             $departmentData  = Department::where('created_by', \Auth::user()->creatorId())->where('branch_id',$employee->branch_id)->get()->pluck('name', 'id');
 
 
-            return view('employee.edit', compact('employee', 'employeesId', 'branches', 'departments', 'designations', 'documents','departmentData'));
+            $managers = Employee::where('id', '!=', $employee->id)->pluck('name', 'id')->toArray();
+            return view('employee.edit', compact('employee', 'employeesId', 'branches', 'departments', 'designations', 'documents','departmentData', 'managers','workShifts','employmentTypes'));
         }
         else
         {
@@ -270,6 +284,8 @@ class EmployeeController extends Controller
                                    'gender' => 'required',
                                    'phone' => 'required|numeric',
                                    'address' => 'required',
+                                   'work_shift' => 'required',
+                                   'employment_type' => 'required',
 //                                   'document.*' => 'mimes:jpeg,png,jpg,gif,svg,pdf,doc,zip|max:20480',
                                ]
             );
@@ -338,6 +354,10 @@ class EmployeeController extends Controller
             }
             $employee = Employee::findOrFail($id);
             $input    = $request->all();
+            if (isset($input['manager_id'])) {
+        $employee->manager_id = $input['manager_id'];
+      }
+
             $employee->fill($input)->save();
             $employee = Employee::find($id);
             $user = User::where('id',$employee->user_id)->first();
