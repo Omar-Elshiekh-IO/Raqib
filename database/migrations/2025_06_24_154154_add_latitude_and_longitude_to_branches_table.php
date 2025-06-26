@@ -23,7 +23,7 @@ return new class extends Migration {
   public function down(): void
   {
     Schema::table('branches', function (Blueprint $table) {
-      $table->dropColumn(['latitude', 'longitude']);
+      $table->dropColumn(['latitude', 'longitude','login_range']);
     });
   }
 };

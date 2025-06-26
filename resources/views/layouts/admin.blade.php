@@ -37,7 +37,11 @@
 <head>
     <title>{{ $setting['title_text'] ? $setting['title_text'] : config('app.name', 'ERPGO') }} - @yield('page-title')
     </title>
+    <!-- jQuery (required by Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <meta name="title" content="{{ $metatitle }}">
     <meta name="description" content="{{ $metsdesc }}">
 
@@ -119,6 +123,14 @@
 
 </head>
 
+<script>
+$(document).ready(function() {
+    $('#days').select2({
+        placeholder: 'Select days',
+        width: '100%' // Force proper width
+    });
+});
+</script>
 
 
 <body class="{{ $themeColor }}">
