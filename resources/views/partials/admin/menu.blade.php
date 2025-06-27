@@ -405,4 +405,115 @@
         z-index: 10;
         pointer-events: none;
     }
+
+    /* Hide submenu items when sidebar is collapsed */
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-submenu {
+        display: none !important;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: none;
+    }
+
+    /* Hide submenu arrow when sidebar is collapsed */
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-arrow {
+        display: none !important;
+    }
+
+    /* Ensure submenu items are visible when sidebar is expanded */
+    .dash-sidebar.sidebar-hoverable:hover .dash-submenu {
+        display: block;
+        opacity: 1;
+        max-height: initial;
+        overflow: visible;
+    }
+
+    /* Show submenu arrow when sidebar is expanded */
+    .dash-sidebar.sidebar-hoverable:hover .dash-arrow {
+        display: inline-block !important;
+    }
+
+    /* Remove dash-trigger class when collapsed to reset submenu state */
+    .dash-sidebar.sidebar-hoverable:not(:hover) .dash-item.dash-trigger {
+        /* This will be handled by JavaScript */
+    }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.querySelector('.dash-sidebar.sidebar-hoverable');
+    
+    if (sidebar) {
+        let isCollapsed = false;
+        
+        // Function to close all open submenus
+        function closeAllSubmenus() {
+            const openMenus = sidebar.querySelectorAll('.dash-item.dash-trigger');
+            openMenus.forEach(menu => {
+                menu.classList.remove('dash-trigger');
+                const submenu = menu.querySelector('.dash-submenu');
+                if (submenu) {
+                    submenu.style.display = 'none';
+                }
+            });
+        }
+        
+        // Monitor when sidebar leaves hover state (collapses)
+        sidebar.addEventListener('mouseleave', function() {
+            if (!isCollapsed) {
+                isCollapsed = true;
+                // Close all open submenus when sidebar collapses
+                setTimeout(() => {
+                    closeAllSubmenus();
+                }, 100); // Small delay to ensure smooth transition
+            }
+        });
+        
+        // Monitor when sidebar enters hover state (expands)
+        sidebar.addEventListener('mouseenter', function() {
+            isCollapsed = false;
+        });
+        
+        // Handle menu item clicks to ensure proper submenu behavior
+        const menuItems = sidebar.querySelectorAll('.dash-item.dash-hasmenu > .dash-link');
+        menuItems.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Only handle submenu expansion when sidebar is expanded (hover state)
+                if (!sidebar.matches(':hover')) {
+                    e.preventDefault();
+                    return;
+                }
+                
+                const parentItem = this.closest('.dash-item');
+                const submenu = parentItem.querySelector('.dash-submenu');
+                
+                if (submenu) {
+                    e.preventDefault();
+                    
+                    // Toggle current submenu
+                    if (parentItem.classList.contains('dash-trigger')) {
+                        parentItem.classList.remove('dash-trigger');
+                        submenu.style.display = 'none';
+                    } else {
+                        // Close other open submenus at same level
+                        const siblings = parentItem.parentNode.children;
+                        Array.from(siblings).forEach(sibling => {
+                            if (sibling !== parentItem && sibling.classList.contains('dash-trigger')) {
+                                sibling.classList.remove('dash-trigger');
+                                const siblingSubmenu = sibling.querySelector('.dash-submenu');
+                                if (siblingSubmenu) {
+                                    siblingSubmenu.style.display = 'none';
+                                }
+                            }
+                        });
+                        
+                        // Open current submenu
+                        parentItem.classList.add('dash-trigger');
+                        submenu.style.display = 'block';
+                    }
+                }
+            });
+        });
+    }
+});
+</script>
