@@ -1,6 +1,6 @@
 /**
- * Sidebar Auto-Close Submenu Enhancement
- * Automatically closes submenu items when sidebar collapses
+ * Sidebar Auto-Close and Auto-Open Submenu Enhancement
+ * Automatically opens submenus on hover and closes them when sidebar collapses
  * NON-INVASIVE: Does not interfere with original menu functionality
  */
 
@@ -11,22 +11,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Wait for original menu system to fully initialize and load dynamic content
     setTimeout(() => {
-        initializeNonInvasiveSidebarAutoClose();
+        initializeSidebarEnhancements();
     }, 3000); // Increased delay to ensure all dynamic content loads
     
-    function initializeNonInvasiveSidebarAutoClose() {
+    function initializeSidebarEnhancements() {
         // Prevent duplicate initialization
-        if (sidebar.hasAttribute('data-sidebar-auto-close-initialized')) {
+        if (sidebar.hasAttribute('data-sidebar-enhanced-initialized')) {
             return;
         }
-        sidebar.setAttribute('data-sidebar-auto-close-initialized', 'true');
+        sidebar.setAttribute('data-sidebar-enhanced-initialized', 'true');
         
         let isHovered = false;
         let collapseTimeout = null;
+        let submenuHoverTimeout = null;
         
-        console.log('Sidebar auto-close initialized (non-invasive mode)');
+        console.log('Sidebar enhancements initialized (auto-open/close mode)');
         
-        // Simple function to close all open submenus - ONLY for auto-close on sidebar collapse
+        // Function to close all open submenus
         function closeAllSubmenus() {
             const openMenus = sidebar.querySelectorAll('.dash-item.dash-trigger');
             openMenus.forEach(menu => {
@@ -57,61 +58,40 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Monitor when sidebar enters hover state (expands)
-        sidebar.addEventListener('mouseenter', function() {
-            isHovered = true;
+        // Function to open a specific submenu
+        function openSubmenu(menuItem) {
+            if (!menuItem.classList.contains('dash-hasmenu')) return;
             
-            // Clear any pending collapse timeout
-            if (collapseTimeout) {
-                clearTimeout(collapseTimeout);
-                collapseTimeout = null;
-            }
-        });
-        
-        // Monitor when sidebar leaves hover state (collapses)
-        sidebar.addEventListener('mouseleave', function() {
-            isHovered = false;
-            
-            // Only close submenus when sidebar completely collapses
-            collapseTimeout = setTimeout(() => {
-                if (!isHovered && !sidebar.matches(':hover')) {
-                    closeAllSubmenus();
+            menuItem.classList.add('dash-trigger');
+            const submenu = menuItem.querySelector('.dash-submenu');
+            if (submenu) {
+                // Use existing slideDown if available, otherwise just show
+                if (typeof slideDown === 'function') {
+                    slideDown(submenu, 200);
+                } else {
+                    submenu.style.display = 'block';
                 }
-            }, 800); // Generous delay to allow user navigation
-        });
-        
-        // DO NOT add any click event listeners that could interfere with original functionality
-        // DO NOT prevent default or stop propagation on any events
-        // DO NOT clone or modify original menu elements
-        
-        // Initialize hover state
-        if (sidebar.matches(':hover')) {
-            isHovered = true;
+            }
         }
         
-        console.log('Non-invasive sidebar auto-close ready');
-    }
-});
-        
-        // Function to close all open submenus (simple approach)
-        function closeAllSubmenus() {
-            const openMenus = sidebar.querySelectorAll('.dash-item.dash-trigger');
-            openMenus.forEach(menu => {
-                menu.classList.remove('dash-trigger');
-                const submenu = menu.querySelector('.dash-submenu');
-                if (submenu) {
+        // Function to close a specific submenu
+        function closeSubmenu(menuItem) {
+            menuItem.classList.remove('dash-trigger');
+            const submenu = menuItem.querySelector('.dash-submenu');
+            if (submenu) {
+                // Use existing slideUp if available, otherwise just hide
+                if (typeof slideUp === 'function') {
+                    slideUp(submenu, 200);
+                } else {
                     submenu.style.display = 'none';
-                    // Also handle nested submenus
-                    const nestedMenus = submenu.querySelectorAll('.dash-item.dash-trigger');
-                    nestedMenus.forEach(nested => {
-                        nested.classList.remove('dash-trigger');
-                        const nestedSubmenu = nested.querySelector('.dash-submenu');
-                        if (nestedSubmenu) {
-                            nestedSubmenu.style.display = 'none';
-                        }
-                    });
                 }
-            });
+                
+                // Also close nested submenus
+                const nestedMenus = submenu.querySelectorAll('.dash-item.dash-trigger');
+                nestedMenus.forEach(nested => {
+                    closeSubmenu(nested);
+                });
+            }
         }
         
         // Function to restore submenu states when expanding
@@ -120,16 +100,60 @@ document.addEventListener('DOMContentLoaded', function() {
             activeMenus.forEach(menu => {
                 let parent = menu.closest('.dash-item.dash-hasmenu');
                 while (parent) {
-                    parent.classList.add('dash-trigger');
-                    const submenu = parent.querySelector('.dash-submenu');
-                    if (submenu) {
-                        submenu.style.display = 'block';
-                    }
+                    openSubmenu(parent);
                     // Check for parent menu items
                     parent = parent.parentElement.closest('.dash-item.dash-hasmenu');
                 }
             });
         }
+        
+        // Add hover listeners to menu items with submenus
+        const menuItems = sidebar.querySelectorAll('.dash-item.dash-hasmenu');
+        menuItems.forEach(menuItem => {
+            let hoverTimeout = null;
+            
+            menuItem.addEventListener('mouseenter', function(e) {
+                // Only trigger if sidebar is expanded (hoverable)
+                if (!sidebar.matches(':hover')) return;
+                
+                // Clear any pending timeout
+                if (hoverTimeout) {
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = null;
+                }
+                
+                // Small delay to prevent accidental opens
+                hoverTimeout = setTimeout(() => {
+                    if (sidebar.matches(':hover') && menuItem.matches(':hover')) {
+                        openSubmenu(menuItem);
+                    }
+                }, 150);
+            });
+            
+            menuItem.addEventListener('mouseleave', function(e) {
+                // Clear hover timeout
+                if (hoverTimeout) {
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = null;
+                }
+                
+                // Don't close if moving to submenu
+                const relatedTarget = e.relatedTarget;
+                if (relatedTarget && 
+                    (this.contains(relatedTarget) || 
+                     relatedTarget.closest('.dash-submenu') === this.querySelector('.dash-submenu'))) {
+                    return;
+                }
+                
+                // Small delay before closing to allow navigation
+                setTimeout(() => {
+                    if (!menuItem.matches(':hover') && 
+                        !menuItem.querySelector('.dash-submenu:hover')) {
+                        closeSubmenu(menuItem);
+                    }
+                }, 200);
+            });
+        });
         
         // Monitor when sidebar enters hover state (expands)
         sidebar.addEventListener('mouseenter', function() {
@@ -159,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add a delay before closing to allow user to navigate
             collapseTimeout = setTimeout(() => {
-                if (!isHovered) {
+                if (!isHovered && !sidebar.matches(':hover')) {
                     closeAllSubmenus();
                 }
             }, 300);
@@ -214,5 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
             isHovered = true;
             restoreSubmenuStates();
         }
+        
+        console.log('Sidebar auto-open/close ready');
     }
 });
