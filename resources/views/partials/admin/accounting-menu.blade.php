@@ -12,7 +12,7 @@
             Gate::check('manage debit note') || Gate::check('manage chart of account') ||
             Gate::check('manage journal entry') || Gate::check('balance sheet report') ||
             Gate::check('ledger report') || Gate::check('trial balance report') )
-        <li class="dash-item dash-hasmenu {{ Request::route()->getName() == 'print-setting' ||
+        <li class="dash-item dash-hasmenu {{ Request::route()->getName() == 'print.setting' ||
             Request::segment(1) == 'customer' || Request::segment(1) == 'vender' ||
             Request::segment(1) == 'proposal' || Request::segment(1) == 'bank-account' ||
             Request::segment(1) == 'bank-transfer' || Request::segment(1) == 'invoice' ||
@@ -33,55 +33,78 @@
                 </span><span class="dash-arrow"><i data-feather="chevron-right"></i></span>
             </a>
             <ul class="dash-submenu">
-                @if (Gate::check('manage bank account') || Gate::check('manage bank transfer'))
-                    <li></li>
-                @endif
                 @if (Gate::check('manage customer') ||
                         Gate::check('manage proposal') ||
                         Gate::check('manage invoice') ||
                         Gate::check('manage revenue') ||
                         Gate::check('manage credit note'))
-                    <li></li>
+                    <li class="dash-item {{ Request::segment(1) == 'customer' ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('customer.index') }}">{{ __('Customers') }}</a>
+                    </li>
                 @endif
+                
                 @if (Gate::check('manage vender') ||
                         Gate::check('manage bill') ||
                         Gate::check('manage payment') ||
                         Gate::check('manage debit note'))
-                    <li></li>
+                    <li class="dash-item {{ Request::segment(1) == 'vender' ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('vender.index') }}">{{ __('Vendors') }}</a>
+                    </li>
                 @endif
+                
+                @if (Gate::check('manage bank account') || Gate::check('manage bank transfer'))
+                    <li class="dash-item {{ Request::segment(1) == 'bank-account' ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('bank-account.index') }}">{{ __('Banking') }}</a>
+                    </li>
+                @endif
+                
                 @if (Gate::check('manage chart of account') ||
                         Gate::check('manage journal entry') ||
                         Gate::check('ledger report') ||
                         Gate::check('bill report') ||
                         Gate::check('income vs expense report') ||
                         Gate::check('trial balance report'))
-                    <li>
+                    <li class="dash-item dash-hasmenu {{ Request::segment(1) == 'chart-of-account' || Request::segment(1) == 'journal-entry' || Request::segment(2) == 'ledger' || Request::segment(2) == 'balance-sheet' || Request::segment(2) == 'trial-balance' || Request::segment(2) == 'profit-loss' ? 'active dash-trigger' : '' }}">
                         <a class="dash-link" href="#">{{ __('Double Entry') }}<span class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="dash-submenu">
+                            @if (Gate::check('manage chart of account'))
+                                <li class="dash-item {{ Request::segment(1) == 'chart-of-account' ? 'active' : '' }}">
+                                    <a class="dash-link" href="{{ route('chart-of-account.index') }}">{{ __('Chart of Accounts') }}</a>
+                                </li>
+                            @endif
+                            @if (Gate::check('manage journal entry'))
+                                <li class="dash-item {{ Request::segment(1) == 'journal-entry' ? 'active' : '' }}">
+                                    <a class="dash-link" href="{{ route('journal-entry.index') }}">{{ __('Journal Entry') }}</a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif
+                
                 @if (\Auth::user()->type == 'company')
                     <li class="dash-item {{ Request::segment(1) == 'budget' ? 'active' : '' }}">
-                        <a class="dash-link"></a>
+                        <a class="dash-link" href="{{ route('budget.index') }}">{{ __('Budget Planner') }}</a>
                     </li>
                 @endif
+                
                 @if (Gate::check('manage goal'))
                     <li class="dash-item {{ Request::segment(1) == 'goal' ? 'active' : '' }}">
-                        <a class="dash-link"></a>
+                        <a class="dash-link" href="{{ route('goal.index') }}">{{ __('Goals') }}</a>
                     </li>
                 @endif
+                
                 @if (Gate::check('manage constant tax') ||
                         Gate::check('manage constant category') ||
                         Gate::check('manage constant unit') ||
                         Gate::check('manage constant custom field'))
                     <li class="dash-item {{ Request::segment(1) == 'taxes' || Request::segment(1) == 'product-category' || Request::segment(1) == 'product-unit' || Request::segment(1) == 'payment-method' || Request::segment(1) == 'custom-field' || Request::segment(1) == 'chart-of-account-type' ? 'active dash-trigger' : '' }}">
-                        <a class="dash-link"></a>
+                        <a class="dash-link" href="{{ route('taxes.index') }}">{{ __('Accounting Setup') }}</a>
                     </li>
                 @endif
+                
                 @if (Gate::check('manage print settings'))
-                    <li class="dash-item {{ Request::route()->getName() == 'print-setting' ? ' active' : '' }}">
-                        <a class="dash-link"></a>
+                    <li class="dash-item {{ Request::route()->getName() == 'print.setting' ? ' active' : '' }}">
+                        <a class="dash-link" href="{{ route('print.setting') }}">{{ __('Print Settings') }}</a>
                     </li>
                 @endif
             </ul>

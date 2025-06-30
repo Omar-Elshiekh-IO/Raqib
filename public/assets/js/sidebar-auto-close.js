@@ -27,6 +27,44 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('Sidebar enhancements initialized (auto-open/close mode)');
         
+        // Function to hide empty menu items
+        function hideEmptyMenuItems() {
+            // Hide empty <li> elements
+            const emptyListItems = sidebar.querySelectorAll('li:empty');
+            emptyListItems.forEach(item => {
+                item.style.display = 'none';
+            });
+            
+            // Hide <li> elements with empty <a> tags (no text content or href)
+            const listItemsWithEmptyLinks = sidebar.querySelectorAll('li');
+            listItemsWithEmptyLinks.forEach(item => {
+                const link = item.querySelector('a.dash-link');
+                if (link && 
+                    (!link.textContent.trim() || link.textContent.trim() === '') && 
+                    (!link.getAttribute('href') || link.getAttribute('href') === '' || link.getAttribute('href') === '#')) {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Hide submenu containers that have no visible children
+            const submenus = sidebar.querySelectorAll('.dash-submenu');
+            submenus.forEach(submenu => {
+                const visibleChildren = Array.from(submenu.children).filter(child => {
+                    return window.getComputedStyle(child).display !== 'none';
+                });
+                
+                if (visibleChildren.length === 0) {
+                    const parentMenuItem = submenu.closest('.dash-item.dash-hasmenu');
+                    if (parentMenuItem) {
+                        parentMenuItem.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        // Clean up empty menu items after initialization
+        hideEmptyMenuItems();
+        
         // Function to close all open submenus
         function closeAllSubmenus() {
             const openMenus = sidebar.querySelectorAll('.dash-item.dash-trigger');
