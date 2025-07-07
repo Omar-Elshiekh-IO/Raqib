@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     
     <style>
@@ -43,6 +44,129 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        
+        [dir="rtl"] body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        /* RTL Support */
+        [dir="rtl"] .navbar-brand {
+            margin-left: 0;
+            margin-right: auto;
+        }
+        
+        [dir="rtl"] .navbar-nav {
+            margin-left: auto !important;
+            margin-right: 0 !important;
+        }
+        
+        [dir="rtl"] .hero-subtitle {
+            text-align: right;
+        }
+        
+        [dir="rtl"] .section-subtitle {
+            text-align: center;
+        }
+        
+        [dir="rtl"] .contact-info {
+            padding-left: 2rem;
+            padding-right: 0;
+        }
+        
+        [dir="rtl"] .about-content {
+            padding-left: 2rem;
+            padding-right: 0;
+        }
+        
+        [dir="rtl"] .mobile-feature-icon,
+        [dir="rtl"] .about-feature-icon {
+            margin-left: 1rem;
+            margin-right: 0;
+        }
+        
+        [dir="rtl"] .contact-icon {
+            margin-left: 1.5rem;
+            margin-right: 0;
+        }
+        
+        .language-switcher {
+            position: relative;
+            margin-left: 1rem;
+        }
+        
+        .language-dropdown {
+            background: white;
+            border: 2px solid var(--mountain-meadow);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            color: var(--mountain-meadow);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .language-dropdown:hover {
+            background: var(--mountain-meadow);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        .language-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 2px solid var(--mountain-meadow);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            display: none;
+            z-index: 1000;
+            margin-top: 0.5rem;
+        }
+        
+        .language-menu.show {
+            display: block;
+        }
+        
+        .language-item {
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        
+        .language-item:hover {
+            background: var(--bg-light);
+            color: var(--mountain-meadow);
+        }
+        
+        .language-item.active {
+            background: var(--mountain-meadow);
+            color: white;
+        }
+        
+        [dir="rtl"] .language-menu {
+            right: auto;
+            left: 0;
+        }
+        
+        [dir="rtl"] .language-item {
+            text-align: right;
         }
         
         .navbar {
@@ -1142,19 +1266,32 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
+                        <a class="nav-link" href="#features" data-translate="features">Features</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link" href="#about" data-translate="about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="#contact" data-translate="contact">Contact</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <div class="language-switcher">
+                            <button class="language-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="current-flag">🇺🇸</span>
+                                <span class="current-text">English</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu language-menu">
+                                <li><a class="dropdown-item lang-option" href="#" data-lang="en">🇺🇸 English</a></li>
+                                <li><a class="dropdown-item lang-option" href="#" data-lang="ar">🇸🇦 العربية</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item ms-3">
                         <a class="btn px-4 py-2" style="background-color: var(--mountain-meadow); color: white; border: 1px solid var(--mountain-meadow); border-radius: 25px; font-weight: 600; transition: all 0.3s ease;" 
                            onmouseover="this.style.backgroundColor='transparent'; this.style.color='var(--mountain-meadow)';" 
                            onmouseout="this.style.backgroundColor='var(--mountain-meadow)'; this.style.color='white';" 
-                           href="{{ route('login') }}">Login</a>
+                           href="{{ route('login') }}" data-translate="login">Login</a>
                     </li>
                 </ul>
             </div>
@@ -1167,13 +1304,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="hero-content">
-                        <h1 class="hero-title fade-in">Transform Your Business with Raqib</h1>
-                        <p class="hero-subtitle fade-in">A comprehensive HR/ERP solution that streamlines employee management, financial operations, project tracking, and client collaboration - all in one powerful platform.</p>
+                        <h1 class="hero-title fade-in" data-translate="heroTitle">Transform Your Business with Raqib</h1>
+                        <p class="hero-subtitle fade-in" data-translate="heroSubtitle">A comprehensive HR/ERP solution that streamlines employee management, financial operations, project tracking, and client collaboration - all in one powerful platform.</p>
                         <div class="d-flex gap-3 flex-wrap fade-in">
-                            <a href="{{ route('login') }}" class="btn btn-secondary-custom">
+                            <a href="{{ route('login') }}" class="btn btn-secondary-custom" data-translate="getStarted">
                                 <i class="fas fa-rocket me-2"></i>Get Started
                             </a>
-                            <a href="#features" class="btn btn-primary-custom">
+                            <a href="#features" class="btn btn-primary-custom" data-translate="features">
                                 <i class="fas fa-play me-2"></i>Learn More
                             </a>
                         </div>
@@ -1219,8 +1356,8 @@
     <!-- Features Section -->
     <section id="features" class="features-section">
         <div class="container">
-            <h2 class="section-title fade-in">Powerful Features for Modern Business</h2>
-            <p class="section-subtitle fade-in">Everything you need to manage your business operations efficiently and effectively</p>
+            <h2 class="section-title fade-in" data-translate="featuresTitle">Powerful Features for Modern Business</h2>
+            <p class="section-subtitle fade-in" data-translate="featuresSubtitle">Everything you need to manage your business operations efficiently and effectively</p>
             
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
@@ -1228,8 +1365,8 @@
                         <div class="feature-icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <h4>HR Management</h4>
-                        <p>Complete employee lifecycle management from recruitment to retirement with automated workflows and comprehensive reporting.</p>
+                        <h4 data-translate="hrManagement">HR Management</h4>
+                        <p data-translate="hrManagementDesc">Complete employee lifecycle management from recruitment to retirement with automated workflows and comprehensive reporting.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -1237,8 +1374,8 @@
                         <div class="feature-icon">
                             <i class="fas fa-chart-bar"></i>
                         </div>
-                        <h4>Financial Control</h4>
-                        <p>Track expenses, manage budgets, generate invoices, and maintain complete financial transparency across all operations.</p>
+                        <h4 data-translate="financialManagement">Financial Control</h4>
+                        <p data-translate="financialManagementDesc">Track expenses, manage budgets, generate invoices, and maintain complete financial transparency across all operations.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -1246,8 +1383,8 @@
                         <div class="feature-icon">
                             <i class="fas fa-tasks"></i>
                         </div>
-                        <h4>Project Management</h4>
-                        <p>Plan, execute, and monitor projects with advanced tracking, resource allocation, and team collaboration tools.</p>
+                        <h4 data-translate="projectManagement">Project Management</h4>
+                        <p data-translate="projectManagementDesc">Plan, execute, and monitor projects with advanced tracking, resource allocation, and team collaboration tools.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -1255,8 +1392,8 @@
                         <div class="feature-icon">
                             <i class="fas fa-handshake"></i>
                         </div>
-                        <h4>Client Collaboration</h4>
-                        <p>Seamless client communication, project sharing, and feedback collection to ensure exceptional service delivery.</p>
+                        <h4 data-translate="clientManagement">Client Collaboration</h4>
+                        <p data-translate="clientManagementDesc">Seamless client communication, project sharing, and feedback collection to ensure exceptional service delivery.</p>
                     </div>
                 </div>
             </div>
@@ -1269,8 +1406,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="mobile-app-content">
-                        <h2 class="section-title text-start fade-in">Take Raqib Anywhere</h2>
-                        <p class="section-subtitle text-start fade-in">Our powerful mobile application puts essential HR and business tools right in your pocket.</p>
+                        <h2 class="section-title text-start fade-in" data-translate="mobileAppTitle">Take Raqib Anywhere</h2>
+                        <p class="section-subtitle text-start fade-in" data-translate="mobileAppSubtitle">Our powerful mobile application puts essential HR and business tools right in your pocket.</p>
                         
                         <div class="mobile-features fade-in">
                             <div class="mobile-feature-item">
@@ -1278,8 +1415,8 @@
                                     <i class="fas fa-clock"></i>
                                 </div>
                                 <div class="mobile-feature-content">
-                                    <h5>Smart Attendance</h5>
-                                    <p>Clock in/out with GPS tracking, facial recognition, and automatic location detection for accurate attendance management.</p>
+                                    <h5 data-translate="mobileAppFeature1">Smart Attendance</h5>
+                                    <p data-translate="mobileAppFeature1Desc">Clock in/out with GPS tracking, facial recognition, and automatic location detection for accurate attendance management.</p>
                                 </div>
                             </div>
                             
@@ -1288,8 +1425,8 @@
                                     <i class="fas fa-calendar-alt"></i>
                                 </div>
                                 <div class="mobile-feature-content">
-                                    <h5>Leave Management</h5>
-                                    <p>Apply for leave, check balances, and track approval status directly from your mobile device.</p>
+                                    <h5 data-translate="mobileAppFeature2">Leave Management</h5>
+                                    <p data-translate="mobileAppFeature2Desc">Apply for leave, check balances, and track approval status directly from your mobile device.</p>
                                 </div>
                             </div>
                             
@@ -1298,8 +1435,8 @@
                                     <i class="fas fa-file-alt"></i>
                                 </div>
                                 <div class="mobile-feature-content">
-                                    <h5>Expense Tracking</h5>
-                                    <p>Capture receipts, submit expenses, and track reimbursements on the go with our intuitive mobile interface.</p>
+                                    <h5 data-translate="mobileAppFeature3">Expense Tracking</h5>
+                                    <p data-translate="mobileAppFeature3Desc">Capture receipts, submit expenses, and track reimbursements on the go with our intuitive mobile interface.</p>
                                 </div>
                             </div>
                             
@@ -1308,8 +1445,8 @@
                                     <i class="fas fa-bell"></i>
                                 </div>
                                 <div class="mobile-feature-content">
-                                    <h5>Real-time Notifications</h5>
-                                    <p>Stay updated with push notifications for approvals, deadlines, and important company announcements.</p>
+                                    <h5 data-translate="mobileAppFeature4">Real-time Notifications</h5>
+                                    <p data-translate="mobileAppFeature4Desc">Stay updated with push notifications for approvals, deadlines, and important company announcements.</p>
                                 </div>
                             </div>
                         </div>
@@ -1349,8 +1486,8 @@
                                 <div class="mobile-content">
                                     <div class="mobile-attendance-card">
                                         <div class="attendance-header">
-                                            <h6>Today's Attendance</h6>
-                                            <span class="attendance-date">Dec 15, 2024</span>
+                                            <h6 data-translate="attendanceTitle">Today's Attendance</h6>
+                                            <span class="attendance-date" data-translate="today">Dec 15, 2024</span>
                                         </div>
                                         <div class="attendance-status">
                                             <div class="attendance-time-block">
@@ -1359,7 +1496,7 @@
                                                         <i class="fas fa-sign-in-alt"></i>
                                                     </div>
                                                     <div class="time-info">
-                                                        <span class="time-label">Clock In</span>
+                                                        <span class="time-label" data-translate="clockIn">Clock In</span>
                                                         <span class="time-value">9:00 AM</span>
                                                     </div>
                                                 </div>
@@ -1372,7 +1509,7 @@
                                                         <i class="fas fa-sign-out-alt"></i>
                                                     </div>
                                                     <div class="time-info">
-                                                        <span class="time-label">Clock Out</span>
+                                                        <span class="time-label" data-translate="clockOut">Clock Out</span>
                                                         <button class="clock-out-btn">Tap to Clock Out</button>
                                                     </div>
                                                 </div>
@@ -1427,13 +1564,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="about-content">
-                        <h2 class="section-title text-start fade-in">About Raqib</h2>
-                        <p class="section-subtitle text-start fade-in">Empowering businesses with innovative HR/ERP solutions since 2020.</p>
+                        <h2 class="section-title text-start fade-in" data-translate="aboutTitle">About Raqib</h2>
+                        <p class="section-subtitle text-start fade-in" data-translate="aboutSubtitle">Empowering businesses with innovative HR/ERP solutions since 2020.</p>
                         
                         <div class="about-text fade-in">
-                            <p>Raqib was founded with a simple mission: to streamline business operations and empower organizations to focus on what matters most - their people and growth. Our comprehensive HR/ERP platform combines cutting-edge technology with intuitive design to deliver solutions that actually work.</p>
+                            <p data-translate="aboutDesc">Raqib was founded with a simple mission: to streamline business operations and empower organizations to focus on what matters most - their people and growth. Our comprehensive HR/ERP platform combines cutting-edge technology with intuitive design to deliver solutions that actually work.</p>
                             
-                            <p>With years of experience in enterprise software development, our team understands the challenges businesses face in managing complex operations. That's why we've built Raqib to be more than just software - it's a complete business transformation platform.</p>
+                            <p data-translate="aboutDesc2">With years of experience in enterprise software development, our team understands the challenges businesses face in managing complex operations. That's why we've built Raqib to be more than just software - it's a complete business transformation platform.</p>
                         </div>
                         
                         <div class="about-features fade-in">
@@ -1442,8 +1579,8 @@
                                     <i class="fas fa-shield-alt"></i>
                                 </div>
                                 <div class="about-feature-content">
-                                    <h5>Enterprise Security</h5>
-                                    <p>Bank-level encryption and security protocols to protect your sensitive business data.</p>
+                                    <h5 data-translate="modernTech">Enterprise Security</h5>
+                                    <p data-translate="modernTechDesc">Bank-level encryption and security protocols to protect your sensitive business data.</p>
                                 </div>
                             </div>
                             
@@ -1452,8 +1589,8 @@
                                     <i class="fas fa-cloud"></i>
                                 </div>
                                 <div class="about-feature-content">
-                                    <h5>Cloud-First Approach</h5>
-                                    <p>Access your data anywhere, anytime with our robust cloud infrastructure.</p>
+                                    <h5 data-translate="scalable">Cloud-First Approach</h5>
+                                    <p data-translate="scalableDesc">Access your data anywhere, anytime with our robust cloud infrastructure.</p>
                                 </div>
                             </div>
                             
@@ -1462,8 +1599,8 @@
                                     <i class="fas fa-users-cog"></i>
                                 </div>
                                 <div class="about-feature-content">
-                                    <h5>Expert Support</h5>
-                                    <p>Dedicated support team to help you maximize your investment in Raqib.</p>
+                                    <h5 data-translate="secure">Expert Support</h5>
+                                    <p data-translate="secureDesc">Dedicated support team to help you maximize your investment in Raqib.</p>
                                 </div>
                             </div>
                         </div>
@@ -1519,25 +1656,25 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="stat-item fade-in">
                         <div class="stat-number">500+</div>
-                        <div class="stat-label">Companies Trust Us</div>
+                        <div class="stat-label" data-translate="companiesTrust">Companies Trust Us</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="stat-item fade-in">
                         <div class="stat-number">10K+</div>
-                        <div class="stat-label">Active Users</div>
+                        <div class="stat-label" data-translate="activeUsers">Active Users</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="stat-item fade-in">
                         <div class="stat-number">99.9%</div>
-                        <div class="stat-label">Uptime</div>
+                        <div class="stat-label" data-translate="uptime">Uptime</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="stat-item fade-in">
                         <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support</div>
+                        <div class="stat-label" data-translate="support">Support</div>
                     </div>
                 </div>
             </div>
@@ -1547,10 +1684,10 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <h2 class="cta-title fade-in">Ready to Transform Your Business?</h2>
-            <p class="cta-subtitle fade-in">Join thousands of companies that have streamlined their operations with Raqib</p>
+            <h2 class="cta-title fade-in" data-translate="ctaTitle">Ready to Transform Your Business?</h2>
+            <p class="cta-subtitle fade-in" data-translate="ctaSubtitle">Join thousands of companies that have streamlined their operations with Raqib</p>
             <div class="fade-in">
-                <a href="{{ route('login') }}" class="btn btn-secondary-custom btn-lg">
+                <a href="{{ route('login') }}" class="btn btn-secondary-custom btn-lg" data-translate="ctaButton">
                     <i class="fas fa-rocket me-2"></i>Start Your Journey
                 </a>
             </div>
@@ -1563,8 +1700,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="contact-info">
-                        <h2 class="section-title text-start fade-in">Get in Touch</h2>
-                        <p class="section-subtitle text-start fade-in">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                        <h2 class="section-title text-start fade-in" data-translate="contactTitle">Get in Touch</h2>
+                        <p class="section-subtitle text-start fade-in" data-translate="contactSubtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
                         
                         <div class="contact-item fade-in">
                             <div class="contact-icon">
@@ -1658,12 +1795,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&copy; {{ date('Y') }} Raqib. All rights reserved.</p>
+                    <p>&copy; {{ date('Y') }} Raqib. <span data-translate="allRightsReserved">All rights reserved.</span></p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
-                    <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
-                    <a href="#contact">Support</a>
+                    <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#privacyModal" data-translate="privacyPolicy">Privacy Policy</a>
+                    <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#termsModal" data-translate="termsConditions">Terms of Service</a>
+                    <a href="#contact" data-translate="support">Support</a>
                 </div>
             </div>
         </div>
@@ -1838,6 +1975,300 @@
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             }, 2000);
+        });
+
+        // Language switching functionality
+        const translations = {
+            en: {
+                // Navigation
+                features: 'Features',
+                pricing: 'Pricing',
+                about: 'About',
+                contact: 'Contact',
+                login: 'Login',
+                getStarted: 'Get Started',
+                
+                // Hero Section
+                heroTitle: 'Modern HR/ERP Solution',
+                heroSubtitle: 'Streamline your business operations with our comprehensive management platform designed for efficiency and growth.',
+                
+                // Features Section
+                featuresTitle: 'Powerful Features',
+                featuresSubtitle: 'Everything you need to manage your business efficiently',
+                
+                // Feature Cards
+                hrManagement: 'HR Management',
+                hrManagementDesc: 'Complete employee lifecycle management with automated workflows and digital processes.',
+                
+                financialManagement: 'Financial Management',
+                financialManagementDesc: 'Comprehensive accounting and financial reporting tools for better business insights.',
+                
+                projectManagement: 'Project Management',
+                projectManagementDesc: 'Streamlined project tracking and collaboration tools for team productivity.',
+                
+                clientManagement: 'Client Management',
+                clientManagementDesc: 'Centralized client database with integrated communication and service tracking.',
+                
+                // Mobile App Section
+                mobileAppTitle: 'Take Raqib Anywhere',
+                mobileAppSubtitle: 'Our powerful mobile application puts essential HR and business tools right in your pocket.',
+                mobileAppFeature1: 'Smart Attendance',
+                mobileAppFeature1Desc: 'Clock in/out with GPS tracking, facial recognition, and automatic location detection for accurate attendance management.',
+                mobileAppFeature2: 'Leave Management',
+                mobileAppFeature2Desc: 'Apply for leave, check balances, and track approval status directly from your mobile device.',
+                mobileAppFeature3: 'Expense Tracking',
+                mobileAppFeature3Desc: 'Capture receipts, submit expenses, and track reimbursements on the go with our intuitive mobile interface.',
+                mobileAppFeature4: 'Real-time Notifications',
+                mobileAppFeature4Desc: 'Stay updated with push notifications for approvals, deadlines, and important company announcements.',
+                downloadApp: 'Download App',
+                
+                // Mobile UI
+                attendanceTitle: 'Today\'s Attendance',
+                today: 'Today',
+                clockIn: 'Clock In',
+                clockOut: 'Clock Out',
+                currentStatus: 'Current Status',
+                workingHours: 'Working Hours',
+                
+                // Stats
+                companiesTrust: 'Companies Trust Us',
+                activeUsers: 'Active Users',
+                uptime: 'Uptime',
+                support: 'Support',
+                
+                // CTA Section
+                ctaTitle: 'Ready to Transform Your Business?',
+                ctaSubtitle: 'Join thousands of companies that have streamlined their operations with Raqib',
+                ctaButton: 'Start Your Journey',
+                
+                // About Section
+                aboutTitle: 'About Raqib',
+                aboutSubtitle: 'Built with modern technology for tomorrow\'s businesses',
+                aboutDesc: 'Raqib is a comprehensive Laravel-based HR/ERP system designed to manage core business operations including employee lifecycle management, financial transactions, project management, and client collaboration.',
+                aboutDesc2: 'With years of experience in enterprise software development, our team understands the challenges businesses face in managing complex operations. That\'s why we\'ve built Raqib to be more than just software - it\'s a complete business transformation platform.',
+                
+                // About Features
+                modernTech: 'Enterprise Security',
+                modernTechDesc: 'Bank-level encryption and security protocols to protect your sensitive business data.',
+                
+                scalable: 'Cloud-First Approach',
+                scalableDesc: 'Access your data anywhere, anytime with our robust cloud infrastructure.',
+                
+                secure: 'Expert Support',
+                secureDesc: 'Dedicated support team to help you maximize your investment in Raqib.',
+                
+                // Contact Section
+                contactTitle: 'Get in Touch',
+                contactSubtitle: 'Ready to transform your business operations?',
+                firstName: 'First Name',
+                lastName: 'Last Name',
+                email: 'Email',
+                subject: 'Subject',
+                message: 'Message',
+                sendMessage: 'Send Message',
+                
+                // Footer
+                quickLinks: 'Quick Links',
+                resources: 'Resources',
+                support: 'Support',
+                allRightsReserved: 'All rights reserved.',
+                privacyPolicy: 'Privacy Policy',
+                termsConditions: 'Terms & Conditions',
+                documentation: 'Documentation',
+                apiReference: 'API Reference',
+                helpCenter: 'Help Center',
+                technicalSupport: 'Technical Support'
+            },
+            ar: {
+                // Navigation
+                features: 'الميزات',
+                pricing: 'التسعير',
+                about: 'حول',
+                contact: 'اتصل بنا',
+                login: 'تسجيل الدخول',
+                getStarted: 'ابدأ الآن',
+                
+                // Hero Section
+                heroTitle: 'حلول إدارة الموارد البشرية الحديثة',
+                heroSubtitle: 'بسّط عمليات عملك مع منصة الإدارة الشاملة المصممة للكفاءة والنمو.',
+                
+                // Features Section
+                featuresTitle: 'ميزات قوية',
+                featuresSubtitle: 'كل ما تحتاجه لإدارة عملك بكفاءة',
+                
+                // Feature Cards
+                hrManagement: 'إدارة الموارد البشرية',
+                hrManagementDesc: 'إدارة كاملة لدورة حياة الموظفين مع سير عمل آلي وعمليات رقمية.',
+                
+                financialManagement: 'الإدارة المالية',
+                financialManagementDesc: 'أدوات محاسبية شاملة وتقارير مالية لرؤى أفضل للأعمال.',
+                
+                projectManagement: 'إدارة المشاريع',
+                projectManagementDesc: 'أدوات مبسطة لتتبع المشاريع والتعاون لزيادة إنتاجية الفريق.',
+                
+                clientManagement: 'إدارة العملاء',
+                clientManagementDesc: 'قاعدة بيانات مركزية للعملاء مع التواصل المتكامل وتتبع الخدمات.',
+                
+                // Mobile App Section
+                mobileAppTitle: 'اصطحب رقيب معك',
+                mobileAppSubtitle: 'تطبيق الهاتف المحمول القوي يضع أدوات الموارد البشرية والأعمال الأساسية في متناول يدك.',
+                mobileAppFeature1: 'حضور ذكي',
+                mobileAppFeature1Desc: 'تسجيل الدخول/الخروج مع تتبع نظام تحديد المواقع العالمي وتقنية التعرف على الوجه والكشف التلقائي عن المواقع لإدارة الحضور بدقة.',
+                mobileAppFeature2: 'إدارة الإجازات',
+                mobileAppFeature2Desc: 'تقدم للحصول على إجازة، تحقق من الأرصدة، وتتبع حالة الموافقة مباشرة من جهازك المحمول.',
+                mobileAppFeature3: 'تتبع المصروفات',
+                mobileAppFeature3Desc: 'التقط الإيصالات، أرسل المصروفات، وتتبع المبالغ المستردة أثناء التنقل باستخدام واجهة الهاتف المحمول البديهية.',
+                mobileAppFeature4: 'إشعارات في الوقت الفعلي',
+                mobileAppFeature4Desc: 'ابق على اطلاع مع الإشعارات الفورية للموافقات والمواعيد النهائية والإعلانات المهمة للشركة.',
+                downloadApp: 'تحميل التطبيق',
+                
+                // Mobile UI
+                attendanceTitle: 'حضور اليوم',
+                today: 'اليوم',
+                clockIn: 'تسجيل الحضور',
+                clockOut: 'تسجيل الانصراف',
+                currentStatus: 'الحالة الحالية',
+                workingHours: 'ساعات العمل',
+                
+                // Stats
+                companiesTrust: 'الشركات التي تثق بنا',
+                activeUsers: 'المستخدمون النشطون',
+                uptime: 'وقت التشغيل',
+                support: 'الدعم',
+                
+                // CTA Section
+                ctaTitle: 'هل أنت مستعد لتحويل عملك؟',
+                ctaSubtitle: 'انضم إلى آلاف الشركات التي قامت بتبسيط عملياتها مع رقيب',
+                ctaButton: 'ابدأ رحلتك',
+                
+                // About Section
+                aboutTitle: 'حول رقيب',
+                aboutSubtitle: 'مبني بتقنية حديثة لأعمال المستقبل',
+                aboutDesc: 'رقيب هو نظام شامل لإدارة الموارد البشرية/تخطيط موارد المؤسسة مبني على Laravel مصمم لإدارة العمليات التجارية الأساسية بما في ذلك إدارة دورة حياة الموظفين والمعاملات المالية وإدارة المشاريع وتعاون العملاء.',
+                aboutDesc2: 'مع سنوات من الخبرة في تطوير برامج المؤسسات، يفهم فريقنا التحديات التي تواجهها الشركات في إدارة العمليات المعقدة. لهذا السبب قمنا ببناء رقيب ليكون أكثر من مجرد برنامج - إنه منصة تحول تجاري كاملة.',
+                
+                // About Features
+                modernTech: 'أمان المؤسسة',
+                modernTechDesc: 'تشفير على مستوى البنوك وبروتوكولات الأمان لحماية بيانات عملك الحساسة.',
+                
+                scalable: 'نهج الحوسبة السحابية',
+                scalableDesc: 'اصل إلى بياناتك في أي مكان وأي وقت مع بنيتنا السحابية القوية.',
+                
+                secure: 'دعم خبير',
+                secureDesc: 'فريق دعم مخصص لمساعدتك في تحقيق أقصى استفادة من استثمارك في رقيب.',
+                
+                // Contact Section
+                contactTitle: 'تواصل معنا',
+                contactSubtitle: 'مستعد لتحويل عمليات عملك؟',
+                firstName: 'الاسم الأول',
+                lastName: 'اسم العائلة',
+                email: 'البريد الإلكتروني',
+                subject: 'الموضوع',
+                message: 'الرسالة',
+                sendMessage: 'إرسال الرسالة',
+                
+                // Footer
+                quickLinks: 'روابط سريعة',
+                resources: 'الموارد',
+                support: 'الدعم',
+                allRightsReserved: 'جميع الحقوق محفوظة.',
+                privacyPolicy: 'سياسة الخصوصية',
+                termsConditions: 'الشروط والأحكام',
+                documentation: 'التوثيق',
+                apiReference: 'مرجع API',
+                helpCenter: 'مركز المساعدة',
+                technicalSupport: 'الدعم التقني'
+            }
+        };
+
+        // Current language state
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(currentLanguage);
+        });
+
+        // Language switching function
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            // Update HTML attributes
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update body class for font switching
+            document.body.classList.toggle('arabic', lang === 'ar');
+            
+            // Update language switcher display
+            updateLanguageSwitcher(lang);
+            
+            // Update all translatable elements
+            updateTranslations(lang);
+        }
+
+        // Update language switcher display
+        function updateLanguageSwitcher(lang) {
+            const currentFlag = document.querySelector('.language-switcher .current-flag');
+            const currentText = document.querySelector('.language-switcher .current-text');
+            
+            if (currentFlag && currentText) {
+                if (lang === 'en') {
+                    currentFlag.textContent = '🇺🇸';
+                    currentText.textContent = 'English';
+                } else {
+                    currentFlag.textContent = '🇸🇦';
+                    currentText.textContent = 'العربية';
+                }
+            }
+        }
+
+        // Update all translatable elements
+        function updateTranslations(lang) {
+            const t = translations[lang];
+            
+            // Update elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (t[key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = t[key];
+                    } else {
+                        element.textContent = t[key];
+                    }
+                }
+            });
+
+            // Update complex elements that need special handling
+            updateComplexElements(lang);
+        }
+
+        // Update complex elements with mixed content
+        function updateComplexElements(lang) {
+            const t = translations[lang];
+            
+            // Update send message button
+            const sendBtn = document.querySelector('.contact-form button[type="submit"]');
+            if (sendBtn && t.sendMessage) {
+                sendBtn.innerHTML = `<i class="fas fa-paper-plane me-2"></i>${t.sendMessage}`;
+            }
+
+            // Update download buttons
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            downloadBtns.forEach(btn => {
+                if (t.downloadApp) {
+                    btn.innerHTML = `<i class="fab fa-apple me-2"></i>${t.downloadApp}`;
+                }
+            });
+        }
+
+        // Language switcher click handlers
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.lang-option[data-lang]')) {
+                const lang = e.target.closest('.lang-option').getAttribute('data-lang');
+                setLanguage(lang);
+            }
         });
     </script>
 </body>
