@@ -515,25 +515,6 @@
                                         <div class="card h-100 mb-0">
                                             <div class="card-header p-3">
                                                 <h6 class="mb-0 d-flex align-items-center gap-2">
-                                                    <i class="ti ti-align-right"></i>{{ __('Landing Page') }}
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div
-                                                    class="form-check form-switch d-flex gap-2 justify-content-between flex-wrap p-0">
-                                                    <label class="form-check-label f-w-600"
-                                                        for="display_landing_page">{{ __('Enable Landing Page') }}</label>
-                                                    <input type="checkbox" name="display_landing_page"
-                                                        class="form-check-input mx-0" id="display_landing_page"
-                                                        {{ Utility::getValByName('display_landing_page') == 'on' ? 'checked' : '' }}>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-sm-6 col-12">
-                                        <div class="card h-100 mb-0">
-                                            <div class="card-header p-3">
-                                                <h6 class="mb-0 d-flex align-items-center gap-2">
                                                     <i class="ti ti-align-right"></i>{{ __('Enable Sign-Up Page') }}
                                                 </h6>
                                             </div>

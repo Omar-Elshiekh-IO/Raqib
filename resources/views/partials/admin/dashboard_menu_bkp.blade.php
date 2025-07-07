@@ -1579,10 +1579,6 @@
                     </a>
                 </li>
 
-                @if (\Auth::user()->type == 'super admin')
-                    @include('landingpage::menu.landingpage')
-                @endif
-
                 @if (Gate::check('manage system settings'))
                     <li
                         class="dash-item dash-hasmenu {{ Request::route()->getName() == 'systems.index' ? ' active' : '' }}">

@@ -321,7 +321,7 @@ Route::get('user-login/{id}', [UserController::class, 'LoginManage'])->name('use
 Route::get('/form/{code}', [FormBuilderController::class, 'formView'])->name('form.view') ;
 Route::post('/form_view_store', [FormBuilderController::class, 'formViewStore'])->name('form.view.store') ;
 
-Route::get('/', [DashboardController::class, 'landingpage'])->middleware([  'revalidate']);
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'revalidate']);
 
 
 // cache
@@ -1322,26 +1322,6 @@ Route::group(['middleware' => ['verified','XSS']], function () {
 
   Route::get('/contract/copy/{id}', [ContractController::class, 'copycontract'])->name('contract.copy')->middleware(['auth' ]);
   Route::post('contract/copy/store', [ContractController::class, 'copycontractstore'])->name('contract.copy.store')->middleware(['auth' ]);
-
-  // Custom Landing Page
-
-  //    Route::get('/landingpage', [LandingPageSectionController::class, 'index'])->name('custom_landing_page.index')->middleware(['auth' ]);
-  //    Route::get('/LandingPage/show/{id}', [LandingPageSectionController::class, 'show']);
-  //
-  //    Route::post('/LandingPage/setConetent', [LandingPageSectionController::class, 'setConetent'])->middleware(['auth' ]);
-  //
-  //
-  //    Route::get(
-  //        '/get_landing_page_section/{name}', function ($name) {
-  //        $plans = \DB::table('plans')->get();
-  //
-  //        return view('custom_landing_page.' . $name, compact('plans'));
-  //    }
-  //    );
-  //
-  //    Route::post('/LandingPage/removeSection/{id}', [LandingPageSectionController::class, 'removeSection'])->middleware(['auth' ]);
-  //    Route::post('/LandingPage/setOrder', [LandingPageSectionController::class, 'setOrder'])->middleware(['auth' ]);
-  //    Route::post('/LandingPage/copySection', [LandingPageSectionController::class, 'copySection'])->middleware(['auth' ]);
 
   // Plan Payment Gateways
   Route::post('plan-pay-with-bank', [BankTransferPaymentController::class, 'planPayWithBank'])->name('plan.pay.with.bank')->middleware(['auth' , 'revalidate']);

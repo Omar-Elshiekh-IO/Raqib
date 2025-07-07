@@ -58,23 +58,17 @@ class DashboardController extends Controller
 
     }
 
-
-    public function landingPage()
+    public function index()
     {
         if (!file_exists(storage_path() . "/installed")) {
             header('location:install');
             die;
         }
 
-        $adminSettings = Utility::settings();
-        if ($adminSettings['display_landing_page'] == 'on' && Schema::hasTable('landing_page_settings')) {
-
-            $lang = Utility::getValByName('default_language');
-            App::setLocale($lang ?? 'en');
-            return view('landingpage::layouts.landingpage' , compact('adminSettings'));
-
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
         } else {
-            return redirect('login');
+            return redirect()->route('login');
         }
     }
 
@@ -395,15 +389,7 @@ class DashboardController extends Controller
                 header('location:install');
                 die;
             } else {
-                $settings = Utility::settings();
-                if ($settings['display_landing_page'] == 'on') {
-                    $plans = Plan::get();
-
-                    return view('layouts.landing', compact('plans'));
-                } else {
-                    return redirect('login');
-                }
-
+                return redirect('login');
             }
         }
     }
