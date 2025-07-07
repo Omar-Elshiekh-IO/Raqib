@@ -696,6 +696,437 @@
                 height: 100px;
             }
         }
+        
+        .mobile-app-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        
+        .mobile-app-content {
+            text-align: left;
+        }
+        
+        .mobile-app-content h2 {
+            color: var(--blue-whale);
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-app-content p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        
+        .mobile-features {
+            margin-bottom: 2rem;
+        }
+        
+        .mobile-feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .mobile-feature-icon i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .mobile-feature-content h5 {
+            font-weight: 600;
+            color: var(--blue-whale);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .mobile-feature-content p {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .app-download-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .app-download-btn {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .app-download-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .app-download-btn img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .mobile-mockup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .mobile-mockup {
+            width: 100%;
+            max-width: 300px;
+            background: #1f2937;
+            border-radius: 30px;
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mobile-screen {
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            min-height: 600px;
+        }
+        
+        .mobile-header {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 1rem;
+        }
+        
+        .mobile-status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-time {
+            font-weight: 600;
+        }
+        
+        .mobile-indicators {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .mobile-app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mobile-app-header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .mobile-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-avatar {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .mobile-content {
+            padding: 1.5rem;
+        }
+        
+        .mobile-attendance-card {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .attendance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .attendance-header h6 {
+            margin: 0;
+            color: var(--blue-whale);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .attendance-date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .attendance-status {
+            margin-bottom: 1rem;
+        }
+        
+        .attendance-time-block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .time-entry {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .time-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .clock-in-icon {
+            background: var(--mountain-meadow);
+        }
+        
+        .clock-out-icon {
+            background: var(--salem);
+        }
+        
+        .time-info {
+            text-align: center;
+        }
+        
+        .time-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .time-value {
+            display: block;
+            font-size: 1rem;
+            color: var(--blue-whale);
+            font-weight: 600;
+        }
+        
+        .time-separator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            margin: 0 1rem;
+        }
+        
+        .separator-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--mountain-meadow), var(--salem));
+            border-radius: 1px;
+            position: relative;
+        }
+        
+        .separator-line::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -3px;
+            width: 8px;
+            height: 8px;
+            background: var(--salem);
+            border-radius: 50%;
+        }
+        
+        .work-duration {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            background: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        .clock-out-btn {
+            background: var(--salem);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(6, 140, 66, 0.3);
+        }
+        
+        .clock-out-btn:hover {
+            background: var(--mountain-meadow);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(6, 140, 66, 0.4);
+        }
+        
+        .attendance-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+        }
+        
+        .status-dot.active {
+            background: var(--mountain-meadow);
+            box-shadow: 0 0 0 2px rgba(30, 164, 108, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(30, 164, 108, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 6px rgba(30, 164, 108, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(30, 164, 108, 0);
+            }
+        }
+        
+        .mobile-quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .quick-action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-action-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quick-action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .leave-icon { background: var(--mountain-meadow); }
+        .expense-icon { background: var(--salem); }
+        .task-icon { background: var(--smalt-blue); }
+        .report-icon { background: var(--bali-hai); }
+        
+        .quick-action-item span {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-app-content {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            
+            .mobile-mockup {
+                max-width: 280px;
+            }
+            
+            .mobile-screen {
+                min-height: 500px;
+            }
+            
+            .app-download-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .mobile-mockup {
+                max-width: 260px;
+            }
+            
+            .mobile-screen {
+                min-height: 450px;
+            }
+            
+            .mobile-content {
+                padding: 1rem;
+            }
+            
+            .app-download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -826,6 +1257,164 @@
                         </div>
                         <h4>Client Collaboration</h4>
                         <p>Seamless client communication, project sharing, and feedback collection to ensure exceptional service delivery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Section -->
+    <section class="mobile-app-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="mobile-app-content">
+                        <h2 class="section-title text-start fade-in">Take Raqib Anywhere</h2>
+                        <p class="section-subtitle text-start fade-in">Our powerful mobile application puts essential HR and business tools right in your pocket.</p>
+                        
+                        <div class="mobile-features fade-in">
+                            <div class="mobile-feature-item">
+                                <div class="mobile-feature-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="mobile-feature-content">
+                                    <h5>Smart Attendance</h5>
+                                    <p>Clock in/out with GPS tracking, facial recognition, and automatic location detection for accurate attendance management.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mobile-feature-item">
+                                <div class="mobile-feature-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="mobile-feature-content">
+                                    <h5>Leave Management</h5>
+                                    <p>Apply for leave, check balances, and track approval status directly from your mobile device.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mobile-feature-item">
+                                <div class="mobile-feature-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="mobile-feature-content">
+                                    <h5>Expense Tracking</h5>
+                                    <p>Capture receipts, submit expenses, and track reimbursements on the go with our intuitive mobile interface.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mobile-feature-item">
+                                <div class="mobile-feature-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="mobile-feature-content">
+                                    <h5>Real-time Notifications</h5>
+                                    <p>Stay updated with push notifications for approvals, deadlines, and important company announcements.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="app-download-buttons fade-in">
+                            <a href="#" class="app-download-btn">
+                                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" height="50">
+                            </a>
+                            <a href="#" class="app-download-btn">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" height="50">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="mobile-mockup-container fade-in">
+                        <div class="mobile-mockup">
+                            <div class="mobile-screen">
+                                <div class="mobile-header">
+                                    <div class="mobile-status-bar">
+                                        <span class="mobile-time">9:41</span>
+                                        <div class="mobile-indicators">
+                                            <i class="fas fa-signal"></i>
+                                            <i class="fas fa-wifi"></i>
+                                            <i class="fas fa-battery-full"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mobile-app-header">
+                                        <h4>Raqib Mobile</h4>
+                                        <div class="mobile-profile">
+                                            <div class="mobile-avatar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mobile-content">
+                                    <div class="mobile-attendance-card">
+                                        <div class="attendance-header">
+                                            <h6>Today's Attendance</h6>
+                                            <span class="attendance-date">Dec 15, 2024</span>
+                                        </div>
+                                        <div class="attendance-status">
+                                            <div class="attendance-time-block">
+                                                <div class="time-entry">
+                                                    <div class="time-icon clock-in-icon">
+                                                        <i class="fas fa-sign-in-alt"></i>
+                                                    </div>
+                                                    <div class="time-info">
+                                                        <span class="time-label">Clock In</span>
+                                                        <span class="time-value">9:00 AM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="time-separator">
+                                                    <div class="separator-line"></div>
+                                                    <span class="work-duration">7h 45m</span>
+                                                </div>
+                                                <div class="time-entry">
+                                                    <div class="time-icon clock-out-icon">
+                                                        <i class="fas fa-sign-out-alt"></i>
+                                                    </div>
+                                                    <div class="time-info">
+                                                        <span class="time-label">Clock Out</span>
+                                                        <button class="clock-out-btn">Tap to Clock Out</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="attendance-footer">
+                                            <div class="status-indicator">
+                                                <div class="status-dot active"></div>
+                                                <span>Currently Working</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mobile-quick-actions">
+                                        <div class="quick-action-item">
+                                            <div class="quick-action-icon leave-icon">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </div>
+                                            <span>Leave</span>
+                                        </div>
+                                        <div class="quick-action-item">
+                                            <div class="quick-action-icon expense-icon">
+                                                <i class="fas fa-receipt"></i>
+                                            </div>
+                                            <span>Expense</span>
+                                        </div>
+                                        <div class="quick-action-item">
+                                            <div class="quick-action-icon task-icon">
+                                                <i class="fas fa-tasks"></i>
+                                            </div>
+                                            <span>Tasks</span>
+                                        </div>
+                                        <div class="quick-action-item">
+                                            <div class="quick-action-icon report-icon">
+                                                <i class="fas fa-chart-bar"></i>
+                                            </div>
+                                            <span>Reports</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
