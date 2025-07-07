@@ -64,29 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('🎉 Menu tests completed. Monitor console for any issues.');
         
-        // Add visual indicator
-        const indicator = document.createElement('div');
-        indicator.innerHTML = '🔧 Menu Fix Active';
-        indicator.style.cssText = `
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: #28a745;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            z-index: 9999;
-            font-family: Arial, sans-serif;
-        `;
-        document.body.appendChild(indicator);
-        
-        // Remove indicator after 5 seconds
-        setTimeout(() => {
-            if (indicator.parentNode) {
-                indicator.parentNode.removeChild(indicator);
-            }
-        }, 5000);
+        // Visual indicator removed to avoid UI clutter
     }
     
     // Monitor for menu issues
