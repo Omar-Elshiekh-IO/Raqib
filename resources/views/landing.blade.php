@@ -240,6 +240,225 @@
             margin-bottom: 2rem;
         }
         
+        .contact-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .contact-info {
+            padding-right: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .contact-details h5 {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-details p {
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .contact-form {
+            background: var(--bg-light);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .form-control {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+            outline: none;
+        }
+        
+        .btn-primary-custom.btn-lg {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            background: var(--bg-gradient);
+            border: none;
+            color: white;
+        }
+        
+        .btn-primary-custom.btn-lg:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .about-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        
+        .about-content {
+            padding-right: 2rem;
+        }
+        
+        .about-text {
+            margin-bottom: 2rem;
+        }
+        
+        .about-text p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-features {
+            margin-top: 2rem;
+        }
+        
+        .about-feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .about-feature-icon i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .about-feature-content h5 {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .about-feature-content p {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .about-image-container {
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .about-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .about-card-header h6 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .about-card-content p {
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .about-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .about-stat {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+        }
+        
+        .about-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+        
+        .about-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
         .footer {
             background: var(--text-dark);
             color: white;
@@ -283,6 +502,25 @@
             
             .hero-section {
                 padding: 100px 0 60px 0;
+            }
+            
+            .contact-info {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+            
+            .about-content {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .about-stats {
+                flex-direction: column;
+                gap: 0.5rem;
             }
         }
         
@@ -570,6 +808,97 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <h2 class="section-title text-start fade-in">About Raqib</h2>
+                        <p class="section-subtitle text-start fade-in">Empowering businesses with innovative HR/ERP solutions since 2020.</p>
+                        
+                        <div class="about-text fade-in">
+                            <p>Raqib was founded with a simple mission: to streamline business operations and empower organizations to focus on what matters most - their people and growth. Our comprehensive HR/ERP platform combines cutting-edge technology with intuitive design to deliver solutions that actually work.</p>
+                            
+                            <p>With years of experience in enterprise software development, our team understands the challenges businesses face in managing complex operations. That's why we've built Raqib to be more than just software - it's a complete business transformation platform.</p>
+                        </div>
+                        
+                        <div class="about-features fade-in">
+                            <div class="about-feature-item">
+                                <div class="about-feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="about-feature-content">
+                                    <h5>Enterprise Security</h5>
+                                    <p>Bank-level encryption and security protocols to protect your sensitive business data.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about-feature-item">
+                                <div class="about-feature-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="about-feature-content">
+                                    <h5>Cloud-First Approach</h5>
+                                    <p>Access your data anywhere, anytime with our robust cloud infrastructure.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about-feature-item">
+                                <div class="about-feature-icon">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                                <div class="about-feature-content">
+                                    <h5>Expert Support</h5>
+                                    <p>Dedicated support team to help you maximize your investment in Raqib.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="about-image fade-in">
+                        <div class="about-image-container">
+                            <div class="about-card">
+                                <div class="about-card-header">
+                                    <h6>Our Mission</h6>
+                                </div>
+                                <div class="about-card-content">
+                                    <p>To revolutionize how businesses manage their operations by providing intuitive, powerful, and scalable solutions that grow with your organization.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about-card">
+                                <div class="about-card-header">
+                                    <h6>Our Vision</h6>
+                                </div>
+                                <div class="about-card-content">
+                                    <p>To become the world's most trusted business management platform, empowering organizations of all sizes to achieve their full potential.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about-stats">
+                                <div class="about-stat">
+                                    <div class="about-stat-number">5+</div>
+                                    <div class="about-stat-label">Years Experience</div>
+                                </div>
+                                <div class="about-stat">
+                                    <div class="about-stat-number">50+</div>
+                                    <div class="about-stat-label">Team Members</div>
+                                </div>
+                                <div class="about-stat">
+                                    <div class="about-stat-number">99.9%</div>
+                                    <div class="about-stat-label">Satisfaction Rate</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Stats Section -->
     <section class="stats-section">
         <div class="container">
@@ -615,6 +944,102 @@
         </div>
     </section>
 
+    <!-- Contact Us Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact-info">
+                        <h2 class="section-title text-start fade-in">Get in Touch</h2>
+                        <p class="section-subtitle text-start fade-in">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                        
+                        <div class="contact-item fade-in">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Office Address</h5>
+                                <p>123 Business District<br>Technology Park, Suite 400<br>Your City, State 12345</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item fade-in">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Phone Number</h5>
+                                <p>+1 (555) 123-4567<br>Mon - Fri, 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item fade-in">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Email Address</h5>
+                                <p>support@raqib.com<br>sales@raqib.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="contact-form fade-in">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company">Company Name</label>
+                                <input type="text" class="form-control" id="company">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select class="form-control" id="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="demo">Request Demo</option>
+                                    <option value="pricing">Pricing Inquiry</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -623,13 +1048,95 @@
                     <p>&copy; {{ date('Y') }} Raqib. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="#" class="me-3">Privacy Policy</a>
-                    <a href="#" class="me-3">Terms of Service</a>
-                    <a href="#">Support</a>
+                    <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
+                    <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
+                    <a href="#contact">Support</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="privacy-content">
+                        <h6>1. Information We Collect</h6>
+                        <p>We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support. This may include your name, email address, company information, and usage data.</p>
+                        
+                        <h6>2. How We Use Your Information</h6>
+                        <p>We use the information we collect to provide, maintain, and improve our services, process transactions, send technical notices and support messages, and communicate with you about products and services.</p>
+                        
+                        <h6>3. Information Sharing</h6>
+                        <p>We do not sell, trade, or rent your personal information to third parties. We may share your information only in specific circumstances such as with your consent, for legal compliance, or to protect our rights.</p>
+                        
+                        <h6>4. Data Security</h6>
+                        <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+                        
+                        <h6>5. Data Retention</h6>
+                        <p>We retain your information for as long as necessary to provide our services and fulfill the purposes outlined in this policy, unless a longer retention period is required by law.</p>
+                        
+                        <h6>6. Your Rights</h6>
+                        <p>You have the right to access, update, or delete your personal information. You may also opt out of certain communications from us.</p>
+                        
+                        <h6>7. Contact Us</h6>
+                        <p>If you have any questions about this Privacy Policy, please contact us at privacy@raqib.com or through our contact form.</p>
+                        
+                        <p class="text-muted mt-4"><small>Last updated: {{ date('F Y') }}</small></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms of Service</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="terms-content">
+                        <h6>1. Acceptance of Terms</h6>
+                        <p>By accessing and using Raqib services, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                        
+                        <h6>2. Use License</h6>
+                        <p>Permission is granted to temporarily use Raqib for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.</p>
+                        
+                        <h6>3. Service Availability</h6>
+                        <p>We strive to maintain high availability of our services but cannot guarantee 100% uptime. We reserve the right to modify or discontinue services with notice.</p>
+                        
+                        <h6>4. User Responsibilities</h6>
+                        <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+                        
+                        <h6>5. Prohibited Uses</h6>
+                        <p>You may not use our services for any illegal purpose or to violate any laws, including but not limited to copyright laws and privacy regulations.</p>
+                        
+                        <h6>6. Limitation of Liability</h6>
+                        <p>Raqib shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the service.</p>
+                        
+                        <h6>7. Governing Law</h6>
+                        <p>These terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.</p>
+                        
+                        <p class="text-muted mt-4"><small>Last updated: {{ date('F Y') }}</small></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -666,7 +1173,23 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const targetId = this.getAttribute('href').substring(1);
+                
+                // Handle modal links
+                if (targetId === 'privacy') {
+                    const privacyModal = new bootstrap.Modal(document.getElementById('privacyModal'));
+                    privacyModal.show();
+                    return;
+                }
+                
+                if (targetId === 'terms') {
+                    const termsModal = new bootstrap.Modal(document.getElementById('termsModal'));
+                    termsModal.show();
+                    return;
+                }
+                
+                // Handle regular scroll links
+                const target = document.getElementById(targetId);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -674,6 +1197,34 @@
                     });
                 }
             });
+        });
+
+        // Contact form handling
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.firstName || !data.lastName || !data.email || !data.subject || !data.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for your message! We\'ll get back to you soon.');
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
         });
     </script>
 </body>
