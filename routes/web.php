@@ -321,7 +321,7 @@ Route::get('user-login/{id}', [UserController::class, 'LoginManage'])->name('use
 Route::get('/form/{code}', [FormBuilderController::class, 'formView'])->name('form.view') ;
 Route::post('/form_view_store', [FormBuilderController::class, 'formViewStore'])->name('form.view.store') ;
 
-Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'revalidate']);
+Route::get('/', [DashboardController::class, 'index'])->middleware(['revalidate']);
 
 
 // cache
