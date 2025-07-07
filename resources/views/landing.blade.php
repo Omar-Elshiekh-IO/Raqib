@@ -504,6 +504,10 @@
                 padding: 100px 0 60px 0;
             }
             
+            .hero-content .d-flex {
+                padding-bottom: 3rem;
+            }
+            
             .contact-info {
                 padding-right: 0;
                 margin-bottom: 2rem;
