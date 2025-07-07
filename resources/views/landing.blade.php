@@ -17,13 +17,20 @@
     
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #3b82f6;
+            --primary-color: #042949;
+            --secondary-color: #1ea46c;
+            --accent-color: #068c42;
             --text-dark: #1f2937;
-            --text-light: #6b7280;
+            --text-light: #59788d;
             --bg-light: #f8fafc;
-            --bg-gradient: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            --bg-gradient: linear-gradient(135deg, #042949 0%, #1ea46c 100%);
+            --mountain-meadow: #1ea46c;
+            --blue-whale: #042949;
+            --jet-stream: #aecdc4;
+            --salem: #068c42;
+            --smalt-blue: #59788d;
+            --bali-hai: #7a94ae;
+            --monte-carlo: #7cccbc;
         }
         
         * {
@@ -55,7 +62,7 @@
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--primary-color) !important;
+            color: var(--blue-whale) !important;
             display: flex;
             align-items: center;
             padding: 0.5rem 0;
@@ -89,7 +96,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(59,130,246,0.15)"/><stop offset="100%" style="stop-color:rgba(16,185,129,0.05)"/></radialGradient><radialGradient id="b" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(16,185,129,0.15)"/><stop offset="100%" style="stop-color:rgba(59,130,246,0.05)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23b)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>') center/cover;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(4,41,73,0.15)"/><stop offset="100%" style="stop-color:rgba(30,164,108,0.05)"/></radialGradient><radialGradient id="b" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(30,164,108,0.15)"/><stop offset="100%" style="stop-color:rgba(4,41,73,0.05)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23b)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>') center/cover;
             opacity: 0.6;
         }
         
@@ -134,7 +141,7 @@
         .btn-secondary-custom {
             background: white;
             border: 2px solid white;
-            color: var(--primary-color);
+            color: var(--blue-whale);
             padding: 12px 30px;
             border-radius: 50px;
             font-weight: 600;
@@ -201,7 +208,7 @@
         
         .stats-section {
             padding: 80px 0;
-            background: var(--primary-color);
+            background: var(--blue-whale);
             color: white;
         }
         
@@ -321,8 +328,8 @@
         }
         
         .form-control:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+            border-color: var(--mountain-meadow);
+            box-shadow: 0 0 0 0.2rem rgba(30, 164, 108, 0.25);
             outline: none;
         }
         
@@ -336,7 +343,7 @@
         
         .btn-primary-custom.btn-lg:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 25px rgba(4, 41, 73, 0.3);
         }
         
         .about-section {
@@ -420,7 +427,7 @@
         
         .about-card-header h6 {
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--blue-whale);
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
@@ -449,7 +456,7 @@
         .about-stat-number {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--blue-whale);
             margin-bottom: 0.25rem;
         }
         
@@ -467,7 +474,7 @@
         }
         
         .footer a {
-            color: var(--accent-color);
+            color: var(--mountain-meadow);
             text-decoration: none;
         }
         
@@ -713,7 +720,10 @@
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="btn btn-primary px-4 py-2" href="{{ route('login') }}">Login</a>
+                        <a class="btn px-4 py-2" style="background-color: var(--mountain-meadow); color: white; border: 1px solid var(--mountain-meadow); border-radius: 25px; font-weight: 600; transition: all 0.3s ease;" 
+                           onmouseover="this.style.backgroundColor='transparent'; this.style.color='var(--mountain-meadow)';" 
+                           onmouseout="this.style.backgroundColor='var(--mountain-meadow)'; this.style.color='white';" 
+                           href="{{ route('login') }}">Login</a>
                     </li>
                 </ul>
             </div>
