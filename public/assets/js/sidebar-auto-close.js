@@ -1,7 +1,7 @@
 /**
- * Sidebar Auto-Close and Auto-Open Submenu Enhancement
- * Automatically opens submenus on hover and closes them when sidebar collapses
- * NON-INVASIVE: Does not interfere with original menu functionality
+ * Sidebar Auto-Close Enhancement
+ * Automatically closes open submenus when sidebar collapses
+ * COMPLETELY NON-INVASIVE: Only handles auto-close functionality, preserves all original menu behavior
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!sidebar) return;
     
-    // Inject custom submenu styles
+    // Inject custom styles for better submenu appearance
     injectCustomSubmenuStyles();
     
     // Wait for original menu system to fully initialize and load dynamic content
     setTimeout(() => {
         initializeSidebarEnhancements();
-    }, 3000); // Increased delay to ensure all dynamic content loads
+    }, 1000); // Reduced delay for faster initialization
     
     function injectCustomSubmenuStyles() {
         // Check if custom styles are already injected
@@ -182,6 +182,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     display: block !important;
                     animation: none !important;
                 }
+                
+                /* Ensure original submenu functionality is preserved */
+                .dash-sidebar .dash-submenu {
+                    display: none;
+                }
+                
+                .dash-sidebar .dash-hasmenu.dash-trigger .dash-submenu {
+                    display: block !important;
+                }
 
                 @keyframes slideDownFadeIn {
                     from {
@@ -234,6 +243,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 .dash-sidebar .dash-submenu .dash-item > .dash-link {
                     transition: none !important;
                 }
+                
+                /* Ensure submenus work properly with original functionality */
+                .dash-sidebar .dash-submenu {
+                    display: none !important;
+                }
+                
+                .dash-sidebar .dash-hasmenu.dash-trigger > .dash-submenu {
+                    display: block !important;
+                }
             </style>
         `;
         
@@ -251,8 +269,80 @@ document.addEventListener('DOMContentLoaded', function() {
         let isHovered = false;
         let collapseTimeout = null;
         let submenuHoverTimeout = null;
+        let menuClickTimeout = null;
         
-        console.log('Sidebar enhancements initialized (auto-open/close mode)');
+        console.log('Sidebar enhancements initialized - fixing submenu timing issues');
+        
+        // Add debounced click handling to prevent rapid menu toggling
+        function debounceMenuClicks() {
+            const menuItems = sidebar.querySelectorAll('.dash-item.dash-hasmenu > .dash-link');
+            
+            menuItems.forEach(menuItem => {
+                const originalClickHandler = menuItem.onclick;
+                
+                menuItem.addEventListener('click', function(event) {
+                    // Prevent rapid clicking
+                    if (menuClickTimeout) {
+                        return;
+                    }
+                    
+                    menuClickTimeout = setTimeout(() => {
+                        menuClickTimeout = null;
+                    }, 300); // 300ms debounce
+                    
+                    // Let the original handler process
+                    setTimeout(() => {
+                        // Additional check to ensure submenu state is stable
+                        const parentItem = this.parentNode;
+                        if (parentItem.classList.contains('dash-trigger')) {
+                            const submenu = parentItem.querySelector('.dash-submenu');
+                            if (submenu) {
+                                submenu.style.display = 'block';
+                            }
+                        }
+                    }, 50);
+                });
+            });
+        }
+        
+        // Fix timing issues with submenu animations
+        function fixSubmenuTiming() {
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const target = mutation.target;
+                        if (target.classList.contains('dash-hasmenu')) {
+                            const submenu = target.querySelector('.dash-submenu');
+                            if (submenu) {
+                                if (target.classList.contains('dash-trigger')) {
+                                    // Ensure submenu is properly visible
+                                    setTimeout(() => {
+                                        submenu.style.display = 'block';
+                                        submenu.style.opacity = '1';
+                                    }, 10);
+                                } else {
+                                    // Add slight delay before hiding to prevent flickering
+                                    setTimeout(() => {
+                                        if (!target.classList.contains('dash-trigger')) {
+                                            submenu.style.display = 'none';
+                                        }
+                                    }, 250);
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            
+            const menuItems = sidebar.querySelectorAll('.dash-item.dash-hasmenu');
+            menuItems.forEach(item => {
+                observer.observe(item, { attributes: true, attributeFilter: ['class'] });
+            });
+        }
+        
+        // Initialize fixes
+        debounceMenuClicks();
+        fixSubmenuTiming();
         
         // Function to hide empty menu items
         function hideEmptyMenuItems() {
@@ -289,136 +379,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Clean up empty menu items after initialization
-        hideEmptyMenuItems();
+        // Don't hide empty menu items - let original menu system handle it
+        // hideEmptyMenuItems();
         
-        // Function to close all open submenus
+        // Function to close all open submenus (only remove trigger class)
         function closeAllSubmenus() {
             const openMenus = sidebar.querySelectorAll('.dash-item.dash-trigger');
             openMenus.forEach(menu => {
                 menu.classList.remove('dash-trigger');
-                const submenu = menu.querySelector('.dash-submenu');
-                if (submenu) {
-                    // Use existing slideUp if available, otherwise just hide
-                    if (typeof slideUp === 'function') {
-                        slideUp(submenu, 200);
-                    } else {
-                        submenu.style.display = 'none';
-                    }
-                    
-                    // Handle nested submenus
-                    const nestedMenus = submenu.querySelectorAll('.dash-item.dash-trigger');
-                    nestedMenus.forEach(nested => {
-                        nested.classList.remove('dash-trigger');
-                        const nestedSubmenu = nested.querySelector('.dash-submenu');
-                        if (nestedSubmenu) {
-                            if (typeof slideUp === 'function') {
-                                slideUp(nestedSubmenu, 200);
-                            } else {
-                                nestedSubmenu.style.display = 'none';
-                            }
-                        }
-                    });
-                }
             });
         }
         
-        // Function to open a specific submenu
-        function openSubmenu(menuItem) {
-            if (!menuItem.classList.contains('dash-hasmenu')) return;
-            
-            menuItem.classList.add('dash-trigger');
-            const submenu = menuItem.querySelector('.dash-submenu');
-            if (submenu) {
-                // Use existing slideDown if available, otherwise just show
-                if (typeof slideDown === 'function') {
-                    slideDown(submenu, 200);
-                } else {
-                    submenu.style.display = 'block';
-                }
-            }
-        }
-        
-        // Function to close a specific submenu
-        function closeSubmenu(menuItem) {
-            menuItem.classList.remove('dash-trigger');
-            const submenu = menuItem.querySelector('.dash-submenu');
-            if (submenu) {
-                // Use existing slideUp if available, otherwise just hide
-                if (typeof slideUp === 'function') {
-                    slideUp(submenu, 200);
-                } else {
-                    submenu.style.display = 'none';
-                }
-                
-                // Also close nested submenus
-                const nestedMenus = submenu.querySelectorAll('.dash-item.dash-trigger');
-                nestedMenus.forEach(nested => {
-                    closeSubmenu(nested);
-                });
-            }
-        }
-        
-        // Function to restore submenu states when expanding
-        function restoreSubmenuStates() {
-            const activeMenus = sidebar.querySelectorAll('.dash-item.active');
-            activeMenus.forEach(menu => {
-                let parent = menu.closest('.dash-item.dash-hasmenu');
-                while (parent) {
-                    openSubmenu(parent);
-                    // Check for parent menu items
-                    parent = parent.parentElement.closest('.dash-item.dash-hasmenu');
-                }
-            });
-        }
-        
-        // Add hover listeners to menu items with submenus
-        const menuItems = sidebar.querySelectorAll('.dash-item.dash-hasmenu');
-        menuItems.forEach(menuItem => {
-            let hoverTimeout = null;
-            
-            menuItem.addEventListener('mouseenter', function(e) {
-                // Only trigger if sidebar is expanded (hoverable)
-                if (!sidebar.matches(':hover')) return;
-                
-                // Clear any pending timeout
-                if (hoverTimeout) {
-                    clearTimeout(hoverTimeout);
-                    hoverTimeout = null;
-                }
-                
-                // Small delay to prevent accidental opens
-                hoverTimeout = setTimeout(() => {
-                    if (sidebar.matches(':hover') && menuItem.matches(':hover')) {
-                        openSubmenu(menuItem);
-                    }
-                }, 150);
-            });
-            
-            menuItem.addEventListener('mouseleave', function(e) {
-                // Clear hover timeout
-                if (hoverTimeout) {
-                    clearTimeout(hoverTimeout);
-                    hoverTimeout = null;
-                }
-                
-                // Don't close if moving to submenu
-                const relatedTarget = e.relatedTarget;
-                if (relatedTarget && 
-                    (this.contains(relatedTarget) || 
-                     relatedTarget.closest('.dash-submenu') === this.querySelector('.dash-submenu'))) {
-                    return;
-                }
-                
-                // Small delay before closing to allow navigation
-                setTimeout(() => {
-                    if (!menuItem.matches(':hover') && 
-                        !menuItem.querySelector('.dash-submenu:hover')) {
-                        closeSubmenu(menuItem);
-                    }
-                }, 200);
-            });
-        });
+        // Don't restore submenu states - let original menu system handle it
+        // function restoreActiveSubmenuStates() removed to avoid interference
         
         // Monitor when sidebar enters hover state (expands)
         sidebar.addEventListener('mouseenter', function() {
@@ -434,76 +407,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 submenuHoverTimeout = null;
             }
             
-            // Small delay to ensure CSS transitions complete
-            setTimeout(() => {
-                if (isHovered) {
-                    restoreSubmenuStates();
-                }
-            }, 150);
+            // Don't restore submenu states - let original menu system handle it
+            // setTimeout(() => {
+            //     if (isHovered) {
+            //         restoreActiveSubmenuStates();
+            //     }
+            // }, 150);
         });
         
         // Monitor when sidebar leaves hover state (collapses)
         sidebar.addEventListener('mouseleave', function() {
             isHovered = false;
             
-            // Add a delay before closing to allow user to navigate
+            // Add a delay before closing to allow user to navigate back
             collapseTimeout = setTimeout(() => {
                 if (!isHovered && !sidebar.matches(':hover')) {
                     closeAllSubmenus();
                 }
-            }, 300);
-        });
-        
-        // Prevent submenus from closing when hovering over them
-        const allSubmenus = sidebar.querySelectorAll('.dash-submenu');
-        allSubmenus.forEach(submenu => {
-            submenu.addEventListener('mouseenter', function() {
-                // Clear any pending collapse timeout when hovering over submenus
-                if (collapseTimeout) {
-                    clearTimeout(collapseTimeout);
-                    collapseTimeout = null;
-                }
-                if (submenuHoverTimeout) {
-                    clearTimeout(submenuHoverTimeout);
-                    submenuHoverTimeout = null;
-                }
-            });
-            
-            submenu.addEventListener('mouseleave', function(e) {
-                // Check if we're moving to another submenu or staying within sidebar
-                const relatedTarget = e.relatedTarget;
-                
-                // Don't start timer if moving to nested elements or staying in sidebar
-                if (!relatedTarget ||
-                    (!this.contains(relatedTarget) &&
-                     !relatedTarget.closest('.dash-submenu') &&
-                     !relatedTarget.closest('.dash-item.dash-hasmenu') &&
-                     !sidebar.contains(relatedTarget))) {
-                    
-                    // Only start collapse timer if we're truly leaving the sidebar area
-                    submenuHoverTimeout = setTimeout(() => {
-                        if (!isHovered && !sidebar.matches(':hover')) {
-                            closeAllSubmenus();
-                        }
-                    }, 300);
-                }
-            });
+            }, 500); // Increased delay to 500ms for better UX
         });
         
         // Handle window resize to ensure proper behavior
         window.addEventListener('resize', function() {
             if (window.innerWidth <= 1024) {
-                // On mobile, remove hover-based auto-close
+                // On mobile, don't auto-close menus
                 isHovered = true;
             }
         });
         
-        // Initialize hover state
+        // Initialize hover state (don't restore submenu states)
         if (sidebar.matches(':hover')) {
             isHovered = true;
-            restoreSubmenuStates();
+            // Don't restore submenu states - let original menu system handle it
+            // setTimeout(() => {
+            //     restoreActiveSubmenuStates();
+            // }, 100);
         }
         
-        console.log('Sidebar auto-open/close ready');
+        console.log('Sidebar auto-close ready (minimal mode - only removes trigger class on sidebar leave)');
     }
 });
