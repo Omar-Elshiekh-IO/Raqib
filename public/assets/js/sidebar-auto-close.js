@@ -9,10 +9,237 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!sidebar) return;
     
+    // Inject custom submenu styles
+    injectCustomSubmenuStyles();
+    
     // Wait for original menu system to fully initialize and load dynamic content
     setTimeout(() => {
         initializeSidebarEnhancements();
     }, 3000); // Increased delay to ensure all dynamic content loads
+    
+    function injectCustomSubmenuStyles() {
+        // Check if custom styles are already injected
+        if (document.getElementById('custom-submenu-styles')) {
+            return;
+        }
+        
+        const customStyles = `
+            <style id="custom-submenu-styles">
+                /* Enhanced Submenu UI/UX - Clean with Better Spacing */
+                .dash-sidebar .dash-submenu .dash-item:hover > .dash-link {
+                    background: rgba(0, 0, 0, 0.03) !important;
+                    color: inherit !important;
+                    border-radius: 6px !important;
+                    padding: 8px 16px 8px 45px !important;
+                    margin: 2px 12px !important;
+                    transition: all 0.2s ease !important;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+                    transform: translateX(2px) !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-item.active > .dash-link {
+                    background: rgba(81, 69, 157, 0.08) !important;
+                    color: #51459d !important;
+                    border-radius: 6px !important;
+                    padding: 8px 16px 8px 45px !important;
+                    margin: 2px 12px !important;
+                    box-shadow: 0 2px 4px rgba(81, 69, 157, 0.1) !important;
+                    font-weight: 500 !important;
+                    transform: translateX(3px) !important;
+                    border-left: 3px solid #51459d !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-item > .dash-link {
+                    background: transparent !important;
+                    color: #6c757d !important;
+                    border-radius: 6px !important;
+                    padding: 8px 16px 8px 45px !important;
+                    margin: 2px 12px !important;
+                    transition: all 0.2s ease !important;
+                    font-size: 13px !important;
+                    position: relative !important;
+                    overflow: visible !important;
+                    line-height: 1.4 !important;
+                }
+
+                .dash-sidebar .dash-submenu {
+                    background: rgba(248, 249, 253, 0.6) !important;
+                    border-radius: 8px !important;
+                    padding: 6px 0 !important;
+                    margin: 8px 8px 8px 16px !important;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+                    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+                    backdrop-filter: blur(10px) !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-item:before {
+                    content: "•" !important;
+                    position: absolute !important;
+                    left: 28px !important;
+                    top: 10px !important;
+                    width: auto !important;
+                    height: auto !important;
+                    border: none !important;
+                    border-right-color: transparent !important;
+                    border-radius: 0 !important;
+                    z-index: 1 !important;
+                    transform: none !important;
+                    transition: all 0.2s ease !important;
+                    color: #cbd5e0 !important;
+                    font-size: 16px !important;
+                    line-height: 1 !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-item:hover:before {
+                    color: #51459d !important;
+                    transform: scale(1.2) !important;
+                    box-shadow: none !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-item.active:before {
+                    color: #51459d !important;
+                    transform: scale(1.3) !important;
+                    box-shadow: none !important;
+                    font-weight: bold !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-item:hover > .dash-link::after {
+                    content: none !important;
+                    position: static !important;
+                    top: auto !important;
+                    left: auto !important;
+                    right: auto !important;
+                    bottom: auto !important;
+                    background: none !important;
+                    transform: none !important;
+                    transition: none !important;
+                }
+
+                .dash-sidebar.light-sidebar .dash-submenu .dash-item:hover > .dash-link {
+                    background: transparent !important;
+                    color: inherit !important;
+                }
+
+                .dash-sidebar.light-sidebar .dash-submenu .dash-item.active > .dash-link {
+                    background: transparent !important;
+                    color: inherit !important;
+                }
+
+                .dash-sidebar:not(.light-sidebar) .dash-submenu {
+                    background: rgba(28, 35, 47, 0.8) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                }
+
+                .dash-sidebar:not(.light-sidebar) .dash-submenu .dash-item > .dash-link {
+                    color: #a0aec0 !important;
+                }
+
+                .dash-sidebar:not(.light-sidebar) .dash-submenu .dash-item:hover > .dash-link {
+                    background: rgba(255, 255, 255, 0.05) !important;
+                    color: #ffffff !important;
+                }
+
+                .dash-sidebar:not(.light-sidebar) .dash-submenu .dash-item.active > .dash-link {
+                    background: rgba(81, 69, 157, 0.15) !important;
+                    color: #51459d !important;
+                    border-left: 3px solid #51459d !important;
+                }
+
+                .dash-sidebar:not(.light-sidebar) .dash-submenu .dash-item:before {
+                    color: rgba(255, 255, 255, 0.3) !important;
+                }
+
+                .dash-sidebar:not(.light-sidebar) .dash-submenu .dash-item:hover:before,
+                .dash-sidebar:not(.light-sidebar) .dash-submenu .dash-item.active:before {
+                    color: #51459d !important;
+                }
+
+                .minimenu .dash-sidebar .dash-submenu .dash-item:hover > .dash-link {
+                    background: transparent !important;
+                    color: inherit !important;
+                    border-radius: 0 !important;
+                }
+
+                .minimenu .dash-sidebar .dash-submenu .dash-item.active > .dash-link {
+                    background: transparent !important;
+                    color: inherit !important;
+                    border-radius: 0 !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-submenu .dash-item:hover > .dash-link {
+                    background: transparent !important;
+                    color: inherit !important;
+                    border-radius: 0 !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-submenu .dash-item.active > .dash-link {
+                    background: transparent !important;
+                    color: inherit !important;
+                    border-radius: 0 !important;
+                }
+
+                .dash-sidebar .dash-hasmenu.dash-trigger > .dash-submenu {
+                    display: block !important;
+                    animation: none !important;
+                }
+
+                @keyframes slideDownFadeIn {
+                    from {
+                        opacity: 1;
+                        transform: translateY(0);
+                        max-height: auto;
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                        max-height: auto;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .dash-sidebar .dash-submenu .dash-item:hover > .dash-link {
+                        transform: translateX(1px) !important;
+                        padding: 6px 12px 6px 35px !important;
+                        margin: 1px 8px !important;
+                    }
+                    
+                    .dash-sidebar .dash-submenu .dash-item.active > .dash-link {
+                        transform: translateX(2px) !important;
+                        padding: 6px 12px 6px 35px !important;
+                        margin: 1px 8px !important;
+                    }
+
+                    .dash-sidebar .dash-submenu {
+                        margin: 4px 4px 4px 8px !important;
+                        padding: 4px 0 !important;
+                    }
+
+                    .dash-sidebar .dash-submenu .dash-item:before {
+                        left: 20px !important;
+                        top: 8px !important;
+                        font-size: 14px !important;
+                    }
+                }
+
+                .dash-sidebar .dash-submenu .dash-item {
+                    position: relative !important;
+                }
+
+                .dash-sidebar .dash-submenu .dash-item:hover {
+                    z-index: auto !important;
+                }
+
+                .dash-sidebar .dash-submenu,
+                .dash-sidebar .dash-submenu .dash-item,
+                .dash-sidebar .dash-submenu .dash-item > .dash-link {
+                    transition: none !important;
+                }
+            </style>
+        `;
+        
+        document.head.insertAdjacentHTML('beforeend', customStyles);
+        console.log('Custom submenu styles injected successfully');
+    }
     
     function initializeSidebarEnhancements() {
         // Prevent duplicate initialization
