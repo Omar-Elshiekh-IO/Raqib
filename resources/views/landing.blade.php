@@ -23,7 +23,7 @@
             --text-dark: #1f2937;
             --text-light: #6b7280;
             --bg-light: #f8fafc;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-gradient: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
         }
         
         * {
@@ -79,6 +79,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding: 120px 0 80px 0;
         }
         
         .hero-section::before {
@@ -88,8 +89,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>') center/cover;
-            opacity: 0.5;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(59,130,246,0.15)"/><stop offset="100%" style="stop-color:rgba(16,185,129,0.05)"/></radialGradient><radialGradient id="b" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(16,185,129,0.15)"/><stop offset="100%" style="stop-color:rgba(59,130,246,0.05)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23b)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>') center/cover;
+            opacity: 0.6;
         }
         
         .hero-content {
@@ -279,6 +280,10 @@
             .navbar {
                 padding: 0.5rem 0;
             }
+            
+            .hero-section {
+                padding: 100px 0 60px 0;
+            }
         }
         
         @media (max-width: 576px) {
@@ -296,6 +301,141 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        .dashboard-mockup {
+            max-width: 90%;
+            margin: 0 auto;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+        }
+        
+        .mockup-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .mockup-header {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .mockup-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .mockup-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+        
+        .mockup-dots span:nth-child(1) { background: #ef4444; }
+        .mockup-dots span:nth-child(2) { background: #f59e0b; }
+        .mockup-dots span:nth-child(3) { background: #10b981; }
+        
+        .mockup-title {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+        
+        .mockup-content {
+            display: flex;
+            min-height: 300px;
+        }
+        
+        .mockup-sidebar {
+            width: 240px;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .sidebar-item {
+            height: 40px;
+            background: var(--bg-gradient);
+            border-radius: 10px;
+            opacity: 0.7;
+        }
+        
+        .sidebar-item:nth-child(1) { opacity: 1; }
+        
+        .mockup-main {
+            flex: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .chart-area {
+            height: 150px;
+            background: var(--bg-gradient);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-area::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .stat-box {
+            height: 80px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .mockup-content {
+                flex-direction: column;
+                min-height: 200px;
+            }
+            
+            .mockup-sidebar {
+                width: 100%;
+                padding: 1rem;
+                flex-direction: row;
+                min-height: auto;
+            }
+            
+            .sidebar-item {
+                flex: 1;
+                height: 30px;
+            }
+            
+            .mockup-main {
+                padding: 1rem;
+            }
+            
+            .chart-area {
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -348,7 +488,35 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="text-center fade-in">
-                        <img src="{{ asset('assets/images/dashboard-preview.svg') }}" alt="Raqib Dashboard" class="img-fluid" style="max-width: 90%; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));">
+                        <div class="dashboard-mockup">
+                            <div class="mockup-container">
+                                <div class="mockup-header">
+                                    <div class="mockup-dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <div class="mockup-title">Raqib Dashboard</div>
+                                </div>
+                                <div class="mockup-content">
+                                    <div class="mockup-sidebar">
+                                        <div class="sidebar-item"></div>
+                                        <div class="sidebar-item"></div>
+                                        <div class="sidebar-item"></div>
+                                        <div class="sidebar-item"></div>
+                                    </div>
+                                    <div class="mockup-main">
+                                        <div class="chart-area"></div>
+                                        <div class="stats-grid">
+                                            <div class="stat-box"></div>
+                                            <div class="stat-box"></div>
+                                            <div class="stat-box"></div>
+                                            <div class="stat-box"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
