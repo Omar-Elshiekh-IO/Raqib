@@ -15,11 +15,21 @@
             // Style all submenu items
             const items = submenu.querySelectorAll('.dash-item, li');
             items.forEach(item => {
-                item.style.position = 'relative';
-                item.style.listStyle = 'none';
-                
                 const link = item.querySelector('a, .dash-link');
                 if (link) {
+                    // Check if this is an empty link (no text content or href)
+                    const linkText = link.textContent.trim();
+                    const linkHrefAttr = link.getAttribute('href');
+                    
+                    if (!linkText || linkText === '' || !linkHrefAttr || linkHrefAttr === '' || linkHrefAttr === '#') {
+                        // Hide empty menu items
+                        item.style.display = 'none';
+                        return;
+                    }
+                    
+                    item.style.position = 'relative';
+                    item.style.listStyle = 'none';
+                    
                     // Check if this is the current page
                     const currentPath = window.location.pathname;
                     const linkPath = link.getAttribute('href');
@@ -37,8 +47,20 @@
                             parentMenu.classList.add('dash-trigger');
                         }
                     }
+                } else {
+                    // Hide items without links
+                    item.style.display = 'none';
                 }
             });
+            
+            // Hide submenu container if all children are hidden
+            const visibleItems = submenu.querySelectorAll('.dash-item:not([style*="display: none"]), li:not([style*="display: none"])');
+            if (visibleItems.length === 0) {
+                const parentMenuItem = submenu.closest('.dash-item.dash-hasmenu');
+                if (parentMenuItem) {
+                    parentMenuItem.style.display = 'none';
+                }
+            }
         });
     }
     

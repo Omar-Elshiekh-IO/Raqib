@@ -205,6 +205,16 @@ document.addEventListener('DOMContentLoaded', function() {
             submenuItems.forEach(item => {
                 const link = item.querySelector('a, .dash-link');
                 if (link) {
+                    // Check if this is an empty link
+                    const linkText = link.textContent.trim();
+                    const linkHrefAttr = link.getAttribute('href');
+                    
+                    if (!linkText || linkText === '' || !linkHrefAttr || linkHrefAttr === '' || linkHrefAttr === '#') {
+                        // Hide empty menu items
+                        item.style.display = 'none';
+                        return;
+                    }
+                    
                     // Force reapply styles by triggering a repaint
                     link.style.display = 'none';
                     link.offsetHeight; // Force reflow
@@ -229,8 +239,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             parentMenu.classList.add('dash-trigger');
                         }
                     }
+                } else {
+                    // Hide items without links
+                    item.style.display = 'none';
                 }
             });
+            
+            // Hide submenu container if all children are hidden
+            const visibleItems = submenu.querySelectorAll('.dash-item:not([style*="display: none"]), li:not([style*="display: none"])');
+            if (visibleItems.length === 0) {
+                const parentMenuItem = submenu.closest('.dash-item.dash-hasmenu');
+                if (parentMenuItem) {
+                    parentMenuItem.style.display = 'none';
+                }
+            }
         });
         
         // Force CSS recalculation

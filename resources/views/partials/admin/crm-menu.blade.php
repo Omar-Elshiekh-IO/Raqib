@@ -18,12 +18,12 @@
                 @endcan
                 @can('manage form builder')
                     <li class="dash-item {{ Request::segment(1) == 'form_builder' || Request::segment(1) == 'form_response' ? 'active open' : '' }}">
-                        <a class="dash-link"></a>
+                        <a class="dash-link" href="{{ route('form_builder.index') }}">{{ __('Form Builder') }}</a>
                     </li>
                 @endcan
                 @can('manage contract')
                     <li class="dash-item  {{ Request::route()->getName() == 'contract.index' || Request::route()->getName() == 'contract.show' ? 'active' : '' }}">
-                        <a class="dash-link"></a>
+                        <a class="dash-link" href="{{ route('contract.index') }}">{{ __('Contract') }}</a>
                     </li>
                 @endcan
                 @if (Gate::check('manage lead stage') ||
