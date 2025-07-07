@@ -532,6 +532,16 @@
             .navbar-brand img {
                 height: 40px;
             }
+            
+            .hero-content .d-flex {
+                padding-bottom: 4rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-content .d-flex {
+                padding-bottom: 2rem;
+            }
         }
         
         .fade-in {
