@@ -45,8 +45,8 @@
         @if (\Auth::user()->type == 'client')
             <ul class="dash-navbar">
                 @if (Gate::check('manage client dashboard'))
-                    <li class="dash-item dash-hasmenu {{ Request::segment(1) == 'dashboard' ? ' active' : '' }}">
-                        <a href="{{ route('client.dashboard.view') }}" class="dash-link">
+                    <li class="dash-item dash-hasmenu {{ Request::is('account-dashboard') ? ' active' : '' }}">
+                        <a href="{{ route('dashboard') }}" class="dash-link">
                             <span class="dash-micon"><i class="ti ti-home"></i></span><span
                                 class="dash-mtext">{{ __('Dashboard') }}</span>
                         </a>
@@ -135,8 +135,8 @@
         @if (\Auth::user()->type == 'super admin')
             <ul class="dash-navbar">
                 @if (Gate::check('manage super admin dashboard'))
-                    <li class="dash-item dash-hasmenu {{ Request::segment(1) == 'dashboard' ? ' active' : '' }}">
-                        <a href="{{ route('client.dashboard.view') }}" class="dash-link">
+                    <li class="dash-item dash-hasmenu {{ Request::is('account-dashboard') ? ' active' : '' }}">
+                        <a href="{{ route('dashboard') }}" class="dash-link">
                             <span class="dash-micon"><i class="ti ti-home"></i></span><span
                                 class="dash-mtext">{{ __('Dashboard') }}</span>
                         </a>
