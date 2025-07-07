@@ -21,8 +21,14 @@
                 const link = item.querySelector('a, .dash-link');
                 if (link) {
                     // Check if this is the current page
-                    if (window.location.pathname === link.getAttribute('href') || 
-                        window.location.href === link.href) {
+                    const currentPath = window.location.pathname;
+                    const linkPath = link.getAttribute('href');
+                    const linkHref = link.href;
+                    
+                    if (currentPath === linkPath || 
+                        currentPath === linkHref || 
+                        window.location.href === linkHref ||
+                        (currentPath === '/account-dashboard' && linkPath && linkPath.includes('account-dashboard'))) {
                         item.classList.add('active');
                         
                         // Open parent menu
