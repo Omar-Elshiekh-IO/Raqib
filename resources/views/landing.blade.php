@@ -43,17 +43,33 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            padding: 0.75rem 0;
         }
         
         .navbar.scrolled {
             background: rgba(255, 255, 255, 0.98);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
         }
         
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-color) !important;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            margin: 0;
+        }
+        
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand:hover img {
+            transform: scale(1.05);
         }
         
         .hero-section {
@@ -255,6 +271,20 @@
             .feature-card {
                 padding: 2rem;
             }
+            
+            .navbar-brand img {
+                height: 50px;
+            }
+            
+            .navbar {
+                padding: 0.5rem 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand img {
+                height: 40px;
+            }
         }
         
         .fade-in {
@@ -274,7 +304,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="fas fa-chart-line me-2"></i>Raqib
+                <img src="{{ asset('assets/images/raqib.png') }}" alt="Raqib" height="60">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
