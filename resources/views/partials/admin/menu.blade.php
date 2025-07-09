@@ -430,7 +430,8 @@
                             Request::segment(1) == 'terminationtype' || Request::segment(1) == 'awardtype' ||
                             Request::segment(1) == 'trainingtype' || Request::segment(1) == 'goaltype' ||
                             Request::segment(1) == 'allowanceoption' || Request::segment(1) == 'competencies' ||
-                            Request::segment(1) == 'loanoption' || Request::segment(1) == 'deductionoption'
+                            Request::segment(1) == 'loanoption' || Request::segment(1) == 'deductionoption' || Request::segment(1) == 'employment-type'||
+                            Request::segment(1) == 'work-shift'
                                 ? 'active dash-trigger'
                                 : '' }}">
                             <a href="#!" class="dash-link ">
@@ -489,17 +490,17 @@
 
                                 @if (Gate::check('manage leave') || Gate::check('manage attendance'))
                                     <li
-                                        class="dash-item dash-hasmenu  {{ Request::segment(1) == 'leave' || Request::segment(1) == 'attendanceemployee' ? 'active dash-trigger' : '' }}">
-                                        <a class="dash-link" href="#">{{ __('Leave Management Setup') }}<span
+                                        class="dash-item dash-hasmenu  {{ Request::segment(1) == 'attendanceemployee' ? 'active dash-trigger' : '' }}">
+                                        <a class="dash-link" href="#">{{ __('Attendance Management Setup') }}<span
                                                 class="dash-arrow"><i data-feather="chevron-right"></i></span></a>
                                         <ul class="dash-submenu">
-                                            @can('manage leave')
+                                            <!-- @can('manage leave')
                                                 <li
                                                     class="dash-item {{ Request::route()->getName() == 'leave.index' ? 'active' : '' }}">
                                                     <a class="dash-link"
                                                         href="{{ route('leave.index') }}">{{ __('Manage Leave') }}</a>
                                                 </li>
-                                            @endcan
+                                            @endcan -->
                                             @can('manage attendance')
                                                 <li class="dash-item dash-hasmenu {{ Request::segment(1) == 'attendanceemployee' ? 'active dash-trigger' : '' }}"
                                                     href="#navbar-attendance" data-toggle="collapse" role="button"
@@ -785,7 +786,9 @@
                                         Request::segment(1) == 'paysliptype' ||
                                         Request::segment(1) == 'allowanceoption' ||
                                         Request::segment(1) == 'loanoption' ||
-                                        Request::segment(1) == 'deductionoption'
+                                        Request::segment(1) == 'deductionoption'||
+                                        Request::segment(1) == 'employment-type'||
+                                        Request::segment(1) == 'work-shift'
                                             ? 'active dash-trigger'
                                             : '' }}">
                                         <a class="dash-link"
@@ -793,6 +796,13 @@
                                     </li>
                                 @endif
 
+                                @can('manage leave')
+                                    <li class="dash-item {{ Request::segment(1) == 'leave' ? 'active' : '' }}">
+                                        <a class="dash-link" href="{{ route('leave.index') }}">
+                                            {{ __('Manage Requests') }}
+                                        </a>
+                                    </li>
+                                @endcan
 
                             </ul>
                         </li>
@@ -938,11 +948,11 @@
                                                 </li>
                                             @endcan
                                             @can('manage payment')
-                                                <li
+                                                {{--<li
                                                     class="dash-item {{ Request::route()->getName() == 'payment.index' || Request::route()->getName() == 'payment.create' || Request::route()->getName() == 'payment.edit' ? ' active' : '' }}">
                                                     <a class="dash-link"
                                                         href="{{ route('payment.index') }}">{{ __('Payment') }}</a>
-                                                </li>
+                                                </li>--}}
                                             @endcan
                                             @can('manage debit note')
                                                 <li

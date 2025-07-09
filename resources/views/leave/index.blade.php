@@ -20,6 +20,9 @@
 
 @section('content')
     <div class="row">
+      <div class="col-12">
+            @include('layouts.manage_requests')
+      </div>
     <div class="col-xl-12">
             <div class="card">
             <div class="card-body table-border-style">
@@ -36,7 +39,13 @@
                                 <th>{{__('End Date')}}</th>
                                 <th>{{__('Total Days')}}</th>
                                 <th>{{__('Leave Reason')}}</th>
-                                <th>{{__('status')}}</th>
+                                <th>{{__('Status')}}</th>
+                                <th>{{__('Approved On')}}</th>
+                                <th>{{__('With Deduction')}}</th>
+                                <th>{{__('Deduction Amount')}}</th>
+                                <th>{{__('Deduction Start')}}</th>
+                                <th>{{__('Deduction End')}}</th>
+                                <th>{{__('Total Deduction Months')}}</th>
                                     @can('edit leave')
                                         <th width="200px">{{__('Action')}}</th>
                                     @endcan
@@ -62,6 +71,18 @@
                                             <div class="status_badge badge bg-danger p-2 px-3 rounded">{{ $item->status }}</div>
                                         @endif
                                     </td>
+                                    <td>{{ $item->approved_on ? Auth::user()->dateFormat($item->approved_on) : '' }}</td>
+                                    <td>
+                                        @if($item->with_deduction)
+                                            <span class="badge bg-success">{{ __('Yes') }}</span>
+                                        @else
+                                            <span class="badge bg-secondary">{{ __('No') }}</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->deduction_amount ?? '-' }}</td>
+                                    <td>{{ $item->start_deduction_date ? \Carbon\Carbon::parse($item->start_deduction_date)->format('Y-m') : '-' }}</td>
+                                    <td>{{ $item->end_deduction_date ? \Carbon\Carbon::parse($item->end_deduction_date)->format('Y-m') : '-' }}</td>
+                                    <td>{{ $item->total_deduction_months ?? '-' }}</td>
                                     <td>
                                         @if(\Auth::user()->type == 'Employee')
                                             @if($item->status == "Pending")

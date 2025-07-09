@@ -15,12 +15,21 @@ class Loan extends Model
         'end_date',
         'reason',
         'created_by',
+        'with_deduction',
+        'deduction_amount',
+        'start_deduction_date',
+        'end_deduction_date',
+        'total_deduction_months',
     ];
 
     public function employee()
     {
-        return $this->hasOne('App\Models\Employee', 'id', 'employee_id')->first();
+        return $this->hasOne('App\Models\Employee', 'id', 'employee_id');
     }
+    // public function employee()
+    // {
+    //     return $this->belongsTo('App\Models\Employee', 'id', 'employee_id');
+    // }
 
     public function loanOption()
     {

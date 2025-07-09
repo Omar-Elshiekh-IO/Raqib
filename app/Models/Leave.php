@@ -17,6 +17,11 @@ class Leave extends Model
         'remark',
         'status',
         'created_by',
+        'with_deduction',
+        'deduction_amount',
+        'start_deduction_date',
+        'end_deduction_date',
+        'total_deduction_month',
     ];
 
     public function leaveType()

@@ -124,6 +124,12 @@ class Employee extends Model
     return $net_salary;
   }
 
+public function businessMissions(){
+  return $this->hasMany(BusinessMission::class);
+}
+public function excuses(){
+  return $this->hasMany(BusinessMission::class);
+}
 
   public static function allowance($id)
   {

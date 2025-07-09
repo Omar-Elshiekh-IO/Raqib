@@ -59,7 +59,7 @@
             <a href="{{ route('work-shift.index') }}" class="list-group-item list-group-item-action border-0">
                 <button class="nav-link {{ request()->is('work-shift*') ? 'active' : '' }} " id="work-setting-tab"
                     data-bs-toggle="pill" data-bs-target="#work-setting"
-                    type="button">{{ __('Work Type') }}</button>
+                    type="button">{{ __('Work Shift') }}</button>
             </a>
         </li>
     @endcan

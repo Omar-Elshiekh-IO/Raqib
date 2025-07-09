@@ -25,6 +25,7 @@ use App\Http\Controllers\BiometricAttendanceController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\BugStatusController;
+use App\Http\Controllers\BusinessMissionController;
 use App\Http\Controllers\CashfreeController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\CinetPayController;
@@ -54,6 +55,7 @@ use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmploymentTypeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExcuseController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FedapayController;
 use App\Http\Controllers\FlutterwavePaymentController;
@@ -160,6 +162,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\PaymentWallPaymentController;
 use App\Http\Controllers\PaypalController;
+use App\Models\BusinessMission;
 
 /*
 |--------------------------------------------------------------------------
@@ -417,6 +420,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
       Route::post('currency-settings', [SystemController::class, 'saveCurrencySettings'])->name('currency.settings');
       Route::post('company-preview', [SystemController::class, 'currencyPreview'])->name('currency.preview');
 
+Route::any('testpage',[BusinessMissionController::class,'create']);
 
       Route::any('test-mail', [SystemController::class, 'testMail'])->name('test.mail');
       Route::post('test-mail/send', [SystemController::class, 'testSendMail'])->name('test.send.mail');
@@ -906,6 +910,8 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::resource('loanoption', LoanOptionController::class)->middleware(['auth']);
   Route::resource('deductionoption', DeductionOptionController::class)->middleware(['auth']);
   Route::resource('loan', LoanController::class)->middleware(['auth']);
+  Route::get('loan-edit/{id}',[LoanController::class,'editPopUp'])->name('loan.edit-pop-up')->middleware(['auth']);
+  Route::put('loan-edit/{loan}',[LoanController::class,'updatePopUp'])->name('loan.update-pop-up')->middleware(['auth']);
   Route::resource('saturationdeduction', SaturationDeductionController::class)->middleware(['auth']);
   Route::resource('otherpayment', OtherPaymentController::class)->middleware(['auth']);
   Route::resource('overtime', OvertimeController::class)->middleware(['auth']);
@@ -1035,7 +1041,8 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::post('leave/jsoncount', [LeaveController::class, 'jsoncount'])->name('leave.jsoncount')->middleware(['auth']);
 
   Route::resource('leave', LeaveController::class)->middleware(['auth']);
-
+  Route::resource('business-mission',BusinessMissionController::class)->middleware(['auth']);
+  Route::resource('excuse',ExcuseController::class)->middleware(['auth']);
 
   Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth']);
 

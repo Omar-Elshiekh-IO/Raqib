@@ -17,11 +17,11 @@ class WorkShiftController extends Controller
     /** @var \App\Models\User $user */
     $user = Auth::user();
     if ($user->can('manage work shift')) {
-    $shifts = WorkShift::with('workShiftDays')
-    ->where('created_by', $user->creatorId())
-    ->get();
-    $setting = Utility::settings();
-      return view('work_shift.index', compact(['shifts','setting']));
+      $shifts = WorkShift::with('workShiftDays')
+        ->where('created_by', $user->creatorId())
+        ->get();
+      $setting = Utility::settings();
+      return view('work_shift.index', compact(['shifts', 'setting']));
     } else {
       return redirect()->back()->with('error', __('Permission denied.'));
     }
@@ -96,8 +96,8 @@ class WorkShiftController extends Controller
         $workShift->to = $request->to;
         $workShift->save();
         // Sync days: delete old, insert new
-        if($request->days){
-        $workShift->workShiftDays()->delete();
+        if ($request->days) {
+          $workShift->workShiftDays()->delete();
           foreach ($request->days as $day) {
             WorkShiftDays::create([
               'work_shift_id' => $workShift->id,
