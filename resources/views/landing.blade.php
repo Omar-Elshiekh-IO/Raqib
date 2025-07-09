@@ -96,67 +96,94 @@
             margin-left: 1rem;
         }
         
-        .language-dropdown {
-            background: white;
-            border: 2px solid var(--mountain-meadow);
-            border-radius: 25px;
-            padding: 0.5rem 1rem;
-            color: var(--mountain-meadow);
-            text-decoration: none;
-            font-weight: 600;
+        .language-toggle {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.3s ease;
+            background: white;
+            border: 2px solid #042b4b;
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            color: #042b4b;
+            font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(4, 43, 75, 0.1);
+            text-decoration: none;
         }
         
-        .language-dropdown:hover {
-            background: var(--mountain-meadow);
+        .language-toggle:hover {
+            background: #042b4b;
             color: white;
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(4, 43, 75, 0.2);
         }
         
-        .language-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
+        .language-toggle:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(4, 43, 75, 0.2);
+        }
+        
+        .current-flag {
+            font-size: 1.1rem;
+            margin-right: 0.25rem;
+        }
+        
+        .current-text {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .language-toggle i {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .language-toggle[aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-menu.language-menu {
             background: white;
-            border: 2px solid var(--mountain-meadow);
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            min-width: 150px;
-            display: none;
-            z-index: 1000;
+            border: 2px solid #042b4b;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            min-width: 160px;
+            padding: 0.5rem;
             margin-top: 0.5rem;
+            backdrop-filter: blur(10px);
         }
         
-        .language-menu.show {
-            display: block;
-        }
-        
-        .language-item {
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.75rem 1rem;
             color: var(--text-dark);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            border-radius: 10px;
             transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
             border: none;
             background: none;
             width: 100%;
-            text-align: left;
-            cursor: pointer;
         }
         
-        .language-item:hover {
-            background: var(--bg-light);
-            color: var(--mountain-meadow);
+        .lang-option:hover {
+            background: linear-gradient(135deg, #042b4b, #034068);
+            color: white;
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(4, 43, 75, 0.2);
         }
         
-        .language-item.active {
-            background: var(--mountain-meadow);
+        .lang-option:active {
+            transform: translateX(1px);
+        }
+        
+        .lang-option.active {
+            background: #042b4b;
             color: white;
         }
         
@@ -167,6 +194,44 @@
         
         [dir="rtl"] .language-item {
             text-align: right;
+        }
+        
+        [dir="rtl"] .language-switcher {
+            margin-left: 0;
+            margin-right: 1rem;
+        }
+        
+        [dir="rtl"] .lang-option:hover {
+            transform: translateX(-3px);
+        }
+        
+        [dir="rtl"] .current-flag {
+            margin-right: 0;
+            margin-left: 0.25rem;
+        }
+        
+        @media (max-width: 768px) {
+            .language-switcher {
+                margin-left: 0.5rem;
+            }
+            
+            .language-toggle {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .current-text {
+                display: none;
+            }
+            
+            .dropdown-menu.language-menu {
+                min-width: 120px;
+            }
+            
+            [dir="rtl"] .language-switcher {
+                margin-right: 0.5rem;
+                margin-left: 0;
+            }
         }
         
         .navbar {
