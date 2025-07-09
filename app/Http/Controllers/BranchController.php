@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\Branch;
 use App\Models\Department;
 use App\Models\Designation;
@@ -43,8 +44,10 @@ class BranchController extends Controller
 
             $validator = \Validator::make(
                 $request->all(), [
-                                   'name' => 'required',
-                               ]
+                                  'name' => 'required',
+                                  'longitude' => 'required',
+                                  'latitude' => 'required',
+                              ]
             );
             if($validator->fails())
             {
@@ -55,6 +58,9 @@ class BranchController extends Controller
 
             $branch             = new Branch();
             $branch->name       = $request->name;
+            $branch->latitude       = $request->latitude;
+            $branch->longitude       = $request->longitude;
+            $branch->login_range       = $request->login_range;
             $branch->created_by = \Auth::user()->creatorId();
             $branch->save();
 

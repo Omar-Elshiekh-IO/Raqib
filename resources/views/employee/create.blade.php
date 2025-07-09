@@ -76,7 +76,7 @@
                             <h5>{{ __('Company Detail') }}</h5>
                         </div>
                         <div class="card-body employee-detail-create-body">
-                            <div class="row">
+                            <div class="row capitalize">
                                 @csrf
                                 <div class="form-group ">
                                     {!! Form::label('employee_id', __('Employee ID'), ['class' => 'form-label']) !!}
@@ -117,6 +117,24 @@
                                     {!! Form::label('company_doj', __('Company Date Of Joining'), ['class' => '  form-label']) !!}<x-required></x-required>
                                     {{ Form::date('company_doj', null, ['class' => 'form-control ', 'required' => 'required', 'autocomplete' => 'off' ,'placeholder'=>'Select company date of joining']) }}
                                 </div>
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('manager_id', __('Manager'), ['class' => 'form-label']) !!}
+                                    {!! Form::select('manager_id', ['' => __('Select Manager')] + $managers, null, ['class' => 'form-control', 'id' => 'manager_id']) !!}
+                                  </div>
+                                <div class="form-group col-md-6">
+                                    {{ Form::label('work_shift', __('Work Shift'), ['class' => 'form-label']) }}
+                                    {{ Form::select('work_shift', $workShifts, null, ['class' => 'form-control', 'placeholder' => 'Select Work Shift' , 'id' => 'work_shift']) }}
+                                <div class="text-xs mt-1">
+                                            {{ __('Create work shift here.') }} <a href="{{ route('work-shift.index') }}"><b>{{ __('Create work shift') }}</b></a>
+                                        </div>
+                                  </div>
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('employment_type', __('Employment Type'), ['class' => 'form-label']) !!}
+                                    {!! Form::select('employment_type', $employmentTypes, null, ['class' => 'form-control', 'placeholder' => 'Select Employment Type' , 'id' => 'employment_type']) !!}
+                                <div class="text-xs mt-1">
+                                            {{ __('Create employment type here.') }} <a href="{{ route('employment-type.index') }}"><b>{{ __('Create employment type') }}</b></a>
+                                        </div>
+                                  </div>
 
                             </div>
                         </div>
