@@ -276,7 +276,7 @@
 
 @section('content')
 <div class="row mb-4 gy-4">
-    <div class="col-xxl-4 col-md-6 col-12">
+    <div class="col-xxl-4 col-md-4 col-sm-4 col-12">
         <div class="card dashboard-3d-card h-100">
             <div class="dashboard-3d-bg"></div>
             <div class="card-body d-flex flex-column align-items-center justify-content-center">
@@ -296,7 +296,7 @@
         </div>
     </div>
 
-    <div class="col-xxl-4 col-md-6 col-12">
+    <div class="col-xxl-4 col-md-4 col-sm-4 col-12">
         <div class="card dashboard-3d-card h-100">
             <div class="dashboard-3d-bg"></div>
             <div class="card-body d-flex flex-column align-items-center justify-content-center">
@@ -316,7 +316,7 @@
         </div>
     </div>
 
-    <div class="col-xxl-4 col-md-6 col-12">
+    <div class="col-xxl-4 col-md-4 col-sm-4 col-12">
         <div class="card dashboard-3d-card h-100">
             <div class="dashboard-3d-bg"></div>
             <div class="card-body d-flex flex-column align-items-center justify-content-center position-relative w-100">
