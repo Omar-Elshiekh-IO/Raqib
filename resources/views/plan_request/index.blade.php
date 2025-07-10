@@ -16,23 +16,23 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-            <div class="card-body table-border-style">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover align-middle datatable">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>{{__('Company Name')}}</th>
-                                <th>{{__('Phone Number')}}</th>
-                                <th>{{__('Plan Name')}}</th>
-                                <th>{{__('Total Users')}}</th>
-                                <th>{{__('Total Customers')}}</th>
-                                <th>{{__('Total Vendors')}}</th>
-                                <th>{{__('Total Clients')}}</th>
-                                <th>{{__('Duration')}}</th>
-                                <th>{{__('Date')}}</th>
-                                <th>{{__('Action')}}</th>
-                            </tr>
-                        </thead>
+                <div class="card-body table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover align-middle datatable w-100">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>{{__('Company Name')}}</th>
+                                    <th>{{__('Phone Number')}}</th>
+                                    <th>{{__('Plan Name')}}</th>
+                                    <th>{{__('Total Users')}}</th>
+                                    <th>{{__('Total Customers')}}</th>
+                                    <th>{{__('Total Vendors')}}</th>
+                                    <th>{{__('Total Clients')}}</th>
+                                    <th>{{__('Duration')}}</th>
+                                    <th>{{__('Date')}}</th>
+                                    <th>{{__('Action')}}</th>
+                                </tr>
+                            </thead>
                         <tbody>
                         @if($plan_requests->count() > 0)
                             @foreach($plan_requests as $prequest)
@@ -70,6 +70,7 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         </div>
     </div>
