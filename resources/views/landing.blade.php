@@ -294,6 +294,207 @@
             z-index: 2;
         }
         
+        /* Dashboard Mockup Styling */
+        .dashboard-mockup {
+            position: relative;
+            perspective: 1000px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .mockup-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(4, 41, 73, 0.3);
+            overflow: hidden;
+            transform: rotateY(-10deg) rotateX(5deg);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .mockup-container:hover {
+            transform: rotateY(-5deg) rotateX(2deg) scale(1.02);
+            box-shadow: 0 30px 60px rgba(4, 41, 73, 0.4);
+        }
+        
+        .mockup-header {
+            background: linear-gradient(to right, #042949, #1ea46c);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .mockup-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.7;
+        }
+        
+        .mockup-dots span:nth-child(1) {
+            background: #ff5f57;
+        }
+        
+        .mockup-dots span:nth-child(2) {
+            background: #febc2e;
+        }
+        
+        .mockup-dots span:nth-child(3) {
+            background: #28c840;
+        }
+        
+        .mockup-title {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: 0.5px;
+        }
+        
+        .mockup-content {
+            display: flex;
+            height: 400px;
+        }
+        
+        .mockup-sidebar {
+            width: 80px;
+            background: #f5f8fa;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .sidebar-item {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        
+        .sidebar-item:nth-child(1) {
+            background: var(--mountain-meadow);
+        }
+        
+        .sidebar-item:nth-child(1)::after {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 8px;
+            bottom: 8px;
+            width: 4px;
+            background: var(--mountain-meadow);
+            border-radius: 10px;
+        }
+        
+        .mockup-main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mockup-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(0,0,0,0.02)" stroke-width="0.5"/></svg>') repeat;
+            opacity: 0.5;
+        }
+        
+        .chart-area {
+            height: 200px;
+            background: linear-gradient(180deg, rgba(30, 164, 108, 0.1) 0%, rgba(30, 164, 108, 0.05) 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-area::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,40 C150,100 350,0 500,80 C650,160 750,30 900,70 C1050,110 1150,40 1200,30 L1200,120 L0,120 Z" style="fill: %231ea46c; opacity: 0.2;"/><path d="M0,60 C150,120 350,20 500,100 C650,180 750,50 900,90 C1050,130 1150,60 1200,50 L1200,120 L0,120 Z" style="fill: %231ea46c; opacity: 0.1;"/></svg>') no-repeat bottom center;
+            background-size: 100% 100%;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .stat-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--mountain-meadow);
+            opacity: 0.8;
+        }
+        
+        .stat-box:nth-child(2)::after {
+            background: #4c6ef5;
+        }
+        
+        .stat-box:nth-child(3)::after {
+            background: #f59f00;
+        }
+        
+        .stat-box:nth-child(4)::after {
+            background: #fa5252;
+        }
+        
+        /* Animation for dashboard mockup */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dashboard-mockup {
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+        
         .hero-title {
             font-size: 3.5rem;
             font-weight: 700;
