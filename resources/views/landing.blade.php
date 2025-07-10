@@ -293,7 +293,7 @@
             position: relative;
             z-index: 2;
         }
-        
+         
         /* Dashboard Mockup Styling */
         .dashboard-mockup {
             position: relative;
@@ -493,6 +493,452 @@
             animation: fadeIn 1s ease-out forwards;
             animation-delay: 0.5s;
             opacity: 0;
+        }
+        
+        /* Mobile App Section Styling */
+        .mobile-app-section {
+            padding: 80px 0;
+            background: white;
+            overflow: hidden;
+        }
+        
+        .mobile-app-content {
+            padding-right: 2rem;
+        }
+        
+        .mobile-features {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .mobile-feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .mobile-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .mobile-feature-icon i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .mobile-feature-content h5 {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .mobile-feature-content p {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .app-download-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .app-download-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .app-download-btn:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+        }
+        
+        /* Mobile Mockup Styling */
+        .mobile-mockup-container {
+            position: relative;
+            perspective: 1000px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .mobile-mockup {
+            background: var(--text-dark);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+            transform: rotateY(10deg) rotateX(5deg);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+            border: 8px solid #1a1a1a;
+        }
+        
+        .mobile-mockup::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 8px;
+            background: #1a1a1a;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 8px 8px 0 0;
+            z-index: 2;
+        }
+        
+        .mobile-mockup::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.15);
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .mobile-mockup:hover {
+            transform: rotateY(5deg) rotateX(2deg) scale(1.02);
+            box-shadow: 0 40px 70px rgba(0, 0, 0, 0.3);
+        }
+        
+        .mobile-screen {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            height: 580px;
+        }
+        
+        .mobile-header {
+            background: var(--bg-gradient);
+            padding-top: 8px;
+        }
+        
+        .mobile-status-bar {
+            padding: 0 16px 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        .mobile-time {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .mobile-indicators {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .mobile-indicators i {
+            font-size: 12px;
+        }
+        
+        .mobile-app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 16px;
+            color: white;
+        }
+        
+        .mobile-app-header h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .mobile-profile {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mobile-avatar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            border-radius: 50%;
+        }
+        
+        .mobile-content {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: calc(580px - 90px);
+            overflow-y: auto;
+        }
+        
+        .mobile-attendance-card {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .attendance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .attendance-header h6 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .attendance-date {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .attendance-status {
+            margin-bottom: 16px;
+        }
+        
+        .attendance-time-block {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .time-entry {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .time-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .clock-in-icon {
+            background: #4ade80;
+        }
+        
+        .clock-out-icon {
+            background: #f87171;
+        }
+        
+        .time-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .time-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .time-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .time-separator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 18px;
+        }
+        
+        .separator-line {
+            width: 2px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .work-duration {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .clock-out-btn {
+            border: none;
+            background: #f1f5f9;
+            color: var(--text-dark);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .clock-out-btn:hover {
+            background: #e2e8f0;
+        }
+        
+        .attendance-footer {
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+        }
+        
+        .status-dot.active {
+            background: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+        
+        .mobile-quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        
+        .quick-action-item {
+            background: white;
+            border-radius: 15px;
+            padding: 14px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .quick-action-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quick-action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .leave-icon {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+        
+        .expense-icon {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+        
+        .task-icon {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+        
+        .report-icon {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+        }
+        
+        .quick-action-item span {
+            font-size: 12px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        
+        /* Mobile responsiveness for mobile app section */
+        @media (max-width: 991px) {
+            .mobile-app-content {
+                padding-right: 0;
+                margin-bottom: 60px;
+                text-align: center;
+            }
+            
+            .mobile-feature-item {
+                text-align: left;
+            }
+            
+            .app-download-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* RTL support for mobile app section */
+        [dir="rtl"] .mobile-app-content {
+            padding-right: 0;
+            padding-left: 2rem;
+        }
+        
+        [dir="rtl"] .mobile-feature-icon {
+            margin-right: 0;
+            margin-left: 1rem;
+        }
+        
+        [dir="rtl"] .time-separator {
+            margin-left: 0;
+            margin-right: 18px;
+        }
+        
+        [dir="rtl"] .mobile-mockup {
+            transform: rotateY(-10deg) rotateX(5deg);
+        }
+        
+        [dir="rtl"] .mobile-mockup:hover {
+            transform: rotateY(-5deg) rotateX(2deg) scale(1.02);
         }
         
         .hero-title {
