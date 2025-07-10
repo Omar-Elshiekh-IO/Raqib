@@ -97,7 +97,7 @@ class SystemController extends Controller
 
             if (
                 !empty($request->title_text) || !empty($request->color) || !empty($request->SITE_RTL)
-                || !empty($request->footer_text) || !empty($request->default_language) || isset($request->display_landing_page)
+                || !empty($request->footer_text) || !empty($request->default_language)
                 || isset($request->gdpr_cookie) || isset($request->enable_signup) || isset($request->email_verification)
                 || isset($request->color) || !empty($request->cust_theme_bg) || !empty($request->cust_darklayout)
             ) {
@@ -112,9 +112,6 @@ class SystemController extends Controller
                     $post['color'] = $request->custom_color;
                 }
 
-                if (!isset($request->display_landing_page)) {
-                    $post['display_landing_page'] = 'off';
-                }
                 if (!isset($request->gdpr_cookie)) {
                     $post['gdpr_cookie'] = 'off';
                 }

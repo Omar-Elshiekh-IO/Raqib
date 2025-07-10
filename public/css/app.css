@@ -2708,3 +2708,17 @@ pre {
     width: 50%;
     text-align: end;
 }
+
+
+html, body {
+    block-size: auto !important;
+    min-block-size: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+body {
+    overflow-y: auto !important;
+}
+html {
+    overflow-y: visible !important;
+}

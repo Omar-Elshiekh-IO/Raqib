@@ -15,11 +15,7 @@
 
     $unseenCounter=App\Models\ChMessage::where('to_id', Auth::user()->id)->where('seen', 0)->count();
 @endphp
-@if (isset($setting['cust_theme_bg']) && $setting['cust_theme_bg'] == 'on')
-    <header class="dash-header transprent-bg">
-@else
-    <header class="dash-header">
-@endif
+<header class="dash-header transprent-bg">
     <div class="header-wrapper">
         <div class="me-auto dash-mob-drp">
             <ul class="list-unstyled">

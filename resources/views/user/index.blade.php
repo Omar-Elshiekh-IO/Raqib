@@ -219,11 +219,8 @@
         </div>
     @endforeach
     <div class="col-xxl-3 col-lg-4 col-sm-6 mb-4">
-        <a href="#" class="btn-addnew-project border-primary" data-ajax-popup="true"
-            data-url="{{ route('users.create') }}"
-            data-title="{{ \Auth::user()->type == 'super admin' ? __('Create Company') : __('Create User') }}"
-            data-bs-toggle="tooltip" title=""
-            data-bs-original-title="{{ \Auth::user()->type == 'super admin' ? __('Create Company') : __('Create User') }}">
+        <a href="#" data-size="lg" data-url="{{ route('users.create') }}" data-ajax-popup="true"
+            data-bs-toggle="tooltip" data-title="{{ \Auth::user()->type == 'super admin' ?  __('Create Company')  : __('Create User') }}" data-bs-original-title="{{ \Auth::user()->type == 'super admin' ?  __('Create Company')  : __('Create User') }}" class="btn-addnew-project border-primary">
             <div class="bg-primary proj-add-icon">
                 <i class="ti ti-plus"></i>
             </div>

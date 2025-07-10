@@ -1324,26 +1324,6 @@ Route::group(['middleware' => ['verified']], function () {
     Route::get('/contract/copy/{id}', [ContractController::class, 'copycontract'])->name('contract.copy')->middleware(['auth', 'XSS']);
     Route::post('contract/copy/store', [ContractController::class, 'copycontractstore'])->name('contract.copy.store')->middleware(['auth', 'XSS']);
 
-    // Custom Landing Page
-
-    //    Route::get('/landingpage', [LandingPageSectionController::class, 'index'])->name('custom_landing_page.index')->middleware(['auth', 'XSS']);
-    //    Route::get('/LandingPage/show/{id}', [LandingPageSectionController::class, 'show']);
-    //
-    //    Route::post('/LandingPage/setConetent', [LandingPageSectionController::class, 'setConetent'])->middleware(['auth', 'XSS']);
-    //
-    //
-    //    Route::get(
-    //        '/get_landing_page_section/{name}', function ($name) {
-    //        $plans = \DB::table('plans')->get();
-    //
-    //        return view('custom_landing_page.' . $name, compact('plans'));
-    //    }
-    //    );
-    //
-    //    Route::post('/LandingPage/removeSection/{id}', [LandingPageSectionController::class, 'removeSection'])->middleware(['auth', 'XSS']);
-    //    Route::post('/LandingPage/setOrder', [LandingPageSectionController::class, 'setOrder'])->middleware(['auth', 'XSS']);
-    //    Route::post('/LandingPage/copySection', [LandingPageSectionController::class, 'copySection'])->middleware(['auth', 'XSS']);
-
     // Plan Payment Gateways
     Route::post('plan-pay-with-bank', [BankTransferPaymentController::class, 'planPayWithBank'])->name('plan.pay.with.bank')->middleware(['auth', 'XSS', 'revalidate']);
 

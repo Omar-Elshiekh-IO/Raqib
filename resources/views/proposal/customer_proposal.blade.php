@@ -21,7 +21,7 @@
  <head>
    <meta charset="UTF-8">
    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-   <title>{{(Utility::companyData($proposal->created_by,'title_text')) ? Utility::companyData($proposal->created_by,'title_text') : config('app.name', 'ERPGO')}} - {{__('Proposal')}}</title>
+   <title>{{(Utility::companyData($proposal->created_by,'title_text')) ? Utility::companyData($proposal->created_by,'title_text') : config('app.name', 'Raqib')}} - {{__('Proposal')}}</title>
 
      <meta name="title" content="{{$metatitle}}">
      <meta name="description" content="{{$metsdesc}}">

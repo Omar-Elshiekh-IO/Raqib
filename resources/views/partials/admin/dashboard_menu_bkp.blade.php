@@ -24,10 +24,10 @@
 
             @if ($setting['cust_darklayout'] && $setting['cust_darklayout'] == 'on')
                 <img src="{{ $logo . '/' . (isset($company_logos) && !empty($company_logos) ? $company_logos : 'logo-dark.png') }}"
-                    alt="{{ config('app.name', 'ERPGo-SaaS') }}" class="logo logo-lg">
+                    alt="{{ config('app.name', 'Raqib-SaaS') }}" class="logo logo-lg">
             @else
                 <img src="{{ $logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-light.png') }}"
-                    alt="{{ config('app.name', 'ERPGo-SaaS') }}" class="logo logo-lg">
+                    alt="{{ config('app.name', 'Raqib-SaaS') }}" class="logo logo-lg">
             @endif
 
         </a>
@@ -1403,12 +1403,7 @@
                                     class="dash-link">{{ __('Setup Subscription Plan') }}</a>
                             </li>
                         @endif
-                        <li
-                        class="dash-item{{ Request::route()->getName() == 'referral-program.company' ? ' active' : '' }}">
-                        <a href="{{ route('referral-program.company') }}"
-                            class="dash-link">{{ __('Referral Program') }}</a>
-                        </li>
-
+                        
                         @if (Gate::check('manage order') && Auth::user()->type == 'company')
                             <li class="dash-item {{ Request::segment(1) == 'order' ? 'active' : '' }}">
                                 <a href="{{ route('order.index') }}" class="dash-link">{{ __('Order') }}</a>
@@ -1556,12 +1551,7 @@
                 </li>
             @endif
 
-                <li class="dash-item dash-hasmenu  {{ Request::segment(1) == '' ? 'active' : '' }}">
-                    <a href="{{ route('referral-program.index') }}" class="dash-link">
-                        <span class="dash-micon"><i class="ti ti-discount-2"></i></span><span
-                            class="dash-mtext">{{ __('Referral Program') }}</span>
-                    </a>
-                </li>
+        
 
 
                 @if (Gate::check('manage coupon'))
@@ -1588,10 +1578,6 @@
                         <span class="dash-mtext">{{ __('Email Template') }}</span>
                     </a>
                 </li>
-
-                @if (\Auth::user()->type == 'super admin')
-                    @include('landingpage::menu.landingpage')
-                @endif
 
                 @if (Gate::check('manage system settings'))
                     <li

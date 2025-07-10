@@ -52,7 +52,6 @@ use App\Http\Controllers\DucumentUploadController;
 use App\Http\Controllers\EasebuzzController;
 use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\EmploymentTypeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FedapayController;
@@ -88,13 +87,15 @@ use App\Http\Controllers\NotificationTemplatesController;
 use App\Http\Controllers\OtherPaymentController;
 use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\PayFastController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaymentWallPaymentController;
+use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PaySlipController;
 use App\Http\Controllers\PayslipTypeController;
 use App\Http\Controllers\PaystackPaymentController;
 use App\Http\Controllers\PaytabController;
 use App\Http\Controllers\PaytmPaymentController;
 use App\Http\Controllers\PaytrController;
-use App\Http\Controllers\WorkShiftController;
 use App\Http\Controllers\YooKassaController;
 use App\Http\Controllers\PerformanceTypeController;
 use App\Http\Controllers\PermissionController;
@@ -158,8 +159,6 @@ use App\Http\Controllers\ReferralProgramController;
 use App\Http\Controllers\TapController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\PaymentWallPaymentController;
-use App\Http\Controllers\PaypalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -301,28 +300,28 @@ Route::get('proposal/pdf/{id}', [ProposalController::class, 'proposal'])->name('
 /***********************************************************************************************************************************************/
 
 //career page
-Route::get('career/{id}/{lang}', [JobController::class, 'career'])->name('career');
-Route::get('job/requirement/{code}/{lang}', [JobController::class, 'jobRequirement'])->name('job.requirement');
-Route::get('job/apply/{code}/{lang}', [JobController::class, 'jobApply'])->name('job.apply');
-Route::post('job/apply/data/{code}', [JobController::class, 'jobApplyData'])->name('job.apply.data');
+Route::get('career/{id}/{lang}', [JobController::class, 'career'])->name('career') ;
+Route::get('job/requirement/{code}/{lang}', [JobController::class, 'jobRequirement'])->name('job.requirement') ;
+Route::get('job/apply/{code}/{lang}', [JobController::class, 'jobApply'])->name('job.apply') ;
+Route::post('job/apply/data/{code}', [JobController::class, 'jobApplyData'])->name('job.apply.data') ;
 
 //project copy module
 Route::get('/projects/copylink/{id}', [ProjectController::class, 'projectCopyLink'])->name('projects.copylink');
-Route::any('/projects/link/{id}/{lang?}', [ProjectController::class, 'projectlink'])->name('projects.link');
-Route::get('timesheet-table-view', [TimesheetController::class, 'filterTimesheetTableView'])->name('filter.timesheet.table.view')->middleware(['auth']);
+Route::any('/projects/link/{id}/{lang?}', [ProjectController::class, 'projectlink'])->name('projects.link') ;
+Route::get('timesheet-table-view', [TimesheetController::class, 'filterTimesheetTableView'])->name('filter.timesheet.table.view')->middleware(['auth' ]);
 
 // Invoice Payment Gateways
-// Route::post('customer/{id}/payment', [StripePaymentController::class, 'addpayment'])->name('customer.payment');
-Route::get('invoice/pdf/{id}', [InvoiceController::class, 'invoice'])->name('invoice.pdf')->middleware(['revalidate']);
+Route::post('customer/{id}/payment', [StripePaymentController::class, 'addpayment'])->name('customer.payment');
+Route::get('invoice/pdf/{id}', [InvoiceController::class, 'invoice'])->name('invoice.pdf')->middleware([  'revalidate']);
 
 Route::get('users/{id}/login-with-company', [UserController::class, 'LoginWithCompany'])->name('login.with.company')->middleware(['auth']);
 Route::get('login-with-company/exit', [UserController::class, 'ExitCompany'])->name('exit.company')->middleware(['auth']);
 Route::get('user-login/{id}', [UserController::class, 'LoginManage'])->name('users.login');
 
-Route::get('/form/{code}', [FormBuilderController::class, 'formView'])->name('form.view');
-Route::post('/form_view_store', [FormBuilderController::class, 'formViewStore'])->name('form.view.store');
+Route::get('/form/{code}', [FormBuilderController::class, 'formView'])->name('form.view') ;
+Route::post('/form_view_store', [FormBuilderController::class, 'formViewStore'])->name('form.view.store') ;
 
-Route::get('/', [DashboardController::class, 'landingpage'])->middleware(['revalidate']);
+Route::get('/', [DashboardController::class, 'index'])->middleware(['revalidate']);
 
 
 // cache
@@ -336,7 +335,7 @@ Route::get('/config-cache', function () {
 
 
 //================================= Invoice Payment Gateways  ====================================//
-Route::group(['middleware' => ['verified', 'XSS']], function () {
+Route::group(['middleware' => ['verified','XSS']], function () {
 
   // Route::get('/home', [DashboardController::class, 'account_dashboard_index'])->name('home')->middleware([  'revalidate']);
 
@@ -349,9 +348,9 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
   Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth', 'revalidate']);
 
-  Route::any('edit-profile', [UserController::class, 'editprofile'])->name('update.account')->middleware(['auth', 'revalidate']);
+  Route::any('edit-profile', [UserController::class, 'editprofile'])->name('update.account')->middleware(['auth' , 'revalidate']);
 
-  Route::resource('users', UserController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('users', UserController::class)->middleware(['auth' , 'revalidate']);
 
   Route::post('change-password', [UserController::class, 'updatePassword'])->name('update.password');
 
@@ -363,9 +362,9 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
   Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode');
 
-  Route::resource('roles', RoleController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('roles', RoleController::class)->middleware(['auth' , 'revalidate']);
 
-  Route::resource('permissions', PermissionController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('permissions', PermissionController::class)->middleware(['auth' , 'revalidate']);
 
   Route::group(
     [
@@ -411,7 +410,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
       Route::post('telegram-settings', [SystemController::class, 'saveTelegramSettings'])->name('telegram.settings');
       Route::post('twilio-settings', [SystemController::class, 'saveTwilioSettings'])->name('twilio.setting');
       Route::get('print-setting', [SystemController::class, 'printIndex'])->name('print.setting');
-      Route::get('settings', [SystemController::class, 'companyIndex'])->name('settings');
+      Route::get('settings', [SystemController::class, 'companyIndex'])->name('settings') ;
       Route::post('business-setting', [SystemController::class, 'saveBusinessSettings'])->name('business.setting');
       Route::post('company-payment-setting', [SystemController::class, 'saveCompanyPaymentSettings'])->name('company.payment.settings');
       Route::post('currency-settings', [SystemController::class, 'saveCurrencySettings'])->name('currency.settings');
@@ -423,29 +422,29 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
       Route::post('stripe-settings', [SystemController::class, 'savePaymentSettings'])->name('payment.settings');
       Route::post('pusher-setting', [SystemController::class, 'savePusherSettings'])->name('pusher.setting');
-      Route::post('recaptcha-settings', [SystemController::class, 'recaptchaSettingStore'])->name('recaptcha.settings.store')->middleware(['auth']);
+      Route::post('recaptcha-settings', [SystemController::class, 'recaptchaSettingStore'])->name('recaptcha.settings.store')->middleware(['auth' ]);
 
-      Route::post('seo-settings', [SystemController::class, 'seoSettings'])->name('seo.settings.store')->middleware(['auth']);
-      Route::any('webhook-settings', [SystemController::class, 'webhook'])->name('webhook.settings')->middleware(['auth']);
-      Route::get('webhook-settings/create', [SystemController::class, 'webhookCreate'])->name('webhook.create')->middleware(['auth']);
+      Route::post('seo-settings', [SystemController::class, 'seoSettings'])->name('seo.settings.store')->middleware(['auth' ]);
+      Route::any('webhook-settings', [SystemController::class, 'webhook'])->name('webhook.settings')->middleware(['auth' ]);
+      Route::get('webhook-settings/create', [SystemController::class, 'webhookCreate'])->name('webhook.create')->middleware(['auth' ]);
       Route::post('webhook-settings/store', [SystemController::class, 'webhookStore'])->name('webhook.store');
-      Route::get('webhook-settings/{wid}/edit', [SystemController::class, 'webhookEdit'])->name('webhook.edit')->middleware(['auth']);
-      Route::post('webhook-settings/{wid}/edit', [SystemController::class, 'webhookUpdate'])->name('webhook.update')->middleware(['auth']);
-      Route::delete('webhook-settings/{wid}', [SystemController::class, 'webhookDestroy'])->name('webhook.destroy')->middleware(['auth']);
+      Route::get('webhook-settings/{wid}/edit', [SystemController::class, 'webhookEdit'])->name('webhook.edit')->middleware(['auth' ]);
+      Route::post('webhook-settings/{wid}/edit', [SystemController::class, 'webhookUpdate'])->name('webhook.update')->middleware(['auth' ]);
+      Route::delete('webhook-settings/{wid}', [SystemController::class, 'webhookDestroy'])->name('webhook.destroy')->middleware(['auth' ]);
 
       Route::post('cookie-setting', [SystemController::class, 'saveCookieSettings'])->name('cookie.setting');
 
-      Route::post('cache-settings', [SystemController::class, 'cacheSettingStore'])->name('cache.settings.store')->middleware(['auth']);
+      Route::post('cache-settings', [SystemController::class, 'cacheSettingStore'])->name('cache.settings.store')->middleware(['auth' ]);
     }
   ); // superadmin
 
   Route::get('productservice/{id}/detail', [ProductServiceController::class, 'warehouseDetail'])->name('productservice.detail');
-  Route::post('empty-cart', [ProductServiceController::class, 'emptyCart'])->middleware(['auth']);
-  Route::post('warehouse-empty-cart', [ProductServiceController::class, 'warehouseemptyCart'])->name('warehouse-empty-cart')->middleware(['auth']);
-  Route::resource('productservice', ProductServiceController::class)->middleware(['auth', 'revalidate']);
+  Route::post('empty-cart', [ProductServiceController::class, 'emptyCart'])->middleware(['auth' ]);
+  Route::post('warehouse-empty-cart', [ProductServiceController::class, 'warehouseemptyCart'])->name('warehouse-empty-cart')->middleware(['auth' ]);
+  Route::resource('productservice', ProductServiceController::class)->middleware(['auth' , 'revalidate']);
 
   //Product Stock
-  Route::resource('productstock', ProductStockController::class)->middleware(['auth']);
+  Route::resource('productstock', ProductStockController::class)->middleware(['auth' ]);
 
   //Customer
   Route::group(
@@ -501,19 +500,19 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     }
   );
 
-  Route::resource('taxes', TaxController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('taxes', TaxController::class)->middleware(['auth' , 'revalidate']);
 
-  Route::resource('product-category', ProductServiceCategoryController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('product-category', ProductServiceCategoryController::class)->middleware(['auth' , 'revalidate']);
 
-  Route::post('product-category/getaccount', [ProductServiceCategoryController::class, 'getAccount'])->name('productServiceCategory.getaccount')->middleware(['auth', 'revalidate']);
+  Route::post('product-category/getaccount', [ProductServiceCategoryController::class, 'getAccount'])->name('productServiceCategory.getaccount')->middleware(['auth' , 'revalidate']);
 
-  Route::resource('product-unit', ProductServiceUnitController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('product-unit', ProductServiceUnitController::class)->middleware(['auth' , 'revalidate']);
 
   Route::group(
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -542,7 +541,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -563,7 +562,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -580,21 +579,21 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     }
   );
 
-  Route::get('/bill/preview/{template}/{color}', [BillController::class, 'previewBill'])->name('bill.preview')->middleware(['auth']);
+  Route::get('/bill/preview/{template}/{color}', [BillController::class, 'previewBill'])->name('bill.preview')->middleware(['auth' ]);
   Route::post('/bill/template/setting', [BillController::class, 'saveBillTemplateSettings'])->name('bill.template.setting');
 
-  Route::resource('taxes', TaxController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('taxes', TaxController::class)->middleware(['auth' , 'revalidate']);
 
 
-  Route::resource('revenue', RevenueController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('revenue', RevenueController::class)->middleware(['auth' , 'revalidate']);
 
-  Route::get('bill/pdf/{id}', [BillController::class, 'bill'])->name('bill.pdf')->middleware(['revalidate']);
+  Route::get('bill/pdf/{id}', [BillController::class, 'bill'])->name('bill.pdf')->middleware([  'revalidate']);
 
   Route::group(
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -615,13 +614,13 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   );
 
 
-  // Route::resource('payment', PaymentController::class)->middleware(['auth' , 'revalidate']);
+  Route::resource('payment', PaymentController::class)->middleware(['auth' , 'revalidate']);
 
   Route::group(
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -634,7 +633,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -655,8 +654,8 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
       Route::get('ledger-report/{account?}', [ReportController::class, 'ledgerSummary'])->name('report.ledger');
       Route::get('trial-balance-report/{view?}', [ReportController::class, 'trialBalanceSummary'])->name('trial.balance');
 
-      Route::get('reports-monthly-cashflow', [ReportController::class, 'monthlyCashflow'])->name('report.monthly.cashflow')->middleware(['auth']);
-      Route::get('reports-quarterly-cashflow', [ReportController::class, 'quarterlyCashflow'])->name('report.quarterly.cashflow')->middleware(['auth']);
+      Route::get('reports-monthly-cashflow', [ReportController::class, 'monthlyCashflow'])->name('report.monthly.cashflow')->middleware(['auth' ]);
+      Route::get('reports-quarterly-cashflow', [ReportController::class, 'quarterlyCashflow'])->name('report.quarterly.cashflow')->middleware(['auth' ]);
       Route::post('export/trial-balance', [ReportController::class, 'trialBalanceExport'])->name('trial.balance.export');
       Route::post('export/balance-sheet', [ReportController::class, 'balanceSheetExport'])->name('balance.sheet.export');
       Route::post('export/profit-loss', [ReportController::class, 'profitLossExport'])->name('profit.loss.export');
@@ -672,7 +671,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -693,22 +692,22 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::get('/proposal/preview/{template}/{color}', [ProposalController::class, 'previewProposal'])->name('proposal.preview');
   Route::post('/proposal/template/setting', [ProposalController::class, 'saveProposalTemplateSettings'])->name('proposal.template.setting');
 
-  Route::resource('goal', GoalController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('goal', GoalController::class)->middleware(['auth' , 'revalidate']);
 
   //Budget Planner //
-  Route::resource('budget', BudgetController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('budget', BudgetController::class)->middleware(['auth' , 'revalidate']);
 
-  Route::resource('account-assets', AssetController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('account-assets', AssetController::class)->middleware(['auth' , 'revalidate']);
 
-  Route::resource('custom-field', CustomFieldController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('custom-field', CustomFieldController::class)->middleware(['auth' , 'revalidate']);
 
-  Route::post('chart-of-account/subtype', [ChartOfAccountController::class, 'getSubType'])->name('charofAccount.subType')->middleware(['auth', 'revalidate']);
+  Route::post('chart-of-account/subtype', [ChartOfAccountController::class, 'getSubType'])->name('charofAccount.subType')->middleware(['auth' , 'revalidate']);
 
   Route::group(
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -721,7 +720,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -736,7 +735,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
   // Client Module
 
-  Route::resource('clients', ClientController::class)->middleware(['auth']);
+  Route::resource('clients', ClientController::class)->middleware(['auth' ]);
 
   Route::any('client-reset-password/{id}', [ClientController::class, 'clientPassword'])->name('clients.reset');
   Route::post('client-reset-password/{id}', [ClientController::class, 'clientPasswordReset'])->name('client.password.update');
@@ -744,40 +743,40 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   // Deal Module
 
   Route::post('/deals/user', [DealController::class, 'jsonUser'])->name('deal.user.json');
-  Route::post('/deals/order', [DealController::class, 'order'])->name('deals.order')->middleware(['auth']);
-  Route::post('/deals/change-pipeline', [DealController::class, 'changePipeline'])->name('deals.change.pipeline')->middleware(['auth']);
-  Route::post('/deals/change-deal-status/{id}', [DealController::class, 'changeStatus'])->name('deals.change.status')->middleware(['auth']);
-  Route::get('/deals/{id}/labels', [DealController::class, 'labels'])->name('deals.labels')->middleware(['auth']);
-  Route::post('/deals/{id}/labels', [DealController::class, 'labelStore'])->name('deals.labels.store')->middleware(['auth']);
-  Route::get('/deals/{id}/users', [DealController::class, 'userEdit'])->name('deals.users.edit')->middleware(['auth']);
-  Route::put('/deals/{id}/users', [DealController::class, 'userUpdate'])->name('deals.users.update')->middleware(['auth']);
-  Route::delete('/deals/{id}/users/{uid}', [DealController::class, 'userDestroy'])->name('deals.users.destroy')->middleware(['auth']);
-  Route::get('/deals/{id}/clients', [DealController::class, 'clientEdit'])->name('deals.clients.edit')->middleware(['auth']);
-  Route::put('/deals/{id}/clients', [DealController::class, 'clientUpdate'])->name('deals.clients.update')->middleware(['auth']);
-  Route::delete('/deals/{id}/clients/{uid}', [DealController::class, 'clientDestroy'])->name('deals.clients.destroy')->middleware(['auth']);
-  Route::get('/deals/{id}/products', [DealController::class, 'productEdit'])->name('deals.products.edit')->middleware(['auth']);
-  Route::put('/deals/{id}/products', [DealController::class, 'productUpdate'])->name('deals.products.update')->middleware(['auth']);
-  Route::delete('/deals/{id}/products/{uid}', [DealController::class, 'productDestroy'])->name('deals.products.destroy')->middleware(['auth']);
-  Route::get('/deals/{id}/sources', [DealController::class, 'sourceEdit'])->name('deals.sources.edit')->middleware(['auth']);
-  Route::put('/deals/{id}/sources', [DealController::class, 'sourceUpdate'])->name('deals.sources.update')->middleware(['auth']);
-  Route::delete('/deals/{id}/sources/{uid}', [DealController::class, 'sourceDestroy'])->name('deals.sources.destroy')->middleware(['auth']);
-  Route::post('/deals/{id}/file', [DealController::class, 'fileUpload'])->name('deals.file.upload')->middleware(['auth']);
-  Route::get('/deals/{id}/file/{fid}', [DealController::class, 'fileDownload'])->name('deals.file.download')->middleware(['auth']);
-  Route::delete('/deals/{id}/file/delete/{fid}', [DealController::class, 'fileDelete'])->name('deals.file.delete')->middleware(['auth']);
+  Route::post('/deals/order', [DealController::class, 'order'])->name('deals.order')->middleware(['auth' ]);
+  Route::post('/deals/change-pipeline', [DealController::class, 'changePipeline'])->name('deals.change.pipeline')->middleware(['auth' ]);
+  Route::post('/deals/change-deal-status/{id}', [DealController::class, 'changeStatus'])->name('deals.change.status')->middleware(['auth' ]);
+  Route::get('/deals/{id}/labels', [DealController::class, 'labels'])->name('deals.labels')->middleware(['auth' ]);
+  Route::post('/deals/{id}/labels', [DealController::class, 'labelStore'])->name('deals.labels.store')->middleware(['auth' ]);
+  Route::get('/deals/{id}/users', [DealController::class, 'userEdit'])->name('deals.users.edit')->middleware(['auth' ]);
+  Route::put('/deals/{id}/users', [DealController::class, 'userUpdate'])->name('deals.users.update')->middleware(['auth' ]);
+  Route::delete('/deals/{id}/users/{uid}', [DealController::class, 'userDestroy'])->name('deals.users.destroy')->middleware(['auth' ]);
+  Route::get('/deals/{id}/clients', [DealController::class, 'clientEdit'])->name('deals.clients.edit')->middleware(['auth' ]);
+  Route::put('/deals/{id}/clients', [DealController::class, 'clientUpdate'])->name('deals.clients.update')->middleware(['auth' ]);
+  Route::delete('/deals/{id}/clients/{uid}', [DealController::class, 'clientDestroy'])->name('deals.clients.destroy')->middleware(['auth' ]);
+  Route::get('/deals/{id}/products', [DealController::class, 'productEdit'])->name('deals.products.edit')->middleware(['auth' ]);
+  Route::put('/deals/{id}/products', [DealController::class, 'productUpdate'])->name('deals.products.update')->middleware(['auth' ]);
+  Route::delete('/deals/{id}/products/{uid}', [DealController::class, 'productDestroy'])->name('deals.products.destroy')->middleware(['auth' ]);
+  Route::get('/deals/{id}/sources', [DealController::class, 'sourceEdit'])->name('deals.sources.edit')->middleware(['auth' ]);
+  Route::put('/deals/{id}/sources', [DealController::class, 'sourceUpdate'])->name('deals.sources.update')->middleware(['auth' ]);
+  Route::delete('/deals/{id}/sources/{uid}', [DealController::class, 'sourceDestroy'])->name('deals.sources.destroy')->middleware(['auth' ]);
+  Route::post('/deals/{id}/file', [DealController::class, 'fileUpload'])->name('deals.file.upload')->middleware(['auth' ]);
+  Route::get('/deals/{id}/file/{fid}', [DealController::class, 'fileDownload'])->name('deals.file.download')->middleware(['auth' ]);
+  Route::delete('/deals/{id}/file/delete/{fid}', [DealController::class, 'fileDelete'])->name('deals.file.delete')->middleware(['auth' ]);
   Route::post('/deals/{id}/note', [DealController::class, 'noteStore'])->name('deals.note.store')->middleware(['auth']);
-  Route::get('/deals/{id}/task', [DealController::class, 'taskCreate'])->name('deals.tasks.create')->middleware(['auth']);
-  Route::post('/deals/{id}/task', [DealController::class, 'taskStore'])->name('deals.tasks.store')->middleware(['auth']);
-  Route::get('/deals/{id}/task/{tid}/show', [DealController::class, 'taskShow'])->name('deals.tasks.show')->middleware(['auth']);
-  Route::get('/deals/{id}/task/{tid}/edit', [DealController::class, 'taskEdit'])->name('deals.tasks.edit')->middleware(['auth']);
-  Route::put('/deals/{id}/task/{tid}', [DealController::class, 'taskUpdate'])->name('deals.tasks.update')->middleware(['auth']);
-  Route::put('/deals/{id}/task_status/{tid}', [DealController::class, 'taskUpdateStatus'])->name('deals.tasks.update_status')->middleware(['auth']);
-  Route::delete('/deals/{id}/task/{tid}', [DealController::class, 'taskDestroy'])->name('deals.tasks.destroy')->middleware(['auth']);
-  Route::get('/deals/{id}/discussions', [DealController::class, 'discussionCreate'])->name('deals.discussions.create')->middleware(['auth']);
-  Route::post('/deals/{id}/discussions', [DealController::class, 'discussionStore'])->name('deals.discussion.store')->middleware(['auth']);
-  Route::get('/deals/{id}/permission/{cid}', [DealController::class, 'permission'])->name('deals.client.permission')->middleware(['auth']);
-  Route::put('/deals/{id}/permission/{cid}', [DealController::class, 'permissionStore'])->name('deals.client.permissions.store')->middleware(['auth']);
-  Route::get('/deals/list', [DealController::class, 'deal_list'])->name('deals.list')->middleware(['auth']);
-  Route::get('/deals/export', [DealController::class, 'export'])->name('deals.export')->middleware(['auth']);
+  Route::get('/deals/{id}/task', [DealController::class, 'taskCreate'])->name('deals.tasks.create')->middleware(['auth' ]);
+  Route::post('/deals/{id}/task', [DealController::class, 'taskStore'])->name('deals.tasks.store')->middleware(['auth' ]);
+  Route::get('/deals/{id}/task/{tid}/show', [DealController::class, 'taskShow'])->name('deals.tasks.show')->middleware(['auth' ]);
+  Route::get('/deals/{id}/task/{tid}/edit', [DealController::class, 'taskEdit'])->name('deals.tasks.edit')->middleware(['auth' ]);
+  Route::put('/deals/{id}/task/{tid}', [DealController::class, 'taskUpdate'])->name('deals.tasks.update')->middleware(['auth' ]);
+  Route::put('/deals/{id}/task_status/{tid}', [DealController::class, 'taskUpdateStatus'])->name('deals.tasks.update_status')->middleware(['auth' ]);
+  Route::delete('/deals/{id}/task/{tid}', [DealController::class, 'taskDestroy'])->name('deals.tasks.destroy')->middleware(['auth' ]);
+  Route::get('/deals/{id}/discussions', [DealController::class, 'discussionCreate'])->name('deals.discussions.create')->middleware(['auth' ]);
+  Route::post('/deals/{id}/discussions', [DealController::class, 'discussionStore'])->name('deals.discussion.store')->middleware(['auth' ]);
+  Route::get('/deals/{id}/permission/{cid}', [DealController::class, 'permission'])->name('deals.client.permission')->middleware(['auth' ]);
+  Route::put('/deals/{id}/permission/{cid}', [DealController::class, 'permissionStore'])->name('deals.client.permissions.store')->middleware(['auth' ]);
+  Route::get('/deals/list', [DealController::class, 'deal_list'])->name('deals.list')->middleware(['auth' ]);
+  Route::get('/deals/export', [DealController::class, 'export'])->name('deals.export')->middleware(['auth' ]);
   Route::get('import/deals/file', [DealController::class, 'importFile'])->name('deals.import');
   Route::post('deals/import', [DealController::class, 'fileImport'])->name('deals.file.import');
   Route::get('import/deals/modal', [DealController::class, 'fileImportModal'])->name('deals.import.modal');
@@ -785,18 +784,18 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
   // Deal Calls
 
-  Route::get('/deals/{id}/call', [DealController::class, 'callCreate'])->name('deals.calls.create')->middleware(['auth']);
+  Route::get('/deals/{id}/call', [DealController::class, 'callCreate'])->name('deals.calls.create')->middleware(['auth' ]);
   Route::post('/deals/{id}/call', [DealController::class, 'callStore'])->name('deals.calls.store')->middleware(['auth']);
   Route::get('/deals/{id}/call/{cid}/edit', [DealController::class, 'callEdit'])->name('deals.calls.edit')->middleware(['auth']);
   Route::put('/deals/{id}/call/{cid}', [DealController::class, 'callUpdate'])->name('deals.calls.update')->middleware(['auth']);
-  Route::delete('/deals/{id}/call/{cid}', [DealController::class, 'callDestroy'])->name('deals.calls.destroy')->middleware(['auth']);
+  Route::delete('/deals/{id}/call/{cid}', [DealController::class, 'callDestroy'])->name('deals.calls.destroy')->middleware(['auth' ]);
 
   // Deal Email
 
-  Route::get('/deals/{id}/email', [DealController::class, 'emailCreate'])->name('deals.emails.create')->middleware(['auth']);
-  Route::post('/deals/{id}/email', [DealController::class, 'emailStore'])->name('deals.emails.store')->middleware(['auth']);
+  Route::get('/deals/{id}/email', [DealController::class, 'emailCreate'])->name('deals.emails.create')->middleware(['auth' ]);
+  Route::post('/deals/{id}/email', [DealController::class, 'emailStore'])->name('deals.emails.store')->middleware(['auth' ]);
 
-  Route::resource('deals', DealController::class)->middleware(['auth']);
+  Route::resource('deals', DealController::class)->middleware(['auth' ]);
 
   // end Deal Module
 
@@ -808,7 +807,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::resource('pipelines', PipelineController::class);
   Route::resource('labels', LabelController::class);
   Route::resource('sources', SourceController::class);
-  // Route::resource('payments', PaymentController::class);
+  Route::resource('payments', PaymentController::class);
   Route::resource('custom_fields', CustomFieldController::class);
 
   // Leads Module
@@ -818,28 +817,28 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::resource('lead_stages', LeadStageController::class)->middleware(['auth']);
 
   Route::post('/leads/json', [LeadController::class, 'json'])->name('leads.json');
-  Route::post('/leads/order', [LeadController::class, 'order'])->name('leads.order')->middleware(['auth']);
-  Route::get('/leads/list', [LeadController::class, 'lead_list'])->name('leads.list')->middleware(['auth']);
-  Route::post('/leads/{id}/file', [LeadController::class, 'fileUpload'])->name('leads.file.upload')->middleware(['auth']);
-  Route::get('/leads/{id}/file/{fid}', [LeadController::class, 'fileDownload'])->name('leads.file.download')->middleware(['auth']);
-  Route::delete('/leads/{id}/file/delete/{fid}', [LeadController::class, 'fileDelete'])->name('leads.file.delete')->middleware(['auth']);
+  Route::post('/leads/order', [LeadController::class, 'order'])->name('leads.order')->middleware(['auth' ]);
+  Route::get('/leads/list', [LeadController::class, 'lead_list'])->name('leads.list')->middleware(['auth' ]);
+  Route::post('/leads/{id}/file', [LeadController::class, 'fileUpload'])->name('leads.file.upload')->middleware(['auth' ]);
+  Route::get('/leads/{id}/file/{fid}', [LeadController::class, 'fileDownload'])->name('leads.file.download')->middleware(['auth' ]);
+  Route::delete('/leads/{id}/file/delete/{fid}', [LeadController::class, 'fileDelete'])->name('leads.file.delete')->middleware(['auth' ]);
   Route::post('/leads/{id}/note', [LeadController::class, 'noteStore'])->name('leads.note.store')->middleware(['auth']);
-  Route::get('/leads/{id}/labels', [LeadController::class, 'labels'])->name('leads.labels')->middleware(['auth']);
-  Route::post('/leads/{id}/labels', [LeadController::class, 'labelStore'])->name('leads.labels.store')->middleware(['auth']);
-  Route::get('/leads/{id}/users', [LeadController::class, 'userEdit'])->name('leads.users.edit')->middleware(['auth']);
-  Route::put('/leads/{id}/users', [LeadController::class, 'userUpdate'])->name('leads.users.update')->middleware(['auth']);
-  Route::delete('/leads/{id}/users/{uid}', [LeadController::class, 'userDestroy'])->name('leads.users.destroy')->middleware(['auth']);
-  Route::get('/leads/{id}/products', [LeadController::class, 'productEdit'])->name('leads.products.edit')->middleware(['auth']);
-  Route::put('/leads/{id}/products', [LeadController::class, 'productUpdate'])->name('leads.products.update')->middleware(['auth']);
-  Route::delete('/leads/{id}/products/{uid}', [LeadController::class, 'productDestroy'])->name('leads.products.destroy')->middleware(['auth']);
-  Route::get('/leads/{id}/sources', [LeadController::class, 'sourceEdit'])->name('leads.sources.edit')->middleware(['auth']);
-  Route::put('/leads/{id}/sources', [LeadController::class, 'sourceUpdate'])->name('leads.sources.update')->middleware(['auth']);
-  Route::delete('/leads/{id}/sources/{uid}', [LeadController::class, 'sourceDestroy'])->name('leads.sources.destroy')->middleware(['auth']);
-  Route::get('/leads/{id}/discussions', [LeadController::class, 'discussionCreate'])->name('leads.discussions.create')->middleware(['auth']);
-  Route::post('/leads/{id}/discussions', [LeadController::class, 'discussionStore'])->name('leads.discussion.store')->middleware(['auth']);
-  Route::get('/leads/{id}/show_convert', [LeadController::class, 'showConvertToDeal'])->name('leads.convert.deal')->middleware(['auth']);
-  Route::post('/leads/{id}/convert', [LeadController::class, 'convertToDeal'])->name('leads.convert.to.deal')->middleware(['auth']);
-  Route::get('/leads/export', [LeadController::class, 'export'])->name('leads.export')->middleware(['auth']);
+  Route::get('/leads/{id}/labels', [LeadController::class, 'labels'])->name('leads.labels')->middleware(['auth' ]);
+  Route::post('/leads/{id}/labels', [LeadController::class, 'labelStore'])->name('leads.labels.store')->middleware(['auth' ]);
+  Route::get('/leads/{id}/users', [LeadController::class, 'userEdit'])->name('leads.users.edit')->middleware(['auth' ]);
+  Route::put('/leads/{id}/users', [LeadController::class, 'userUpdate'])->name('leads.users.update')->middleware(['auth' ]);
+  Route::delete('/leads/{id}/users/{uid}', [LeadController::class, 'userDestroy'])->name('leads.users.destroy')->middleware(['auth' ]);
+  Route::get('/leads/{id}/products', [LeadController::class, 'productEdit'])->name('leads.products.edit')->middleware(['auth' ]);
+  Route::put('/leads/{id}/products', [LeadController::class, 'productUpdate'])->name('leads.products.update')->middleware(['auth' ]);
+  Route::delete('/leads/{id}/products/{uid}', [LeadController::class, 'productDestroy'])->name('leads.products.destroy')->middleware(['auth' ]);
+  Route::get('/leads/{id}/sources', [LeadController::class, 'sourceEdit'])->name('leads.sources.edit')->middleware(['auth' ]);
+  Route::put('/leads/{id}/sources', [LeadController::class, 'sourceUpdate'])->name('leads.sources.update')->middleware(['auth' ]);
+  Route::delete('/leads/{id}/sources/{uid}', [LeadController::class, 'sourceDestroy'])->name('leads.sources.destroy')->middleware(['auth' ]);
+  Route::get('/leads/{id}/discussions', [LeadController::class, 'discussionCreate'])->name('leads.discussions.create')->middleware(['auth' ]);
+  Route::post('/leads/{id}/discussions', [LeadController::class, 'discussionStore'])->name('leads.discussion.store')->middleware(['auth' ]);
+  Route::get('/leads/{id}/show_convert', [LeadController::class, 'showConvertToDeal'])->name('leads.convert.deal')->middleware(['auth' ]);
+  Route::post('/leads/{id}/convert', [LeadController::class, 'convertToDeal'])->name('leads.convert.to.deal')->middleware(['auth' ]);
+  Route::get('/leads/export', [LeadController::class, 'export'])->name('leads.export')->middleware(['auth' ]);
 
   // Route::post('import/leads', [LeadController::class, 'import'])->name('leads.import');
   Route::get('import/leads/file', [LeadController::class, 'importFile'])->name('leads.import');
@@ -849,227 +848,223 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
 
   // Lead Calls
-  Route::get('/leads/{id}/call', [LeadController::class, 'callCreate'])->name('leads.calls.create')->middleware(['auth']);
+  Route::get('/leads/{id}/call', [LeadController::class, 'callCreate'])->name('leads.calls.create')->middleware(['auth' ]);
   Route::post('/leads/{id}/call', [LeadController::class, 'callStore'])->name('leads.calls.store')->middleware(['auth']);
-  Route::get('/leads/{id}/call/{cid}/edit', [LeadController::class, 'callEdit'])->name('leads.calls.edit')->middleware(['auth']);
+  Route::get('/leads/{id}/call/{cid}/edit', [LeadController::class, 'callEdit'])->name('leads.calls.edit')->middleware(['auth' ]);
   Route::put('/leads/{id}/call/{cid}', [LeadController::class, 'callUpdate'])->name('leads.calls.update')->middleware(['auth']);
-  Route::delete('/leads/{id}/call/{cid}', [LeadController::class, 'callDestroy'])->name('leads.calls.destroy')->middleware(['auth']);
+  Route::delete('/leads/{id}/call/{cid}', [LeadController::class, 'callDestroy'])->name('leads.calls.destroy')->middleware(['auth' ]);
 
   // Lead Email
 
-  Route::get('/leads/{id}/email', [LeadController::class, 'emailCreate'])->name('leads.emails.create')->middleware(['auth']);
+  Route::get('/leads/{id}/email', [LeadController::class, 'emailCreate'])->name('leads.emails.create')->middleware(['auth' ]);
   Route::post('/leads/{id}/email', [LeadController::class, 'emailStore'])->name('leads.emails.store')->middleware(['auth']);
 
-  Route::resource('leads', LeadController::class)->middleware(['auth']);
+  Route::resource('leads', LeadController::class)->middleware(['auth' ]);
 
   // end Leads Module
 
-  Route::get('user/{id}/plan', [UserController::class, 'upgradePlan'])->name('plan.upgrade')->middleware(['auth']);
-  Route::get('user/{id}/plan/{pid}', [UserController::class, 'activePlan'])->name('plan.active')->middleware(['auth']);
+  Route::get('user/{id}/plan', [UserController::class, 'upgradePlan'])->name('plan.upgrade')->middleware(['auth' ]);
+  Route::get('user/{id}/plan/{pid}', [UserController::class, 'activePlan'])->name('plan.active')->middleware(['auth' ]);
   Route::get('/{uid}/notification/seen', [UserController::class, 'notificationSeen'])->name('notification.seen');
 
   // Email Templates -- superadmin
-  Route::get('email_template_lang/{id}/{lang?}', [EmailTemplateController::class, 'manageEmailLang'])->name('manage.email.language')->middleware(['auth']);
+  Route::get('email_template_lang/{id}/{lang?}', [EmailTemplateController::class, 'manageEmailLang'])->name('manage.email.language')->middleware(['auth' ]);
   Route::any('email_template_store', [EmailTemplateController::class, 'updateStatus'])->name('status.email.language')->middleware(['auth']);
   Route::any('email_template_store/{pid}', [EmailTemplateController::class, 'storeEmailLang'])->name('store.email.language')->middleware(['auth']);
-  Route::resource('email_template', EmailTemplateController::class)->middleware(['auth']);
+  Route::resource('email_template', EmailTemplateController::class)->middleware(['auth' ]);
   // End Email Templates
 
   // HRM
-  Route::resource('user', UserController::class)->middleware(['auth']);
-  Route::post('employee/json', [EmployeeController::class, 'json'])->name('employee.json')->middleware(['auth']);
-  Route::post('branch/employee/json', [EmployeeController::class, 'employeeJson'])->name('branch.employee.json')->middleware(['auth']);
-  Route::get('employee-profile', [EmployeeController::class, 'profile'])->name('employee.profile')->middleware(['auth']);
-  Route::get('show-employee-profile/{id}', [EmployeeController::class, 'profileShow'])->name('show.employee.profile')->middleware(['auth']);
+  Route::resource('user', UserController::class)->middleware(['auth' ]);
+  Route::post('employee/json', [EmployeeController::class, 'json'])->name('employee.json')->middleware(['auth' ]);
+  Route::post('branch/employee/json', [EmployeeController::class, 'employeeJson'])->name('branch.employee.json')->middleware(['auth' ]);
+  Route::get('employee-profile', [EmployeeController::class, 'profile'])->name('employee.profile')->middleware(['auth' ]);
+  Route::get('show-employee-profile/{id}', [EmployeeController::class, 'profileShow'])->name('show.employee.profile')->middleware(['auth' ]);
 
-  Route::get('lastlogin', [EmployeeController::class, 'lastLogin'])->name('lastlogin')->middleware(['auth']);
+  Route::get('lastlogin', [EmployeeController::class, 'lastLogin'])->name('lastlogin')->middleware(['auth' ]);
 
-  Route::resource('employee', EmployeeController::class)->middleware(['auth']);
+  Route::resource('employee', EmployeeController::class)->middleware(['auth' ]);
 
-  Route::post('employee/getdepartment', [EmployeeController::class, 'getDepartment'])->name('employee.getdepartment')->middleware(['auth']);
+  Route::post('employee/getdepartment', [EmployeeController::class, 'getDepartment'])->name('employee.getdepartment')->middleware(['auth' ]);
 
-  Route::resource('department', DepartmentController::class)->middleware(['auth']);
-  Route::resource('designation', DesignationController::class)->middleware(['auth']);
-  Route::resource('document', DocumentController::class)->middleware(['auth']);
-  Route::resource('branch', BranchController::class)->middleware(['auth']);
+  Route::resource('department', DepartmentController::class)->middleware(['auth' ]);
+  Route::resource('designation', DesignationController::class)->middleware(['auth' ]);
+  Route::resource('document', DocumentController::class)->middleware(['auth' ]);
+  Route::resource('branch', BranchController::class)->middleware(['auth' ]);
 
   // Hrm EmployeeController
 
-  Route::get('employee/salary/{eid}', [SetSalaryController::class, 'employeeBasicSalary'])->name('employee.basic.salary')->middleware(['auth']);
+  Route::get('employee/salary/{eid}', [SetSalaryController::class, 'employeeBasicSalary'])->name('employee.basic.salary')->middleware(['auth' ]);
 
   //payslip
 
-  Route::resource('paysliptype', PayslipTypeController::class)->middleware(['auth']);
-  Route::resource('allowance', AllowanceController::class)->except(['index'])->middleware(['auth']);
-  Route::resource('commission', CommissionController::class)->middleware(['auth']);
-  Route::resource('allowanceoption', AllowanceOptionController::class)->middleware(['auth']);
-  Route::resource('loanoption', LoanOptionController::class)->middleware(['auth']);
-  Route::resource('deductionoption', DeductionOptionController::class)->middleware(['auth']);
-  Route::resource('loan', LoanController::class)->middleware(['auth']);
-  Route::resource('saturationdeduction', SaturationDeductionController::class)->middleware(['auth']);
-  Route::resource('otherpayment', OtherPaymentController::class)->middleware(['auth']);
-  Route::resource('overtime', OvertimeController::class)->middleware(['auth']);
+  Route::resource('paysliptype', PayslipTypeController::class)->middleware(['auth' ]);
+  Route::resource('allowance', AllowanceController::class)->except(['index'])->middleware(['auth' ]);
+  Route::resource('commission', CommissionController::class)->middleware(['auth' ]);
+  Route::resource('allowanceoption', AllowanceOptionController::class)->middleware(['auth' ]);
+  Route::resource('loanoption', LoanOptionController::class)->middleware(['auth' ]);
+  Route::resource('deductionoption', DeductionOptionController::class)->middleware(['auth' ]);
+  Route::resource('loan', LoanController::class)->middleware(['auth' ]);
+  Route::resource('saturationdeduction', SaturationDeductionController::class)->middleware(['auth' ]);
+  Route::resource('otherpayment', OtherPaymentController::class)->middleware(['auth' ]);
+  Route::resource('overtime', OvertimeController::class)->middleware(['auth' ]);
 
-  Route::get('employee/salary/{eid}', [SetSalaryController::class, 'employeeBasicSalary'])->name('employee.basic.salary')->middleware(['auth']);
-  Route::post('employee/update/sallary/{id}', [SetSalaryController::class, 'employeeUpdateSalary'])->name('employee.salary.update')->middleware(['auth']);
-  Route::get('salary/employeeSalary', [SetSalaryController::class, 'employeeSalary'])->name('employeesalary')->middleware(['auth']);
-  Route::resource('setsalary', SetSalaryController::class)->middleware(['auth']);
+  Route::get('employee/salary/{eid}', [SetSalaryController::class, 'employeeBasicSalary'])->name('employee.basic.salary')->middleware(['auth' ]);
+  Route::post('employee/update/sallary/{id}', [SetSalaryController::class, 'employeeUpdateSalary'])->name('employee.salary.update')->middleware(['auth' ]);
+  Route::get('salary/employeeSalary', [SetSalaryController::class, 'employeeSalary'])->name('employeesalary')->middleware(['auth' ]);
+  Route::resource('setsalary', SetSalaryController::class)->middleware(['auth' ]);
 
-  Route::get('allowances/create/{eid}', [AllowanceController::class, 'allowanceCreate'])->name('allowances.create')->middleware(['auth']);
-  Route::get('commissions/create/{eid}', [CommissionController::class, 'commissionCreate'])->name('commissions.create')->middleware(['auth']);
-  Route::get('loans/create/{eid}', [LoanController::class, 'loanCreate'])->name('loans.create')->middleware(['auth']);
-  Route::get('saturationdeductions/create/{eid}', [SaturationDeductionController::class, 'saturationdeductionCreate'])->name('saturationdeductions.create')->middleware(['auth']);
-  Route::get('otherpayments/create/{eid}', [OtherPaymentController::class, 'otherpaymentCreate'])->name('otherpayments.create')->middleware(['auth']);
-  Route::get('overtimes/create/{eid}', [OvertimeController::class, 'overtimeCreate'])->name('overtimes.create')->middleware(['auth']);
-  Route::get('payslip/paysalary/{id}/{date}', [PaySlipController::class, 'paysalary'])->name('payslip.paysalary')->middleware(['auth']);
-  Route::get('payslip/bulk_pay_create/{date}', [PaySlipController::class, 'bulk_pay_create'])->name('payslip.bulk_pay_create')->middleware(['auth']);
-  Route::post('payslip/bulkpayment/{date}', [PaySlipController::class, 'bulkpayment'])->name('payslip.bulkpayment')->middleware(['auth']);
-  Route::post('payslip/search_json', [PaySlipController::class, 'search_json'])->name('payslip.search_json')->middleware(['auth']);
-  Route::get('payslip/employeepayslip', [PaySlipController::class, 'employeepayslip'])->name('payslip.employeepayslip')->middleware(['auth']);
-  Route::get('payslip/showemployee/{id}', [PaySlipController::class, 'showemployee'])->name('payslip.showemployee')->middleware(['auth']);
-  Route::get('payslip/editemployee/{id}', [PaySlipController::class, 'editemployee'])->name('payslip.editemployee')->middleware(['auth']);
-  Route::post('payslip/editemployee/{id}', [PaySlipController::class, 'updateEmployee'])->name('payslip.updateemployee')->middleware(['auth']);
-  Route::get('payslip/pdf/{id}/{m}', [PaySlipController::class, 'pdf'])->name('payslip.pdf')->middleware(['auth']);
+  Route::get('allowances/create/{eid}', [AllowanceController::class, 'allowanceCreate'])->name('allowances.create')->middleware(['auth' ]);
+  Route::get('commissions/create/{eid}', [CommissionController::class, 'commissionCreate'])->name('commissions.create')->middleware(['auth' ]);
+  Route::get('loans/create/{eid}', [LoanController::class, 'loanCreate'])->name('loans.create')->middleware(['auth' ]);
+  Route::get('saturationdeductions/create/{eid}', [SaturationDeductionController::class, 'saturationdeductionCreate'])->name('saturationdeductions.create')->middleware(['auth' ]);
+  Route::get('otherpayments/create/{eid}', [OtherPaymentController::class, 'otherpaymentCreate'])->name('otherpayments.create')->middleware(['auth' ]);
+  Route::get('overtimes/create/{eid}', [OvertimeController::class, 'overtimeCreate'])->name('overtimes.create')->middleware(['auth' ]);
+  Route::get('payslip/paysalary/{id}/{date}', [PaySlipController::class, 'paysalary'])->name('payslip.paysalary')->middleware(['auth' ]);
+  Route::get('payslip/bulk_pay_create/{date}', [PaySlipController::class, 'bulk_pay_create'])->name('payslip.bulk_pay_create')->middleware(['auth' ]);
+  Route::post('payslip/bulkpayment/{date}', [PaySlipController::class, 'bulkpayment'])->name('payslip.bulkpayment')->middleware(['auth' ]);
+  Route::post('payslip/search_json', [PaySlipController::class, 'search_json'])->name('payslip.search_json')->middleware(['auth' ]);
+  Route::get('payslip/employeepayslip', [PaySlipController::class, 'employeepayslip'])->name('payslip.employeepayslip')->middleware(['auth' ]);
+  Route::get('payslip/showemployee/{id}', [PaySlipController::class, 'showemployee'])->name('payslip.showemployee')->middleware(['auth' ]);
+  Route::get('payslip/editemployee/{id}', [PaySlipController::class, 'editemployee'])->name('payslip.editemployee')->middleware(['auth' ]);
+  Route::post('payslip/editemployee/{id}', [PaySlipController::class, 'updateEmployee'])->name('payslip.updateemployee')->middleware(['auth' ]);
+  Route::get('payslip/pdf/{id}/{m}', [PaySlipController::class, 'pdf'])->name('payslip.pdf')->middleware(['auth' ]);
 
-  Route::get('payslip/send/{id}/{m}', [PaySlipController::class, 'send'])->name('payslip.send')->middleware(['auth']);
-  Route::get('payslip/delete/{id}', [PaySlipController::class, 'destroy'])->name('payslip.delete')->middleware(['auth']);
-  Route::resource('payslip', PaySlipController::class)->middleware(['auth'])->except(['create', 'show']);
+  Route::get('payslip/send/{id}/{m}', [PaySlipController::class, 'send'])->name('payslip.send')->middleware(['auth' ]);
+  Route::get('payslip/delete/{id}', [PaySlipController::class, 'destroy'])->name('payslip.delete')->middleware(['auth' ]);
+  Route::resource('payslip', PaySlipController::class)->middleware(['auth' ])->except(['create', 'show']);
 
-  Route::resource('company-policy', CompanyPolicyController::class)->middleware(['auth']);
-  Route::resource('indicator', IndicatorController::class)->middleware(['auth']);
-  Route::resource('appraisal', AppraisalController::class)->middleware(['auth']);
+  Route::resource('company-policy', CompanyPolicyController::class)->middleware(['auth' ]);
+  Route::resource('indicator', IndicatorController::class)->middleware(['auth' ]);
+  Route::resource('appraisal', AppraisalController::class)->middleware(['auth' ]);
 
-  Route::post('branch/employee/json', [EmployeeController::class, 'employeeJson'])->name('branch.employee.json')->middleware(['auth']);
+  Route::post('branch/employee/json', [EmployeeController::class, 'employeeJson'])->name('branch.employee.json')->middleware(['auth' ]);
 
-  Route::resource('goaltype', GoalTypeController::class)->middleware(['auth']);
-  Route::resource('goaltracking', GoalTrackingController::class)->middleware(['auth']);
-  Route::resource('account-assets', AssetController::class)->middleware(['auth']);
+  Route::resource('goaltype', GoalTypeController::class)->middleware(['auth' ]);
+  Route::resource('goaltracking', GoalTrackingController::class)->middleware(['auth' ]);
+  Route::resource('account-assets', AssetController::class)->middleware(['auth' ]);
 
-  Route::post('event/getdepartment', [EventController::class, 'getdepartment'])->name('event.getdepartment')->middleware(['auth']);
-  Route::post('event/getemployee', [EventController::class, 'getemployee'])->name('event.getemployee')->middleware(['auth']);
+  Route::post('event/getdepartment', [EventController::class, 'getdepartment'])->name('event.getdepartment')->middleware(['auth' ]);
+  Route::post('event/getemployee', [EventController::class, 'getemployee'])->name('event.getemployee')->middleware(['auth' ]);
 
-  Route::resource('event', EventController::class)->middleware(['auth']);
+  Route::resource('event', EventController::class)->middleware(['auth' ]);
 
-  Route::post('meeting/getdepartment', [MeetingController::class, 'getdepartment'])->name('meeting.getdepartment')->middleware(['auth']);
-  Route::post('meeting/getemployee', [MeetingController::class, 'getemployee'])->name('meeting.getemployee')->middleware(['auth']);
+  Route::post('meeting/getdepartment', [MeetingController::class, 'getdepartment'])->name('meeting.getdepartment')->middleware(['auth' ]);
+  Route::post('meeting/getemployee', [MeetingController::class, 'getemployee'])->name('meeting.getemployee')->middleware(['auth' ]);
 
-  Route::resource('meeting', MeetingController::class)->middleware(['auth']);
-  Route::resource('trainingtype', TrainingTypeController::class)->middleware(['auth']);
-  Route::resource('trainer', TrainerController::class)->middleware(['auth']);
+  Route::resource('meeting', MeetingController::class)->middleware(['auth' ]);
+  Route::resource('trainingtype', TrainingTypeController::class)->middleware(['auth' ]);
+  Route::resource('trainer', TrainerController::class)->middleware(['auth' ]);
 
-  Route::post('training/status', [TrainingController::class, 'updateStatus'])->name('training.status')->middleware(['auth']);
+  Route::post('training/status', [TrainingController::class, 'updateStatus'])->name('training.status')->middleware(['auth' ]);
 
-  Route::resource('training', TrainingController::class)->middleware(['auth']);
+  Route::resource('training', TrainingController::class)->middleware(['auth' ]);
 
   // HRM - HR Module
 
-  Route::resource('awardtype', AwardTypeController::class)->middleware(['auth']);
-  Route::resource('award', AwardController::class)->middleware(['auth']);
-  Route::resource('resignation', ResignationController::class)->middleware(['auth']);
-  Route::resource('travel', TravelController::class)->middleware(['auth']);
-  Route::resource('promotion', PromotionController::class)->middleware(['auth']);
-  Route::resource('complaint', ComplaintController::class)->middleware(['auth']);
-  Route::resource('warning', WarningController::class)->middleware(['auth']);
+  Route::resource('awardtype', AwardTypeController::class)->middleware(['auth' ]);
+  Route::resource('award', AwardController::class)->middleware(['auth' ]);
+  Route::resource('resignation', ResignationController::class)->middleware(['auth' ]);
+  Route::resource('travel', TravelController::class)->middleware(['auth' ]);
+  Route::resource('promotion', PromotionController::class)->middleware(['auth' ]);
+  Route::resource('complaint', ComplaintController::class)->middleware(['auth' ]);
+  Route::resource('warning', WarningController::class)->middleware(['auth' ]);
 
-  Route::resource('termination', TerminationController::class)->middleware(['auth']);
+  Route::resource('termination', TerminationController::class)->middleware(['auth' ]);
   Route::get('termination/{id}/description', [TerminationController::class, 'description'])->name('termination.description');
-  Route::resource('terminationtype', TerminationTypeController::class)->middleware(['auth']);
+  Route::resource('terminationtype', TerminationTypeController::class)->middleware(['auth' ]);
 
   Route::post('announcement/getdepartment', [AnnouncementController::class, 'getdepartment'])->name('announcement.getdepartment');
   Route::post('announcement/getemployee', [AnnouncementController::class, 'getemployee'])->name('announcement.getemployee');
-  Route::resource('announcement', AnnouncementController::class)->middleware(['auth']);
+  Route::resource('announcement', AnnouncementController::class)->middleware(['auth' ]);
 
-  Route::resource('holiday', HolidayController::class)->middleware(['auth']);
+  Route::resource('holiday', HolidayController::class)->middleware(['auth' ]);
   Route::get('holiday-calender', [HolidayController::class, 'calender'])->name('holiday.calender');
 
   // Recruitement
 
-  Route::resource('job-category', JobCategoryController::class)->middleware(['auth']);
-  Route::resource('employment-type', EmploymentTypeController::class)->middleware(['auth']);
-  Route::resource('work-shift', WorkShiftController::class)->middleware(['auth']);
-  Route::get('test',function(){
-    return view('work_shift.test');
-  });
-  Route::resource('job-stage', JobStageController::class)->middleware(['auth']);
+  Route::resource('job-category', JobCategoryController::class)->middleware(['auth' ]);
+
+  Route::resource('job-stage', JobStageController::class)->middleware(['auth' ]);
   Route::post('job-stage/order', [JobStageController::class, 'order'])->name('job.stage.order');
 
-  Route::resource('job', JobController::class)->middleware(['auth']);
+  Route::resource('job', JobController::class)->middleware(['auth' ]);
 
-  Route::get('candidates-job-applications', [JobApplicationController::class, 'candidate'])->name('job.application.candidate')->middleware(['auth']);
+  Route::get('candidates-job-applications', [JobApplicationController::class, 'candidate'])->name('job.application.candidate')->middleware(['auth' ]);
 
-  Route::resource('job-application', JobApplicationController::class)->middleware(['auth']);
-  Route::post('job-application/order', [JobApplicationController::class, 'order'])->name('job.application.order');
-  Route::post('job-application/{id}/rating', [JobApplicationController::class, 'rating'])->name('job.application.rating');
-  Route::delete('job-application/{id}/archive', [JobApplicationController::class, 'archive'])->name('job.application.archive')->middleware(['auth']);
-  Route::post('job-application/{id}/skill/store', [JobApplicationController::class, 'addSkill'])->name('job.application.skill.store')->middleware(['auth']);
-  Route::post('job-application/{id}/note/store', [JobApplicationController::class, 'addNote'])->name('job.application.note.store')->middleware(['auth']);
-  Route::delete('job-application/{id}/note/destroy', [JobApplicationController::class, 'destroyNote'])->name('job.application.note.destroy')->middleware(['auth']);
-  Route::post('job-application/getByJob', [JobApplicationController::class, 'getByJob'])->name('get.job.application')->middleware(['auth']);
-  Route::get('job-onboard', [JobApplicationController::class, 'jobOnBoard'])->name('job.on.board')->middleware(['auth']);
-  Route::get('job-onboard/create/{id}', [JobApplicationController::class, 'jobBoardCreate'])->name('job.on.board.create')->middleware(['auth']);
-  Route::post('job-onboard/store/{id}', [JobApplicationController::class, 'jobBoardStore'])->name('job.on.board.store')->middleware(['auth']);
-  Route::get('job-onboard/edit/{id}', [JobApplicationController::class, 'jobBoardEdit'])->name('job.on.board.edit')->middleware(['auth']);
-  Route::post('job-onboard/update/{id}', [JobApplicationController::class, 'jobBoardUpdate'])->name('job.on.board.update')->middleware(['auth']);
-  Route::delete('job-onboard/delete/{id}', [JobApplicationController::class, 'jobBoardDelete'])->name('job.on.board.delete')->middleware(['auth']);
-  Route::get('job-onboard/convert/{id}', [JobApplicationController::class, 'jobBoardConvert'])->name('job.on.board.converts')->middleware(['auth']);
-  Route::post('job-onboard/convert/{id}', [JobApplicationController::class, 'jobBoardConvertData'])->name('job.on.board.convert')->middleware(['auth']);
-  Route::post('job-application/stage/change', [JobApplicationController::class, 'stageChange'])->name('job.application.stage.change')->middleware(['auth']);
+  Route::resource('job-application', JobApplicationController::class)->middleware(['auth' ]);
+  Route::post('job-application/order', [JobApplicationController::class, 'order'])->name('job.application.order') ;
+  Route::post('job-application/{id}/rating', [JobApplicationController::class, 'rating'])->name('job.application.rating') ;
+  Route::delete('job-application/{id}/archive', [JobApplicationController::class, 'archive'])->name('job.application.archive')->middleware(['auth' ]);
+  Route::post('job-application/{id}/skill/store', [JobApplicationController::class, 'addSkill'])->name('job.application.skill.store')->middleware(['auth' ]);
+  Route::post('job-application/{id}/note/store', [JobApplicationController::class, 'addNote'])->name('job.application.note.store')->middleware(['auth' ]);
+  Route::delete('job-application/{id}/note/destroy', [JobApplicationController::class, 'destroyNote'])->name('job.application.note.destroy')->middleware(['auth' ]);
+  Route::post('job-application/getByJob', [JobApplicationController::class, 'getByJob'])->name('get.job.application')->middleware(['auth' ]);
+  Route::get('job-onboard', [JobApplicationController::class, 'jobOnBoard'])->name('job.on.board')->middleware(['auth' ]);
+  Route::get('job-onboard/create/{id}', [JobApplicationController::class, 'jobBoardCreate'])->name('job.on.board.create')->middleware(['auth' ]);
+  Route::post('job-onboard/store/{id}', [JobApplicationController::class, 'jobBoardStore'])->name('job.on.board.store')->middleware(['auth' ]);
+  Route::get('job-onboard/edit/{id}', [JobApplicationController::class, 'jobBoardEdit'])->name('job.on.board.edit')->middleware(['auth' ]);
+  Route::post('job-onboard/update/{id}', [JobApplicationController::class, 'jobBoardUpdate'])->name('job.on.board.update')->middleware(['auth' ]);
+  Route::delete('job-onboard/delete/{id}', [JobApplicationController::class, 'jobBoardDelete'])->name('job.on.board.delete')->middleware(['auth' ]);
+  Route::get('job-onboard/convert/{id}', [JobApplicationController::class, 'jobBoardConvert'])->name('job.on.board.converts')->middleware(['auth' ]);
+  Route::post('job-onboard/convert/{id}', [JobApplicationController::class, 'jobBoardConvertData'])->name('job.on.board.convert')->middleware(['auth' ]);
+  Route::post('job-application/stage/change', [JobApplicationController::class, 'stageChange'])->name('job.application.stage.change')->middleware(['auth' ]);
 
-  Route::resource('custom-question', CustomQuestionController::class)->middleware(['auth']);
-  Route::resource('interview-schedule', InterviewScheduleController::class)->middleware(['auth']);
-  Route::get('taskboard/{view?}', [ProjectTaskController::class, 'taskBoard'])->name('taskBoard.view')->middleware(['auth']);
-  Route::get('taskboard-view', [ProjectTaskController::class, 'taskboardView'])->name('project.taskboard.view')->middleware(['auth']);
+  Route::resource('custom-question', CustomQuestionController::class)->middleware(['auth' ]);
+  Route::resource('interview-schedule', InterviewScheduleController::class)->middleware(['auth' ]);
+  Route::get('taskboard/{view?}', [ProjectTaskController::class, 'taskBoard'])->name('taskBoard.view')->middleware(['auth' ]);
+  Route::get('taskboard-view', [ProjectTaskController::class, 'taskboardView'])->name('project.taskboard.view')->middleware(['auth' ]);
 
-  Route::resource('document-upload', DucumentUploadController::class)->middleware(['auth']);
-  Route::resource('transfer', TransferController::class)->middleware(['auth']);
-  Route::get('attendanceemployee/bulkattendance', [AttendanceEmployeeController::class, 'bulkAttendance'])->name('attendanceemployee.bulkattendance')->middleware(['auth']);
-  Route::post('attendanceemployee/bulkattendances', [AttendanceEmployeeController::class, 'bulkAttendanceData'])->name('attendanceemployee.bulkattendances')->middleware(['auth']);
-  Route::post('attendanceemployee/attendance', [AttendanceEmployeeController::class, 'attendance'])->name('attendanceemployee.attendance')->middleware(['auth']);
+  Route::resource('document-upload', DucumentUploadController::class)->middleware(['auth' ]);
+  Route::resource('transfer', TransferController::class)->middleware(['auth' ]);
+  Route::get('attendanceemployee/bulkattendance', [AttendanceEmployeeController::class, 'bulkAttendance'])->name('attendanceemployee.bulkattendance')->middleware(['auth' ]);
+  Route::post('attendanceemployee/bulkattendances', [AttendanceEmployeeController::class, 'bulkAttendanceData'])->name('attendanceemployee.bulkattendances')->middleware(['auth' ]);
+  Route::post('attendanceemployee/attendance', [AttendanceEmployeeController::class, 'attendance'])->name('attendanceemployee.attendance')->middleware(['auth' ]);
 
-  Route::resource('attendanceemployee', AttendanceEmployeeController::class)->middleware(['auth']);
-  Route::resource('leavetype', LeaveTypeController::class)->middleware(['auth']);
-  Route::get('report-leave', [ReportController::class, 'leave'])->name('report.leave')->middleware(['auth']);
-  Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth']);
-  Route::get('leave/{id}/action', [LeaveController::class, 'action'])->name('leave.action')->middleware(['auth']);
-  Route::post('leave/changeaction', [LeaveController::class, 'changeaction'])->name('leave.changeaction')->middleware(['auth']);
-  Route::post('leave/jsoncount', [LeaveController::class, 'jsoncount'])->name('leave.jsoncount')->middleware(['auth']);
+  Route::resource('attendanceemployee', AttendanceEmployeeController::class)->middleware(['auth' ]);
+  Route::resource('leavetype', LeaveTypeController::class)->middleware(['auth' ]);
+  Route::get('report-leave', [ReportController::class, 'leave'])->name('report.leave')->middleware(['auth' ]);
+  Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth' ]);
+  Route::get('leave/{id}/action', [LeaveController::class, 'action'])->name('leave.action')->middleware(['auth' ]);
+  Route::post('leave/changeaction', [LeaveController::class, 'changeaction'])->name('leave.changeaction')->middleware(['auth' ]);
+  Route::post('leave/jsoncount', [LeaveController::class, 'jsoncount'])->name('leave.jsoncount')->middleware(['auth' ]);
 
-  Route::resource('leave', LeaveController::class)->middleware(['auth']);
+  Route::resource('leave', LeaveController::class)->middleware(['auth' ]);
 
 
-  Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth']);
+  Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth' ]);
 
-  Route::get('reports-payroll', [ReportController::class, 'payroll'])->name('report.payroll')->middleware(['auth']);
-  Route::post('reports-payroll/getdepartment', [ReportController::class, 'getPayrollDepartment'])->name('report.payroll.getdepartment')->middleware(['auth']);
-  Route::post('reports-payroll/getemployee', [ReportController::class, 'getPayrollEmployee'])->name('report.payroll.getemployee')->middleware(['auth']);
+  Route::get('reports-payroll', [ReportController::class, 'payroll'])->name('report.payroll')->middleware(['auth' ]);
+  Route::post('reports-payroll/getdepartment', [ReportController::class, 'getPayrollDepartment'])->name('report.payroll.getdepartment')->middleware(['auth' ]);
+  Route::post('reports-payroll/getemployee', [ReportController::class, 'getPayrollEmployee'])->name('report.payroll.getemployee')->middleware(['auth' ]);
 
-  Route::get('reports-monthly-attendance', [ReportController::class, 'monthlyAttendance'])->name('report.monthly.attendance')->middleware(['auth']);
-  Route::get('report/attendance/{month}/{branch}/{department}', [ReportController::class, 'exportCsv'])->name('report.attendance')->middleware(['auth']);
+  Route::get('reports-monthly-attendance', [ReportController::class, 'monthlyAttendance'])->name('report.monthly.attendance')->middleware(['auth' ]);
+  Route::get('report/attendance/{month}/{branch}/{department}', [ReportController::class, 'exportCsv'])->name('report.attendance')->middleware(['auth' ]);
 
   //crm report
-  Route::get('reports-lead', [ReportController::class, 'leadReport'])->name('report.lead')->middleware(['auth']);
-  Route::get('reports-deal', [ReportController::class, 'dealReport'])->name('report.deal')->middleware(['auth']);
+  Route::get('reports-lead', [ReportController::class, 'leadReport'])->name('report.lead')->middleware(['auth' ]);
+  Route::get('reports-deal', [ReportController::class, 'dealReport'])->name('report.deal')->middleware(['auth' ]);
 
   //pos report
-  Route::get('reports-warehouse', [ReportController::class, 'warehouseReport'])->name('report.warehouse')->middleware(['auth']);
+  Route::get('reports-warehouse', [ReportController::class, 'warehouseReport'])->name('report.warehouse')->middleware(['auth' ]);
 
-  Route::get('reports-daily-purchase', [ReportController::class, 'purchaseDailyReport'])->name('report.daily.purchase')->middleware(['auth']);
-  Route::get('reports-monthly-purchase', [ReportController::class, 'purchaseMonthlyReport'])->name('report.monthly.purchase')->middleware(['auth']);
+  Route::get('reports-daily-purchase', [ReportController::class, 'purchaseDailyReport'])->name('report.daily.purchase')->middleware(['auth' ]);
+  Route::get('reports-monthly-purchase', [ReportController::class, 'purchaseMonthlyReport'])->name('report.monthly.purchase')->middleware(['auth' ]);
 
-  Route::get('reports-daily-pos', [ReportController::class, 'posDailyReport'])->name('report.daily.pos')->middleware(['auth']);
-  Route::get('reports-monthly-pos', [ReportController::class, 'posMonthlyReport'])->name('report.monthly.pos')->middleware(['auth']);
+  Route::get('reports-daily-pos', [ReportController::class, 'posDailyReport'])->name('report.daily.pos')->middleware(['auth' ]);
+  Route::get('reports-monthly-pos', [ReportController::class, 'posMonthlyReport'])->name('report.monthly.pos')->middleware(['auth' ]);
 
-  Route::get('reports-pos-vs-purchase', [ReportController::class, 'posVsPurchaseReport'])->name('report.pos.vs.purchase')->middleware(['auth']);
+  Route::get('reports-pos-vs-purchase', [ReportController::class, 'posVsPurchaseReport'])->name('report.pos.vs.purchase')->middleware(['auth' ]);
 
   // User Module
 
-  Route::get('users/{view?}', [UserController::class, 'index'])->name('users')->middleware(['auth']);
-  Route::get('users-view', [UserController::class, 'filterUserView'])->name('filter.user.view')->middleware(['auth']);
-  Route::get('checkuserexists', [UserController::class, 'checkUserExists'])->name('user.exists')->middleware(['auth']);
-  Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth']);
-  Route::post('/profile', [UserController::class, 'updateProfile'])->name('update.profile')->middleware(['auth']);
-  Route::get('user/info/{id}', [UserController::class, 'userInfo'])->name('users.info')->middleware(['auth']);
-  Route::get('user/{id}/info/{type}', [UserController::class, 'getProjectTask'])->name('user.info.popup')->middleware(['auth']);
+  Route::get('users/{view?}', [UserController::class, 'index'])->name('users')->middleware(['auth' ]);
+  Route::get('users-view', [UserController::class, 'filterUserView'])->name('filter.user.view')->middleware(['auth' ]);
+  Route::get('checkuserexists', [UserController::class, 'checkUserExists'])->name('user.exists')->middleware(['auth' ]);
+  Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth' ]);
+  Route::post('/profile', [UserController::class, 'updateProfile'])->name('update.profile')->middleware(['auth' ]);
+  Route::get('user/info/{id}', [UserController::class, 'userInfo'])->name('users.info')->middleware(['auth' ]);
+  Route::get('user/{id}/info/{type}', [UserController::class, 'getProjectTask'])->name('user.info.popup')->middleware(['auth' ]);
   // End User Module
 
   // Search
@@ -1078,7 +1073,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
   // Milestone Module
 
-  Route::get('projects/{id}/milestone', [ProjectController::class, 'milestone'])->name('project.milestone')->middleware(['auth']);
+  Route::get('projects/{id}/milestone', [ProjectController::class, 'milestone'])->name('project.milestone')->middleware(['auth' ]);
 
   //Route::delete(
   //    '/projects/{id}/users/{uid}', [
@@ -1091,54 +1086,54 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   //         
   //    ]
   //);
-  Route::post('projects/{id}/milestone', [ProjectController::class, 'milestoneStore'])->name('project.milestone.store')->middleware(['auth']);
-  Route::get('projects/milestone/{id}/edit', [ProjectController::class, 'milestoneEdit'])->name('project.milestone.edit')->middleware(['auth']);
-  Route::post('projects/milestone/{id}', [ProjectController::class, 'milestoneUpdate'])->name('project.milestone.update')->middleware(['auth']);
-  Route::delete('projects/milestone/{id}', [ProjectController::class, 'milestoneDestroy'])->name('project.milestone.destroy')->middleware(['auth']);
-  Route::get('projects/milestone/{id}/show', [ProjectController::class, 'milestoneShow'])->name('project.milestone.show')->middleware(['auth']);
+  Route::post('projects/{id}/milestone', [ProjectController::class, 'milestoneStore'])->name('project.milestone.store')->middleware(['auth' ]);
+  Route::get('projects/milestone/{id}/edit', [ProjectController::class, 'milestoneEdit'])->name('project.milestone.edit')->middleware(['auth' ]);
+  Route::post('projects/milestone/{id}', [ProjectController::class, 'milestoneUpdate'])->name('project.milestone.update')->middleware(['auth' ]);
+  Route::delete('projects/milestone/{id}', [ProjectController::class, 'milestoneDestroy'])->name('project.milestone.destroy')->middleware(['auth' ]);
+  Route::get('projects/milestone/{id}/show', [ProjectController::class, 'milestoneShow'])->name('project.milestone.show')->middleware(['auth' ]);
 
   // End Milestone
 
   // Project Module
 
-  Route::get('invite-project-member/{id}', [ProjectController::class, 'inviteMemberView'])->name('invite.project.member.view')->middleware(['auth']);
-  Route::post('invite-project-user-member', [ProjectController::class, 'inviteProjectUserMember'])->name('invite.project.user.member')->middleware(['auth']);
+  Route::get('invite-project-member/{id}', [ProjectController::class, 'inviteMemberView'])->name('invite.project.member.view')->middleware(['auth' ]);
+  Route::post('invite-project-user-member', [ProjectController::class, 'inviteProjectUserMember'])->name('invite.project.user.member')->middleware(['auth' ]);
 
-  Route::delete('projects/{id}/users/{uid}', [ProjectController::class, 'destroyProjectUser'])->name('projects.user.destroy')->middleware(['auth']);
-  Route::get('project/{view?}', [ProjectController::class, 'index'])->name('projects.list')->middleware(['auth']);
-  Route::get('projects-view', [ProjectController::class, 'filterProjectView'])->name('filter.project.view')->middleware(['auth']);
-  Route::post('projects/{id}/store-stages/{slug}', [ProjectController::class, 'storeProjectTaskStages'])->name('project.stages.store')->middleware(['auth']);
+  Route::delete('projects/{id}/users/{uid}', [ProjectController::class, 'destroyProjectUser'])->name('projects.user.destroy')->middleware(['auth' ]);
+  Route::get('project/{view?}', [ProjectController::class, 'index'])->name('projects.list')->middleware(['auth' ]);
+  Route::get('projects-view', [ProjectController::class, 'filterProjectView'])->name('filter.project.view')->middleware(['auth' ]);
+  Route::post('projects/{id}/store-stages/{slug}', [ProjectController::class, 'storeProjectTaskStages'])->name('project.stages.store')->middleware(['auth' ]);
 
-  Route::patch('remove-user-from-project/{project_id}/{user_id}', [ProjectController::class, 'removeUserFromProject'])->name('remove.user.from.project')->middleware(['auth']);
-  Route::get('projects-users', [ProjectController::class, 'loadUser'])->name('project.user')->middleware(['auth']);
-  Route::get('projects/{id}/gantt/{duration?}', [ProjectController::class, 'gantt'])->name('projects.gantt')->middleware(['auth']);
-  Route::post('projects/{id}/gantt', [ProjectController::class, 'ganttPost'])->name('projects.gantt.post')->middleware(['auth']);
+  Route::patch('remove-user-from-project/{project_id}/{user_id}', [ProjectController::class, 'removeUserFromProject'])->name('remove.user.from.project')->middleware(['auth' ]);
+  Route::get('projects-users', [ProjectController::class, 'loadUser'])->name('project.user')->middleware(['auth' ]);
+  Route::get('projects/{id}/gantt/{duration?}', [ProjectController::class, 'gantt'])->name('projects.gantt')->middleware(['auth' ]);
+  Route::post('projects/{id}/gantt', [ProjectController::class, 'ganttPost'])->name('projects.gantt.post')->middleware(['auth' ]);
 
-  Route::resource('projects', ProjectController::class)->middleware(['auth']);
+  Route::resource('projects', ProjectController::class)->middleware(['auth' ]);
 
   // User Permission
-  Route::get('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermission'])->name('projects.user.permission')->middleware(['auth']);
-  Route::post('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermissionStore'])->name('projects.user.permission.store')->middleware(['auth']);
+  Route::get('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermission'])->name('projects.user.permission')->middleware(['auth' ]);
+  Route::post('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermissionStore'])->name('projects.user.permission.store')->middleware(['auth' ]);
 
   // End Project Module
 
   // Task Module
 
-  Route::get('stage/{id}/tasks', [ProjectTaskController::class, 'getStageTasks'])->name('stage.tasks')->middleware(['auth']);
+  Route::get('stage/{id}/tasks', [ProjectTaskController::class, 'getStageTasks'])->name('stage.tasks')->middleware(['auth' ]);
 
   // Project Task Module
 
-  Route::get('/projects/{id}/task', [ProjectTaskController::class, 'index'])->name('projects.tasks.index')->middleware(['auth']);
-  Route::get('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'create'])->name('projects.tasks.create')->middleware(['auth']);
-  Route::post('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'store'])->name('projects.tasks.store')->middleware(['auth']);
-  Route::get('/projects/{id}/task/{tid}/show', [ProjectTaskController::class, 'show'])->name('projects.tasks.show')->middleware(['auth']);
-  Route::get('/projects/{id}/task/{tid}/edit', [ProjectTaskController::class, 'edit'])->name('projects.tasks.edit')->middleware(['auth']);
-  Route::post('/projects/{id}/task/update/{tid}', [ProjectTaskController::class, 'update'])->name('projects.tasks.update')->middleware(['auth']);
-  Route::delete('/projects/{id}/task/{tid}', [ProjectTaskController::class, 'destroy'])->name('projects.tasks.destroy')->middleware(['auth']);
-  Route::patch('/projects/{id}/task/order', [ProjectTaskController::class, 'taskOrderUpdate'])->name('tasks.update.order')->middleware(['auth']);
-  Route::patch('update-task-priority-color', [ProjectTaskController::class, 'updateTaskPriorityColor'])->name('update.task.priority.color')->middleware(['auth']);
+  Route::get('/projects/{id}/task', [ProjectTaskController::class, 'index'])->name('projects.tasks.index')->middleware(['auth' ]);
+  Route::get('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'create'])->name('projects.tasks.create')->middleware(['auth' ]);
+  Route::post('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'store'])->name('projects.tasks.store')->middleware(['auth' ]);
+  Route::get('/projects/{id}/task/{tid}/show', [ProjectTaskController::class, 'show'])->name('projects.tasks.show')->middleware(['auth' ]);
+  Route::get('/projects/{id}/task/{tid}/edit', [ProjectTaskController::class, 'edit'])->name('projects.tasks.edit')->middleware(['auth' ]);
+  Route::post('/projects/{id}/task/update/{tid}', [ProjectTaskController::class, 'update'])->name('projects.tasks.update')->middleware(['auth' ]);
+  Route::delete('/projects/{id}/task/{tid}', [ProjectTaskController::class, 'destroy'])->name('projects.tasks.destroy')->middleware(['auth' ]);
+  Route::patch('/projects/{id}/task/order', [ProjectTaskController::class, 'taskOrderUpdate'])->name('tasks.update.order')->middleware(['auth' ]);
+  Route::patch('update-task-priority-color', [ProjectTaskController::class, 'updateTaskPriorityColor'])->name('update.task.priority.color')->middleware(['auth' ]);
 
-  Route::post('/projects/{id}/comment/{tid}/file', [ProjectTaskController::class, 'commentStoreFile'])->name('comment.store.file')->middleware(['auth']);
+  Route::post('/projects/{id}/comment/{tid}/file', [ProjectTaskController::class, 'commentStoreFile'])->name('comment.store.file')->middleware(['auth' ]);
   Route::delete('/projects/{id}/comment/{tid}/file/{fid}', [ProjectTaskController::class, 'commentDestroyFile'])->name('comment.destroy.file');
   Route::post('/projects/{id}/comment/{tid}', [ProjectTaskController::class, 'commentStore'])->name('task.comment.store');
   Route::delete('/projects/{id}/comment/{tid}/{cid}', [ProjectTaskController::class, 'commentDestroy'])->name('comment.destroy');
@@ -1148,25 +1143,25 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::post('/projects/{id}/change/{tid}/fav', [ProjectTaskController::class, 'changeFav'])->name('change.fav');
   Route::post('/projects/{id}/change/{tid}/complete', [ProjectTaskController::class, 'changeCom'])->name('change.complete');
   Route::post('/projects/{id}/change/{tid}/progress', [ProjectTaskController::class, 'changeProg'])->name('change.progress');
-  Route::get('/projects/task/{id}/get', [ProjectTaskController::class, 'taskGet'])->name('projects.tasks.get')->middleware(['auth']);
-  Route::get('/calendar/{id}/show', [ProjectTaskController::class, 'calendarShow'])->name('task.calendar.show')->middleware(['auth']);
+  Route::get('/projects/task/{id}/get', [ProjectTaskController::class, 'taskGet'])->name('projects.tasks.get')->middleware(['auth' ]);
+  Route::get('/calendar/{id}/show', [ProjectTaskController::class, 'calendarShow'])->name('task.calendar.show')->middleware(['auth' ]);
   Route::post('/calendar/{id}/drag', [ProjectTaskController::class, 'calendarDrag'])->name('task.calendar.drag');
-  Route::get('calendar/{task}/{pid?}', [ProjectTaskController::class, 'calendarView'])->name('task.calendar')->middleware(['auth']);
+  Route::get('calendar/{task}/{pid?}', [ProjectTaskController::class, 'calendarView'])->name('task.calendar')->middleware(['auth' ]);
 
-  Route::resource('project-task-stages', TaskStageController::class)->middleware(['auth']);
+  Route::resource('project-task-stages', TaskStageController::class)->middleware(['auth' ]);
   Route::post('/project-task-stages/order', [TaskStageController::class, 'order'])->name('project-task-stages.order');
 
-  Route::post('project-task-new-stage', [TaskStageController::class, 'storingValue'])->name('new-task-stage')->middleware(['auth']);
+  Route::post('project-task-new-stage', [TaskStageController::class, 'storingValue'])->name('new-task-stage')->middleware(['auth' ]);
   // End Task Module
 
   // Project Expense Module
-  Route::get('/projects/{id}/expense', [ProjectExpenseController::class, 'index'])->name('projects.expenses.index')->middleware(['auth']);
-  Route::get('/projects/{pid}/expense/create', [ProjectExpenseController::class, 'create'])->name('projects.expenses.create')->middleware(['auth']);
-  Route::post('/projects/{pid}/expense/store', [ProjectExpenseController::class, 'store'])->name('projects.expenses.store')->middleware(['auth']);
-  Route::get('/projects/{id}/expense/{eid}/edit', [ProjectExpenseController::class, 'edit'])->name('projects.expenses.edit')->middleware(['auth']);
-  Route::post('/projects/{id}/expense/{eid}', [ProjectExpenseController::class, 'update'])->name('projects.expenses.update')->middleware(['auth']);
-  Route::delete('/projects/{eid}/expense/', [ProjectExpenseController::class, 'destroy'])->name('projects.expenses.destroy')->middleware(['auth']);
-  Route::get('/expense-list', [ExpenseController::class, 'expenseList'])->name('expense.list')->middleware(['auth']);
+  Route::get('/projects/{id}/expense', [ProjectExpenseController::class, 'index'])->name('projects.expenses.index')->middleware(['auth' ]);
+  Route::get('/projects/{pid}/expense/create', [ProjectExpenseController::class, 'create'])->name('projects.expenses.create')->middleware(['auth' ]);
+  Route::post('/projects/{pid}/expense/store', [ProjectExpenseController::class, 'store'])->name('projects.expenses.store')->middleware(['auth' ]);
+  Route::get('/projects/{id}/expense/{eid}/edit', [ProjectExpenseController::class, 'edit'])->name('projects.expenses.edit')->middleware(['auth' ]);
+  Route::post('/projects/{id}/expense/{eid}', [ProjectExpenseController::class, 'update'])->name('projects.expenses.update')->middleware(['auth' ]);
+  Route::delete('/projects/{eid}/expense/', [ProjectExpenseController::class, 'destroy'])->name('projects.expenses.destroy')->middleware(['auth' ]);
+  Route::get('/expense-list', [ExpenseController::class, 'expenseList'])->name('expense.list')->middleware(['auth' ]);
 
   // contract type
   Route::group(
@@ -1183,18 +1178,18 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   );
 
   // Project Timesheet
-  Route::get('append-timesheet-task-html', [TimesheetController::class, 'appendTimesheetTaskHTML'])->name('append.timesheet.task.html')->middleware(['auth']);
+  Route::get('append-timesheet-task-html', [TimesheetController::class, 'appendTimesheetTaskHTML'])->name('append.timesheet.task.html')->middleware(['auth' ]);
   //    Route::get('timesheet-table-view', [TimesheetController::class, 'filterTimesheetTableView'])->name('filter.timesheet.table.view')->middleware(['auth' ]);
-  Route::get('timesheet-view', [TimesheetController::class, 'filterTimesheetView'])->name('filter.timesheet.view')->middleware(['auth']);
-  Route::get('timesheet-list', [TimesheetController::class, 'timesheetList'])->name('timesheet.list')->middleware(['auth']);
-  Route::get('timesheet-list-get', [TimesheetController::class, 'timesheetListGet'])->name('timesheet.list.get')->middleware(['auth']);
-  Route::get('/project/{id}/timesheet', [TimesheetController::class, 'timesheetView'])->name('timesheet.index')->middleware(['auth']);
-  Route::get('/project/{id}/timesheet/create', [TimesheetController::class, 'timesheetCreate'])->name('timesheet.create')->middleware(['auth']);
-  Route::post('/project/timesheet', [TimesheetController::class, 'timesheetStore'])->name('timesheet.store')->middleware(['auth']);
-  Route::get('/project/timesheet/{project_id}/edit/{timesheet_id}', [TimesheetController::class, 'timesheetEdit'])->name('timesheet.edit')->middleware(['auth']);
-  Route::any('/project/timesheet/update/{timesheet_id}', [TimesheetController::class, 'timesheetUpdate'])->name('timesheet.update')->middleware(['auth']);
+  Route::get('timesheet-view', [TimesheetController::class, 'filterTimesheetView'])->name('filter.timesheet.view')->middleware(['auth' ]);
+  Route::get('timesheet-list', [TimesheetController::class, 'timesheetList'])->name('timesheet.list')->middleware(['auth' ]);
+  Route::get('timesheet-list-get', [TimesheetController::class, 'timesheetListGet'])->name('timesheet.list.get')->middleware(['auth' ]);
+  Route::get('/project/{id}/timesheet', [TimesheetController::class, 'timesheetView'])->name('timesheet.index')->middleware(['auth' ]);
+  Route::get('/project/{id}/timesheet/create', [TimesheetController::class, 'timesheetCreate'])->name('timesheet.create')->middleware(['auth' ]);
+  Route::post('/project/timesheet', [TimesheetController::class, 'timesheetStore'])->name('timesheet.store')->middleware(['auth' ]);
+  Route::get('/project/timesheet/{project_id}/edit/{timesheet_id}', [TimesheetController::class, 'timesheetEdit'])->name('timesheet.edit')->middleware(['auth' ]);
+  Route::any('/project/timesheet/update/{timesheet_id}', [TimesheetController::class, 'timesheetUpdate'])->name('timesheet.update')->middleware(['auth' ]);
 
-  Route::delete('/project/timesheet/{timesheet_id}', [TimesheetController::class, 'timesheetDestroy'])->name('timesheet.destroy')->middleware(['auth']);
+  Route::delete('/project/timesheet/{timesheet_id}', [TimesheetController::class, 'timesheetDestroy'])->name('timesheet.destroy')->middleware(['auth' ]);
 
   Route::group(
     [
@@ -1205,7 +1200,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     ],
     function () {
       Route::resource('projectstages', ProjectstagesController::class);
-      Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth']);
+      Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth' ]);
       Route::post('projects/bug/kanban/order', [ProjectController::class, 'bugKanbanOrder'])->name('bug.kanban.order');
       Route::get('projects/{id}/bug/kanban', [ProjectController::class, 'bugKanban'])->name('task.bug.kanban');
       Route::get('projects/{id}/bug', [ProjectController::class, 'bug'])->name('task.bug');
@@ -1222,24 +1217,24 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
       Route::resource('bugstatus', BugStatusController::class);
       Route::post('/bugstatus/order', [BugStatusController::class, 'order'])->name('bugstatus.order');
-      Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth']);
+      Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth' ]);
     }
   );
 
   // User_Todo Module
-  Route::post('/todo/create', [UserController::class, 'todo_store'])->name('todo.store')->middleware(['auth']);
-  Route::post('/todo/{id}/update', [UserController::class, 'todo_update'])->name('todo.update')->middleware(['auth']);
-  Route::delete('/todo/{id}', [UserController::class, 'todo_destroy'])->name('todo.destroy')->middleware(['auth']);
-  Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode')->middleware(['auth']);
-  Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('dashboard.view')->middleware(['auth']);
-  Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth']); // superadmin
+  Route::post('/todo/create', [UserController::class, 'todo_store'])->name('todo.store')->middleware(['auth' ]);
+  Route::post('/todo/{id}/update', [UserController::class, 'todo_update'])->name('todo.update')->middleware(['auth' ]);
+  Route::delete('/todo/{id}', [UserController::class, 'todo_destroy'])->name('todo.destroy')->middleware(['auth' ]);
+  Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode')->middleware(['auth' ]);
+  Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('dashboard.view')->middleware(['auth' ]);
+  Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth' ]); // superadmin
 
   // saas
   // Route::resource('users', UserController::class)->middleware(['auth' , 'revalidate']);
-  Route::resource('plans', PlanController::class)->middleware(['auth', 'revalidate']); // superadmin
-  Route::get('plan-trial/{id}', [PlanController::class, 'planTrial'])->name('plan.trial')->middleware(['auth', 'revalidate']);
-  Route::post('plan-disable', [PlanController::class, 'planDisable'])->name('plan.disable')->middleware(['auth', 'revalidate']);
-  Route::resource('coupons', CouponController::class)->middleware(['auth', 'revalidate']); // superadmin
+  Route::resource('plans', PlanController::class)->middleware(['auth' , 'revalidate']); // superadmin
+  Route::get('plan-trial/{id}', [PlanController::class, 'planTrial'])->name('plan.trial')->middleware(['auth' , 'revalidate']);
+  Route::post('plan-disable', [PlanController::class, 'planDisable'])->name('plan.disable')->middleware(['auth' , 'revalidate']);
+  Route::resource('coupons', CouponController::class)->middleware(['auth' , 'revalidate']); // superadmin
 
   // Orders
 
@@ -1252,38 +1247,38 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
       ],
     ],
     function () {
-      // Route::get('/orders', [StripePaymentController::class, 'index'])->name('order.index');
-      // Route::get('/refund/{id}/{user_id}', [StripePaymentController::class, 'refund'])->name('order.refund');
-      // Route::get('/stripe/{code}', [StripePaymentController::class, 'stripe'])->name('stripe');
-      // Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+      Route::get('/orders', [StripePaymentController::class, 'index'])->name('order.index');
+      Route::get('/refund/{id}/{user_id}', [StripePaymentController::class, 'refund'])->name('order.refund');
+      Route::get('/stripe/{code}', [StripePaymentController::class, 'stripe'])->name('stripe');
+      Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
     }
   ); // superadmin
 
-  Route::get('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon')->middleware(['auth', 'revalidate']);
+  Route::get('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon')->middleware(['auth' , 'revalidate']);
 
   //================================= Form Builder ====================================//
 
   // Form Builder
-  Route::resource('form_builder', FormBuilderController::class)->middleware(['auth']);
+  Route::resource('form_builder', FormBuilderController::class)->middleware(['auth' ]);
 
   // Form link base view
 
 
   // Form Field
-  Route::get('/form_builder/{id}/field', [FormBuilderController::class, 'fieldCreate'])->name('form.field.create')->middleware(['auth']);
-  Route::post('/form_builder/{id}/field', [FormBuilderController::class, 'fieldStore'])->name('form.field.store')->middleware(['auth']);
-  Route::get('/form_builder/{id}/field/{fid}/show', [FormBuilderController::class, 'fieldShow'])->name('form.field.show')->middleware(['auth']);
-  Route::get('/form_builder/{id}/field/{fid}/edit', [FormBuilderController::class, 'fieldEdit'])->name('form.field.edit')->middleware(['auth']);
-  Route::post('/form_builder/{id}/field/{fid}', [FormBuilderController::class, 'fieldUpdate'])->name('form.field.update')->middleware(['auth']);
-  Route::delete('/form_builder/{id}/field/{fid}', [FormBuilderController::class, 'fieldDestroy'])->name('form.field.destroy')->middleware(['auth']);
+  Route::get('/form_builder/{id}/field', [FormBuilderController::class, 'fieldCreate'])->name('form.field.create')->middleware(['auth' ]);
+  Route::post('/form_builder/{id}/field', [FormBuilderController::class, 'fieldStore'])->name('form.field.store')->middleware(['auth' ]);
+  Route::get('/form_builder/{id}/field/{fid}/show', [FormBuilderController::class, 'fieldShow'])->name('form.field.show')->middleware(['auth' ]);
+  Route::get('/form_builder/{id}/field/{fid}/edit', [FormBuilderController::class, 'fieldEdit'])->name('form.field.edit')->middleware(['auth' ]);
+  Route::post('/form_builder/{id}/field/{fid}', [FormBuilderController::class, 'fieldUpdate'])->name('form.field.update')->middleware(['auth' ]);
+  Route::delete('/form_builder/{id}/field/{fid}', [FormBuilderController::class, 'fieldDestroy'])->name('form.field.destroy')->middleware(['auth' ]);
 
   // Form Response
-  Route::get('/form_response/{id}', [FormBuilderController::class, 'viewResponse'])->name('form.response')->middleware(['auth']);
-  Route::get('/response/{id}', [FormBuilderController::class, 'responseDetail'])->name('response.detail')->middleware(['auth']);
+  Route::get('/form_response/{id}', [FormBuilderController::class, 'viewResponse'])->name('form.response')->middleware(['auth' ]);
+  Route::get('/response/{id}', [FormBuilderController::class, 'responseDetail'])->name('response.detail')->middleware(['auth' ]);
 
   // Form Field Bind
-  Route::get('/form_field/{id}', [FormBuilderController::class, 'formFieldBind'])->name('form.field.bind')->middleware(['auth']);
-  Route::post('/form_field_store/{id}}', [FormBuilderController::class, 'bindStore'])->name('form.bind.store')->middleware(['auth']);
+  Route::get('/form_field/{id}', [FormBuilderController::class, 'formFieldBind'])->name('form.field.bind')->middleware(['auth' ]);
+  Route::post('/form_field_store/{id}}', [FormBuilderController::class, 'bindStore'])->name('form.bind.store')->middleware(['auth' ]);
 
   // contract
 
@@ -1291,7 +1286,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1301,23 +1296,23 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
       Route::resource('contract', ContractController::class);
     }
   );
-  Route::post('/contract/{id}/file', [ContractController::class, 'fileUpload'])->name('contract.file.upload')->middleware(['auth']);
+  Route::post('/contract/{id}/file', [ContractController::class, 'fileUpload'])->name('contract.file.upload')->middleware(['auth' ]);
   Route::get('contract/pdf/{id}', [ContractController::class, 'pdffromcontract'])->name('contract.download.pdf')->middleware(['auth']);
   Route::get('contract/{id}/get_contract', [ContractController::class, 'printContract'])->name('get.contract')->middleware(['auth']);
-  Route::post('/contract_status_edit/{id}', [ContractController::class, 'contract_status_edit'])->name('contract.status')->middleware(['auth']);
+  Route::post('/contract_status_edit/{id}', [ContractController::class, 'contract_status_edit'])->name('contract.status')->middleware(['auth' ]);
   Route::post('contract/{id}/contract_description', [ContractController::class, 'contract_descriptionStore'])->name('contract.contract_description.store')->middleware(['auth']);
-  Route::get('/contract/{id}/file/{fid}', [ContractController::class, 'fileDownload'])->name('contracts.file.download')->middleware(['auth']);
-  Route::delete('/contract/{id}/file/delete/{fid}', [ContractController::class, 'fileDelete'])->name('contracts.file.delete')->middleware(['auth']);
-  Route::get('/contract/copy/{id}', [ContractController::class, 'copycontract'])->name('contract.copy')->middleware(['auth']);
-  Route::post('/contract/copy/store', [ContractController::class, 'copycontractstore'])->name('contract.copy.store')->middleware(['auth']);
+  Route::get('/contract/{id}/file/{fid}', [ContractController::class, 'fileDownload'])->name('contracts.file.download')->middleware(['auth' ]);
+  Route::delete('/contract/{id}/file/delete/{fid}', [ContractController::class, 'fileDelete'])->name('contracts.file.delete')->middleware(['auth' ]);
+  Route::get('/contract/copy/{id}', [ContractController::class, 'copycontract'])->name('contract.copy')->middleware(['auth' ]);
+  Route::post('/contract/copy/store', [ContractController::class, 'copycontractstore'])->name('contract.copy.store')->middleware(['auth' ]);
   Route::get('/contract/{id}/mail', [ContractController::class, 'sendmailContract'])->name('send.mail.contract');
   Route::get('/signature/{id}', [ContractController::class, 'signature'])->name('signature')->middleware(['auth']);
-  Route::post('/signaturestore', [ContractController::class, 'signatureStore'])->name('signaturestore')->middleware(['auth']);
+  Route::post('/signaturestore', [ContractController::class, 'signatureStore'])->name('signaturestore')->middleware(['auth' ]);
   Route::post('/contract/{id}/comment', [ContractController::class, 'commentStore'])->name('comment.store');
   Route::post('/contract/{id}/notes', [ContractController::class, 'noteStore'])->name('note_store.store')->middleware(['auth']);
   Route::delete('/contract/{id}/notes', [ContractController::class, 'noteDestroy'])->name('note_store.destroy')->middleware(['auth']);
   Route::delete('/contract/{id}/comment', [ContractController::class, 'commentDestroy'])->name('comment_store.destroy');
-  Route::get('get-projects/{client_id}', [ContractController::class, 'clientByProject'])->name('project.by.user.id')->middleware(['auth']);
+  Route::get('get-projects/{client_id}', [ContractController::class, 'clientByProject'])->name('project.by.user.id')->middleware(['auth' ]);
 
   // client wise project show in modal
 
@@ -1325,133 +1320,113 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
   // copy contract
 
-  Route::get('/contract/copy/{id}', [ContractController::class, 'copycontract'])->name('contract.copy')->middleware(['auth']);
-  Route::post('contract/copy/store', [ContractController::class, 'copycontractstore'])->name('contract.copy.store')->middleware(['auth']);
-
-  // Custom Landing Page
-
-  //    Route::get('/landingpage', [LandingPageSectionController::class, 'index'])->name('custom_landing_page.index')->middleware(['auth' ]);
-  //    Route::get('/LandingPage/show/{id}', [LandingPageSectionController::class, 'show']);
-  //
-  //    Route::post('/LandingPage/setConetent', [LandingPageSectionController::class, 'setConetent'])->middleware(['auth' ]);
-  //
-  //
-  //    Route::get(
-  //        '/get_landing_page_section/{name}', function ($name) {
-  //        $plans = \DB::table('plans')->get();
-  //
-  //        return view('custom_landing_page.' . $name, compact('plans'));
-  //    }
-  //    );
-  //
-  //    Route::post('/LandingPage/removeSection/{id}', [LandingPageSectionController::class, 'removeSection'])->middleware(['auth' ]);
-  //    Route::post('/LandingPage/setOrder', [LandingPageSectionController::class, 'setOrder'])->middleware(['auth' ]);
-  //    Route::post('/LandingPage/copySection', [LandingPageSectionController::class, 'copySection'])->middleware(['auth' ]);
+  Route::get('/contract/copy/{id}', [ContractController::class, 'copycontract'])->name('contract.copy')->middleware(['auth' ]);
+  Route::post('contract/copy/store', [ContractController::class, 'copycontractstore'])->name('contract.copy.store')->middleware(['auth' ]);
 
   // Plan Payment Gateways
-  // Route::post('plan-pay-with-bank', [BankTransferPaymentController::class, 'planPayWithBank'])->name('plan.pay.with.bank')->middleware(['auth', 'revalidate']);
+  Route::post('plan-pay-with-bank', [BankTransferPaymentController::class, 'planPayWithBank'])->name('plan.pay.with.bank')->middleware(['auth' , 'revalidate']);
 
-  // Route::post('plan-pay-with-paypal', [PaypalController::class, 'planPayWithPaypal'])->name('plan.pay.with.paypal')->middleware(['auth', 'revalidate']);
-  // Route::get('{id}/plan-get-payment-status', [PaypalController::class, 'planGetPaymentStatus'])->name('plan.get.payment.status')->middleware(['auth', 'revalidate']);
+  Route::post('plan-pay-with-paypal', [PaypalController::class, 'planPayWithPaypal'])->name('plan.pay.with.paypal')->middleware(['auth' , 'revalidate']);
+  Route::get('{id}/plan-get-payment-status', [PaypalController::class, 'planGetPaymentStatus'])->name('plan.get.payment.status')->middleware(['auth' , 'revalidate']);
 
-  // Route::post('/plan-pay-with-paystack', [PaystackPaymentController::class, 'planPayWithPaystack'])->name('plan.pay.with.paystack')->middleware(['auth']);
-  // Route::get('/plan/paystack/{pay_id}/{plan_id}', [PaystackPaymentController::class, 'getPaymentStatus'])->name('plan.paystack');
+  Route::post('/plan-pay-with-paystack', [PaystackPaymentController::class, 'planPayWithPaystack'])->name('plan.pay.with.paystack')->middleware(['auth' ]);
+  Route::get('/plan/paystack/{pay_id}/{plan_id}', [PaystackPaymentController::class, 'getPaymentStatus'])->name('plan.paystack');
 
-  // Route::post('/plan-pay-with-flaterwave', [FlutterwavePaymentController::class, 'planPayWithFlutterwave'])->name('plan.pay.with.flaterwave')->middleware(['auth']);
-  // Route::get('/plan/flaterwave/{txref}/{plan_id}', [FlutterwavePaymentController::class, 'getPaymentStatus'])->name('plan.flaterwave');
+  Route::post('/plan-pay-with-flaterwave', [FlutterwavePaymentController::class, 'planPayWithFlutterwave'])->name('plan.pay.with.flaterwave')->middleware(['auth' ]);
+  Route::get('/plan/flaterwave/{txref}/{plan_id}', [FlutterwavePaymentController::class, 'getPaymentStatus'])->name('plan.flaterwave');
 
-  // Route::post('/plan-pay-with-razorpay', [RazorpayPaymentController::class, 'planPayWithRazorpay'])->name('plan.pay.with.razorpay')->middleware(['auth']);
-  // Route::get('/plan/razorpay/{txref}/{plan_id}', [RazorpayPaymentController::class, 'getPaymentStatus'])->name('plan.razorpay');
+  Route::post('/plan-pay-with-razorpay', [RazorpayPaymentController::class, 'planPayWithRazorpay'])->name('plan.pay.with.razorpay')->middleware(['auth' ]);
+  Route::get('/plan/razorpay/{txref}/{plan_id}', [RazorpayPaymentController::class, 'getPaymentStatus'])->name('plan.razorpay');
 
-  // Route::post('/plan-pay-with-paytm', [PaytmPaymentController::class, 'planPayWithPaytm'])->name('plan.pay.with.paytm')->middleware(['auth']);
-  // Route::post('/plan/paytm/{plan}', [PaytmPaymentController::class, 'getPaymentStatus'])->name('plan.paytm');
+  Route::post('/plan-pay-with-paytm', [PaytmPaymentController::class, 'planPayWithPaytm'])->name('plan.pay.with.paytm')->middleware(['auth' ]);
+  Route::post('/plan/paytm/{plan}', [PaytmPaymentController::class, 'getPaymentStatus'])->name('plan.paytm');
 
-  // Route::post('/plan-pay-with-mercado', [MercadoPaymentController::class, 'planPayWithMercado'])->name('plan.pay.with.mercado')->middleware(['auth']);
-  // Route::get('/plan/mercado/{plan}/{amount}', [MercadoPaymentController::class, 'getPaymentStatus'])->name('plan.mercado');
+  Route::post('/plan-pay-with-mercado', [MercadoPaymentController::class, 'planPayWithMercado'])->name('plan.pay.with.mercado')->middleware(['auth' ]);
+  Route::get('/plan/mercado/{plan}/{amount}', [MercadoPaymentController::class, 'getPaymentStatus'])->name('plan.mercado');
 
-  // Route::post('/plan-pay-with-mollie', [MolliePaymentController::class, 'planPayWithMollie'])->name('plan.pay.with.mollie')->middleware(['auth']);
-  // Route::get('/plan/mollie/{plan}', [MolliePaymentController::class, 'getPaymentStatus'])->name('plan.mollie');
+  Route::post('/plan-pay-with-mollie', [MolliePaymentController::class, 'planPayWithMollie'])->name('plan.pay.with.mollie')->middleware(['auth' ]);
+  Route::get('/plan/mollie/{plan}', [MolliePaymentController::class, 'getPaymentStatus'])->name('plan.mollie');
 
-  // Route::post('/plan-pay-with-skrill', [SkrillPaymentController::class, 'planPayWithSkrill'])->name('plan.pay.with.skrill')->middleware(['auth']);
-  // Route::get('/plan/skrill/{plan}', [SkrillPaymentController::class, 'getPaymentStatus'])->name('plan.skrill');
+  Route::post('/plan-pay-with-skrill', [SkrillPaymentController::class, 'planPayWithSkrill'])->name('plan.pay.with.skrill')->middleware(['auth' ]);
+  Route::get('/plan/skrill/{plan}', [SkrillPaymentController::class, 'getPaymentStatus'])->name('plan.skrill');
 
-  // Route::post('/plan-pay-with-coingate', [CoingatePaymentController::class, 'planPayWithCoingate'])->name('plan.pay.with.coingate')->middleware(['auth']);
-  // Route::get('/plan/coingate/{plan}', [CoingatePaymentController::class, 'getPaymentStatus'])->name('plan.coingate');
+  Route::post('/plan-pay-with-coingate', [CoingatePaymentController::class, 'planPayWithCoingate'])->name('plan.pay.with.coingate')->middleware(['auth' ]);
+  Route::get('/plan/coingate/{plan}', [CoingatePaymentController::class, 'getPaymentStatus'])->name('plan.coingate');
 
-  // Route::post('/toyyibpay', [ToyyibpayController::class, 'planPayWithToyyibpay'])->name('plan.toyyibpaypayment');
-  // Route::get('/plan-pay-with-toyyibpay/{id}/{status}/{coupon}', [ToyyibpayController::class, 'getPaymentStatus'])->name('plan.status');
+  Route::post('/toyyibpay', [ToyyibpayController::class, 'planPayWithToyyibpay'])->name('plan.toyyibpaypayment');
+  Route::get('/plan-pay-with-toyyibpay/{id}/{status}/{coupon}', [ToyyibpayController::class, 'getPaymentStatus'])->name('plan.status');
 
-  // Route::post('payfast-plan', [PayFastController::class, 'planPayWithPayfast'])->name('payfast.payment');
-  // Route::get('payfast-plan/{success}', [PayFastController::class, 'getPaymentStatus'])->name('payfast.payment.success');
+  Route::post('payfast-plan', [PayFastController::class, 'planPayWithPayfast'])->name('payfast.payment');
+  Route::get('payfast-plan/{success}', [PayFastController::class, 'getPaymentStatus'])->name('payfast.payment.success');
 
-  // Route::post('iyzipay/prepare', [IyziPayController::class, 'initiatePayment'])->name('iyzipay.payment.init');
-  // Route::post('iyzipay/callback/plan/{id}/{amount}/{coupan_code?}', [IyzipayController::class, 'iyzipayCallback'])->name('iyzipay.payment.callback');
+  Route::post('iyzipay/prepare', [IyziPayController::class, 'initiatePayment'])->name('iyzipay.payment.init');
+  Route::post('iyzipay/callback/plan/{id}/{amount}/{coupan_code?}', [IyzipayController::class, 'iyzipayCallback'])->name('iyzipay.payment.callback');
 
-  // Route::post('/sspay', [SspayController::class, 'SspayPaymentPrepare'])->name('plan.sspaypayment');
-  // Route::get('sspay-payment-plan/{plan_id}/{amount}/{couponCode}', [SspayController::class, 'SspayPlanGetPayment'])->middleware(['auth'])->name('plan.sspay.callback');
+  Route::post('/sspay', [SspayController::class, 'SspayPaymentPrepare'])->name('plan.sspaypayment');
+  Route::get('sspay-payment-plan/{plan_id}/{amount}/{couponCode}', [SspayController::class, 'SspayPlanGetPayment'])->middleware(['auth'])->name('plan.sspay.callback');
 
-  // Route::post('plan-pay-with-paytab', [PaytabController::class, 'planPayWithpaytab'])->middleware(['auth'])->name('plan.pay.with.paytab');
-  // Route::any('paytab-success/plan', [PaytabController::class, 'PaytabGetPayment'])->middleware(['auth'])->name('plan.paytab.success');
+  Route::post('plan-pay-with-paytab', [PaytabController::class, 'planPayWithpaytab'])->middleware(['auth'])->name('plan.pay.with.paytab');
+  Route::any('paytab-success/plan', [PaytabController::class, 'PaytabGetPayment'])->middleware(['auth'])->name('plan.paytab.success');
 
-  // Route::any('/payment/initiate', [BenefitPaymentController::class, 'initiatePayment'])->name('plan.pay.with.benefit');
-  // Route::any('call_back', [BenefitPaymentController::class, 'call_back'])->name('benefit.call_back');
+  Route::any('/payment/initiate', [BenefitPaymentController::class, 'initiatePayment'])->name('plan.pay.with.benefit');
+  Route::any('call_back', [BenefitPaymentController::class, 'call_back'])->name('benefit.call_back');
 
-  // Route::post('cashfree/payments/store', [CashfreeController::class, 'cashfreePaymentStore'])->name('plan.pay.with.cashfree');
-  // Route::any('cashfree/payments/success', [CashfreeController::class, 'cashfreePaymentSuccess'])->name('cashfreePayment.success');
+  Route::post('cashfree/payments/store', [CashfreeController::class, 'cashfreePaymentStore'])->name('plan.pay.with.cashfree');
+  Route::any('cashfree/payments/success', [CashfreeController::class, 'cashfreePaymentSuccess'])->name('cashfreePayment.success');
 
-  // Route::post('/aamarpay/payment', [AamarpayController::class, 'pay'])->name('plan.pay.with.aamarpay')->middleware('auth');
-  // Route::any('/aamarpay/payment/{data}', [AamarpayController::class, 'aamarpaysuccess'])->name('pay.aamarpay.success')->middleware('auth');
+  Route::post('/aamarpay/payment', [AamarpayController::class, 'pay'])->name('plan.pay.with.aamarpay')->middleware('auth');
+  Route::any('/aamarpay/payment/{data}', [AamarpayController::class, 'aamarpaysuccess'])->name('pay.aamarpay.success')->middleware('auth');
 
-  // Route::post('/paytr/payment/{plan_id}', [PaytrController::class, 'PlanpayWithPaytr'])->name('plan.pay.with.paytr');
-  // Route::get('/paytr/sussess/', [PaytrController::class, 'paytrsuccess'])->name('pay.paytr.success');
+  Route::post('/paytr/payment/{plan_id}', [PaytrController::class, 'PlanpayWithPaytr'])->name('plan.pay.with.paytr');
+  Route::get('/paytr/sussess/', [PaytrController::class, 'paytrsuccess'])->name('pay.paytr.success');
 
-  // Route::post('/plan/yookassa/payment', [YooKassaController::class, 'planPayWithYooKassa'])->name('plan.pay.with.yookassa');
-  // Route::get('/plan/yookassa/{plan}', [YooKassaController::class, 'planGetYooKassaStatus'])->name('plan.yookassa.status');
+  Route::post('/plan/yookassa/payment', [YooKassaController::class, 'planPayWithYooKassa'])->name('plan.pay.with.yookassa');
+  Route::get('/plan/yookassa/{plan}', [YooKassaController::class, 'planGetYooKassaStatus'])->name('plan.yookassa.status');
 
-  // Route::any('/midtrans', [MidtransPaymentController::class, 'planPayWithMidtrans'])->name('plan.pay.with.midtrans');
-  // Route::any('/midtrans/callback', [MidtransPaymentController::class, 'planGetMidtransStatus'])->name('plan.get.midtrans.status');
+  Route::any('/midtrans', [MidtransPaymentController::class, 'planPayWithMidtrans'])->name('plan.pay.with.midtrans');
+  Route::any('/midtrans/callback', [MidtransPaymentController::class, 'planGetMidtransStatus'])->name('plan.get.midtrans.status');
 
-  // Route::any('/xendit/payment', [XenditPaymentController::class, 'planPayWithXendit'])->name('plan.pay.with.xendit');
-  // Route::any('/xendit/payment/status', [XenditPaymentController::class, 'planGetXenditStatus'])->name('plan.xendit.status');
+  Route::any('/xendit/payment', [XenditPaymentController::class, 'planPayWithXendit'])->name('plan.pay.with.xendit');
+  Route::any('/xendit/payment/status', [XenditPaymentController::class, 'planGetXenditStatus'])->name('plan.xendit.status');
 
-  // Route::post('/nepalste/payment', [NepalstePaymnetController::class, 'planPayWithnepalste'])->name('plan.pay.with.nepalste');
-  // Route::get('nepalste/status/', [NepalstePaymnetController::class, 'planGetNepalsteStatus'])->name('nepalste.status');
-  // Route::get('nepalste/cancel/', [NepalstePaymnetController::class, 'planGetNepalsteCancel'])->name('nepalste.cancel');
+  Route::post('/nepalste/payment', [NepalstePaymnetController::class, 'planPayWithnepalste'])->name('plan.pay.with.nepalste');
+  Route::get('nepalste/status/', [NepalstePaymnetController::class, 'planGetNepalsteStatus'])->name('nepalste.status');
+  Route::get('nepalste/cancel/', [NepalstePaymnetController::class, 'planGetNepalsteCancel'])->name('nepalste.cancel');
 
-  // Route::post('/paiementpro/payment', [PaiementProController::class, 'planPayWithPaiementpro'])->name('plan.pay.with.paiementpro');
-  // Route::any('/paiementpro/status', [PaiementProController::class, 'planGetPaiementProStatus'])->name('plan.get.paiementpro.status');
+  Route::post('/paiementpro/payment', [PaiementProController::class, 'planPayWithPaiementpro'])->name('plan.pay.with.paiementpro');
+  Route::any('/paiementpro/status', [PaiementProController::class, 'planGetPaiementProStatus'])->name('plan.get.paiementpro.status');
 
-  // Route::post('/plan/company/payment', [CinetPayController::class, 'planPayWithCinetPay'])->name('plan.pay.with.cinetpay');
-  // Route::post('/plan/company/payment/return', [CinetPayController::class, 'planCinetPayReturn'])->name('plan.cinetpay.return');
-  // Route::post('/plan/company/payment/notify/', [CinetPayController::class, 'planCinetPayNotify'])->name('plan.cinetpay.notify');
+  Route::post('/plan/company/payment', [CinetPayController::class, 'planPayWithCinetPay'])->name('plan.pay.with.cinetpay');
+  Route::post('/plan/company/payment/return', [CinetPayController::class, 'planCinetPayReturn'])->name('plan.cinetpay.return');
+  Route::post('/plan/company/payment/notify/', [CinetPayController::class, 'planCinetPayNotify'])->name('plan.cinetpay.notify');
 
-  // Route::post('/fedapay', [FedapayController::class, 'planPayWithFedapay'])->name('plan.pay.with.fedapay');
-  // Route::get('/fedapay/status', [FedapayController::class, 'planGetFedapayStatus'])->name('plan.get.fedapay.status');
+  Route::post('/fedapay', [FedapayController::class, 'planPayWithFedapay'])->name('plan.pay.with.fedapay');
+  Route::get('/fedapay/status', [FedapayController::class, 'planGetFedapayStatus'])->name('plan.get.fedapay.status');
 
-  // Route::post('/payhere', [PayHereController::class, 'planPayWithPayHere'])->name('plan.pay.with.payhere');
-  // Route::get('/payhere/status', [PayHereController::class, 'planGetPayHereStatus'])->name('plan.get.payhere.status');
+  Route::post('/payhere', [PayHereController::class, 'planPayWithPayHere'])->name('plan.pay.with.payhere');
+  Route::get('/payhere/status', [PayHereController::class, 'planGetPayHereStatus'])->name('plan.get.payhere.status');
 
-  // Route::post('plan-pay-with/tap', [TapController::class, 'planPayWithTap'])->name('plan.pay.with.tap');
-  // Route::get('plan-get-tap-status/{plan_id}', [TapController::class, 'planGetTapStatus'])->name('plan.get.tap.status');
+  Route::post('plan-pay-with/tap', [TapController::class, 'planPayWithTap'])->name('plan.pay.with.tap');
+  Route::get('plan-get-tap-status/{plan_id}', [TapController::class, 'planGetTapStatus'])->name('plan.get.tap.status');
 
-  // Route::any('/plan-pay-with-authorize-net', [AuthorizeNetController::class, 'planPayWithAuthorizeNet'])->name('plan.pay.with.authorizenet');
-  // Route::post('/plan-get-authorizenet-status', [AuthorizeNetController::class, 'planPayWithAuthorizeNetData'])->name('plan.get.authorizenet.status');
+  Route::any('/plan-pay-with-authorize-net', [AuthorizeNetController::class, 'planPayWithAuthorizeNet'])->name('plan.pay.with.authorizenet');
+  Route::post('/plan-get-authorizenet-status', [AuthorizeNetController::class, 'planPayWithAuthorizeNetData'])->name('plan.get.authorizenet.status');
 
-  // Route::post('plan-pay-with-khalti', [KhaltiController::class, 'planPayWithKhalti'])->name('plan.pay.with.khalti');
-  // Route::post('plan-get-khalti-status', [KhaltiController::class, 'planGetKhaltiStatus'])->name('plan.get.khalti.status');
+  Route::post('plan-pay-with-khalti', [KhaltiController::class, 'planPayWithKhalti'])->name('plan.pay.with.khalti');
+  Route::post('plan-get-khalti-status', [KhaltiController::class, 'planGetKhaltiStatus'])->name('plan.get.khalti.status');
 
-  // Route::post('/plan-pay-with-easebuzz', [EasebuzzController::class, 'planPayWithEasebuzz'])->name('plan.pay.with.easebuzz');
-  // Route::match(['get', 'post'], '/plan-easebuzz-payment-return', [EasebuzzController::class, 'return_url'])->name('plan.easebuzz.return');
-  // Route::match(['get', 'post'], 'plan-easebuzz-payment-notify', [EasebuzzController::class, 'notify_url'])->name('plan.get.easebuzz.notify');
+  Route::post('/plan-pay-with-easebuzz', [EasebuzzController::class, 'planPayWithEasebuzz'])->name('plan.pay.with.easebuzz');
+  Route::match(['get', 'post'], '/plan-easebuzz-payment-return', [EasebuzzController::class, 'return_url'])->name('plan.easebuzz.return');
+  Route::match(['get', 'post'], 'plan-easebuzz-payment-notify', [EasebuzzController::class, 'notify_url'])->name('plan.get.easebuzz.notify');
 
-  // Route::post('plan-pay-with/ozow', [OzowPaymentController::class, 'planPayWithOzow'])->name('plan.pay.with.ozow');
-  // Route::get('plan-get-ozow-status/{plan_id}', [OzowPaymentController::class, 'planGetOzowStatus'])->name('plan.get.ozow.status');
+  Route::post('plan-pay-with/ozow', [OzowPaymentController::class, 'planPayWithOzow'])->name('plan.pay.with.ozow');
+  Route::get('plan-get-ozow-status/{plan_id}', [OzowPaymentController::class, 'planGetOzowStatus'])->name('plan.get.ozow.status');
 
   // ---------------------********************************-----------------------
   //plan-order
-  // Route::post('order/{id}/changeaction', [BankTransferPaymentController::class, 'changeStatus'])->name('order.changestatus');
-  // Route::delete('order/{id}', [BankTransferPaymentController::class, 'orderDestroy'])->name('order.destroy');
-  // Route::get('order/{id}/action', [BankTransferPaymentController::class, 'action'])->name('order.action');
+  Route::post('order/{id}/changeaction', [BankTransferPaymentController::class, 'changeStatus'])->name('order.changestatus');
+  Route::delete('order/{id}', [BankTransferPaymentController::class, 'orderDestroy'])->name('order.destroy');
+  Route::get('order/{id}/action', [BankTransferPaymentController::class, 'action'])->name('order.action');
 
 
   //    Route::post('plan-pay-with-paypal', [PaypalController::class, 'planPayWithPaypal'])->name('plan.pay.with.paypal')->middleware(['auth' , 'revalidate']);
@@ -1461,7 +1436,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1473,13 +1448,13 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     }
   );
 
-  Route::resource('competencies', CompetenciesController::class)->middleware(['auth']);
+  Route::resource('competencies', CompetenciesController::class)->middleware(['auth' ]);
 
   Route::group(
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1489,11 +1464,11 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   );
 
   // Plan Request Module - superadmin
-  Route::get('plan_request', [PlanRequestController::class, 'index'])->name('plan_request.index')->middleware(['auth']);
-  Route::get('request_frequency/{id}', [PlanRequestController::class, 'requestView'])->name('request.view')->middleware(['auth']);
-  Route::get('request_send/{id}', [PlanRequestController::class, 'userRequest'])->name('send.request')->middleware(['auth']);
-  Route::get('request_response/{id}/{response}', [PlanRequestController::class, 'acceptRequest'])->name('response.request')->middleware(['auth']);
-  Route::get('request_cancel/{id}', [PlanRequestController::class, 'cancelRequest'])->name('request.cancel')->middleware(['auth']);
+  Route::get('plan_request', [PlanRequestController::class, 'index'])->name('plan_request.index')->middleware(['auth' ]);
+  Route::get('request_frequency/{id}', [PlanRequestController::class, 'requestView'])->name('request.view')->middleware(['auth' ]);
+  Route::get('request_send/{id}', [PlanRequestController::class, 'userRequest'])->name('send.request')->middleware(['auth' ]);
+  Route::get('request_response/{id}/{response}', [PlanRequestController::class, 'acceptRequest'])->name('response.request')->middleware(['auth' ]);
+  Route::get('request_cancel/{id}', [PlanRequestController::class, 'cancelRequest'])->name('request.cancel')->middleware(['auth' ]);
 
 
   // Import/Export Data Route
@@ -1536,44 +1511,44 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::post('export/payslip', [PaySlipController::class, 'export'])->name('payslip.export');
 
   // Time-Tracker
-  Route::post('stop-tracker', [DashboardController::class, 'stopTracker'])->name('stop.tracker')->middleware(['auth']);
-  Route::get('time-tracker', [TimeTrackerController::class, 'index'])->name('time.tracker')->middleware(['auth']);
+  Route::post('stop-tracker', [DashboardController::class, 'stopTracker'])->name('stop.tracker')->middleware(['auth' ]);
+  Route::get('time-tracker', [TimeTrackerController::class, 'index'])->name('time.tracker')->middleware(['auth' ]);
   Route::delete('tracker/{tid}/destroy', [TimeTrackerController::class, 'Destroy'])->name('tracker.destroy');
   Route::post('tracker/image-view', [TimeTrackerController::class, 'getTrackerImages'])->name('tracker.image.view');
   Route::delete('tracker/image-remove', [TimeTrackerController::class, 'removeTrackerImages'])->name('tracker.image.remove');
-  Route::get('projects/time-tracker/{id}', [ProjectController::class, 'tracker'])->name('projecttime.tracker')->middleware(['auth']);
+  Route::get('projects/time-tracker/{id}', [ProjectController::class, 'tracker'])->name('projecttime.tracker')->middleware(['auth' ]);
 
   // Zoom Meeting
-  Route::resource('zoom-meeting', ZoomMeetingController::class)->middleware(['auth']);
+  Route::resource('zoom-meeting', ZoomMeetingController::class)->middleware(['auth' ]);
   Route::any('/zoom-meeting/projects/select/{bid}', [ZoomMeetingController::class, 'projectwiseuser'])->name('zoom-meeting.projects.select');
-  Route::get('zoom-meeting-calender', [ZoomMeetingController::class, 'calender'])->name('zoom-meeting.calender')->middleware(['auth']);
+  Route::get('zoom-meeting-calender', [ZoomMeetingController::class, 'calender'])->name('zoom-meeting.calender')->middleware(['auth' ]);
 
   // PaymentWall
 
-  // Route::post('/paymentwalls', [PaymentWallPaymentController::class, 'paymentwall'])->name('plan.paymentwallpayment');
-  // Route::post('/plan-pay-with-paymentwall/{plan}', [PaymentWallPaymentController::class, 'planPayWithPaymentWall'])->name('plan.pay.with.paymentwall')->middleware(['auth']);
-  // Route::get('/plan/{flag}', [PaymentWallPaymentController::class, 'planeerror'])->name('error.plan.show');
+  Route::post('/paymentwalls', [PaymentWallPaymentController::class, 'paymentwall'])->name('plan.paymentwallpayment') ;
+  Route::post('/plan-pay-with-paymentwall/{plan}', [PaymentWallPaymentController::class, 'planPayWithPaymentWall'])->name('plan.pay.with.paymentwall')->middleware(['auth' ]);
+  Route::get('/plan/{flag}', [PaymentWallPaymentController::class, 'planeerror'])->name('error.plan.show');
 
   //POS System
 
   Route::get('quotation/items', [QuotationController::class, 'items'])->name('quotation.items');
-  Route::resource('quotation', QuotationController::class)->middleware(['auth', 'revalidate']);
-  Route::any('quotation/create/{cid}', [QuotationController::class, 'quotationCreate'])->name('quotations.create')->middleware(['auth', 'revalidate']);
+  Route::resource('quotation', QuotationController::class)->middleware(['auth' , 'revalidate']);
+  Route::any('quotation/create/{cid}', [QuotationController::class, 'quotationCreate'])->name('quotations.create')->middleware(['auth' , 'revalidate']);
   Route::post('quotation/product', [QuotationController::class, 'product'])->name('quotation.product');
   Route::post('quotation/product/destroy', [QuotationController::class, 'productDestroy'])->name('quotation.product.destroy');
   Route::get('quotation/convert/{id}', [QuotationController::class, 'convert'])->name('quotation.convert');
   Route::post('quantity/product', [QuotationController::class, 'productQuantity'])->name('product.quantity');
   Route::post('/quotation/template/setting', [QuotationController::class, 'saveQuotationTemplateSettings'])->name('quotation.template.setting');
-  Route::get('quotation/preview/{template}/{color}', [QuotationController::class, 'previewQuotation'])->name('quotation.preview')->middleware(['auth']);
+  Route::get('quotation/preview/{template}/{color}', [QuotationController::class, 'previewQuotation'])->name('quotation.preview')->middleware(['auth' ]);
   Route::get('printview/quotation', [QuotationController::class, 'printView'])->name('quotation.printview');
-  Route::get('quotation/pdf/{id}', [QuotationController::class, 'quotation'])->name('quotation.pdf')->middleware(['auth', 'revalidate']);
+  Route::get('quotation/pdf/{id}', [QuotationController::class, 'quotation'])->name('quotation.pdf')->middleware(['auth' , 'revalidate']);
 
-  Route::resource('warehouse', WarehouseController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('warehouse', WarehouseController::class)->middleware(['auth' , 'revalidate']);
   Route::group(
     [
       'middleware' => [
         'auth',
-        'XSS',
+         'XSS',
         'revalidate',
       ],
     ],
@@ -1593,48 +1568,48 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
     }
 
   );
-  Route::get('pos-print-setting', [SystemController::class, 'posPrintIndex'])->name('pos.print.setting')->middleware(['auth']);
-  Route::get('purchase/preview/{template}/{color}', [PurchaseController::class, 'previewPurchase'])->name('purchase.preview')->middleware(['auth']);
-  Route::get('pos/preview/{template}/{color}', [PosController::class, 'previewPos'])->name('pos.preview')->middleware(['auth']);
+  Route::get('pos-print-setting', [SystemController::class, 'posPrintIndex'])->name('pos.print.setting')->middleware(['auth' ]);
+  Route::get('purchase/preview/{template}/{color}', [PurchaseController::class, 'previewPurchase'])->name('purchase.preview')->middleware(['auth' ]);
+  Route::get('pos/preview/{template}/{color}', [PosController::class, 'previewPos'])->name('pos.preview')->middleware(['auth' ]);
 
   Route::post('/purchase/template/setting', [PurchaseController::class, 'savePurchaseTemplateSettings'])->name('purchase.template.setting');
   Route::post('/pos/template/setting', [PosController::class, 'savePosTemplateSettings'])->name('pos.template.setting');
 
-  Route::get('purchase/pdf/{id}', [PurchaseController::class, 'purchase'])->name('purchase.pdf')->middleware(['auth', 'revalidate']);
-  Route::get('pos/pdf/{id}', [PosController::class, 'pos'])->name('pos.pdf')->middleware(['auth', 'revalidate']);
-  Route::get('pos/data/store', [PosController::class, 'store'])->name('pos.data.store')->middleware(['auth', 'revalidate']);
+  Route::get('purchase/pdf/{id}', [PurchaseController::class, 'purchase'])->name('purchase.pdf')->middleware(['auth' , 'revalidate']);
+  Route::get('pos/pdf/{id}', [PosController::class, 'pos'])->name('pos.pdf')->middleware(['auth' , 'revalidate']);
+  Route::get('pos/data/store', [PosController::class, 'store'])->name('pos.data.store')->middleware(['auth' , 'revalidate']);
 
   //pos barcode
-  Route::get('barcode/pos', [PosController::class, 'barcode'])->name('pos.barcode')->middleware(['auth']);
-  Route::get('setting/pos', [PosController::class, 'setting'])->name('pos.setting')->middleware(['auth']);
+  Route::get('barcode/pos', [PosController::class, 'barcode'])->name('pos.barcode')->middleware(['auth' ]);
+  Route::get('setting/pos', [PosController::class, 'setting'])->name('pos.setting')->middleware(['auth' ]);
   Route::post('barcode/settings', [PosController::class, 'BarcodesettingStore'])->name('barcode.setting');
-  Route::get('print/pos', [PosController::class, 'printBarcode'])->name('pos.print')->middleware(['auth']);
-  Route::post('pos/getproduct', [PosController::class, 'getproduct'])->name('pos.getproduct')->middleware(['auth']);
-  Route::any('pos-receipt', [PosController::class, 'receipt'])->name('pos.receipt')->middleware(['auth']);
-  Route::post('/cartdiscount', [PosController::class, 'cartdiscount'])->name('cartdiscount')->middleware(['auth']);
+  Route::get('print/pos', [PosController::class, 'printBarcode'])->name('pos.print')->middleware(['auth' ]);
+  Route::post('pos/getproduct', [PosController::class, 'getproduct'])->name('pos.getproduct')->middleware(['auth' ]);
+  Route::any('pos-receipt', [PosController::class, 'receipt'])->name('pos.receipt')->middleware(['auth' ]);
+  Route::post('/cartdiscount', [PosController::class, 'cartdiscount'])->name('cartdiscount')->middleware(['auth' ]);
 
   //for pos print
-  Route::get('printview/pos', [PosController::class, 'printView'])->name('pos.printview')->middleware(['auth', 'revalidate']);
+  Route::get('printview/pos', [PosController::class, 'printView'])->name('pos.printview')->middleware(['auth' , 'revalidate']);
 
-  Route::get('report/pos', [PosController::class, 'report'])->name('pos.report')->middleware(['auth']);
+  Route::get('report/pos', [PosController::class, 'report'])->name('pos.report')->middleware(['auth' ]);
   Route::get('{cid?}/pos', [PosController::class, 'index'])->name('poses.index');
-  Route::resource('pos', PosController::class)->middleware(['auth', 'revalidate']);
+  Route::resource('pos', PosController::class)->middleware(['auth' , 'revalidate']);
 
 
-  Route::get('product-categories', [ProductServiceCategoryController::class, 'getProductCategories'])->name('product.categories')->middleware(['auth']);
-  Route::get('add-to-cart/{id}/{session}', [ProductServiceController::class, 'addToCart'])->middleware(['auth']);
-  Route::patch('update-cart', [ProductServiceController::class, 'updateCart'])->middleware(['auth']);
-  Route::delete('remove-from-cart', [ProductServiceController::class, 'removeFromCart'])->middleware(['auth']);
+  Route::get('product-categories', [ProductServiceCategoryController::class, 'getProductCategories'])->name('product.categories')->middleware(['auth' ]);
+  Route::get('add-to-cart/{id}/{session}', [ProductServiceController::class, 'addToCart'])->middleware(['auth' ]);
+  Route::patch('update-cart', [ProductServiceController::class, 'updateCart'])->middleware(['auth' ]);
+  Route::delete('remove-from-cart', [ProductServiceController::class, 'removeFromCart'])->middleware(['auth' ]);
 
-  Route::get('name-search-products', [ProductServiceCategoryController::class, 'searchProductsByName'])->name('name.search.products')->middleware(['auth']);
-  Route::get('search-products', [ProductServiceController::class, 'searchProducts'])->name('search.products')->middleware(['auth']);
-  Route::get('search-products-sku', [ProductServiceController::class, 'searchProductsSku'])->name('search.products.sku')->middleware(['auth']);
+  Route::get('name-search-products', [ProductServiceCategoryController::class, 'searchProductsByName'])->name('name.search.products')->middleware(['auth' ]);
+  Route::get('search-products', [ProductServiceController::class, 'searchProducts'])->name('search.products')->middleware(['auth' ]);
+  Route::get('search-products-sku', [ProductServiceController::class, 'searchProductsSku'])->name('search.products.sku')->middleware(['auth' ]);
 
 
   //warehouse-transfer
-  Route::resource('warehouse-transfer', WarehouseTransferController::class)->middleware(['auth', 'revalidate']);
-  Route::post('warehouse-transfer/getproduct', [WarehouseTransferController::class, 'getproduct'])->name('warehouse-transfer.getproduct')->middleware(['auth']);
-  Route::post('warehouse-transfer/getquantity', [WarehouseTransferController::class, 'getquantity'])->name('warehouse-transfer.getquantity')->middleware(['auth']);
+  Route::resource('warehouse-transfer', WarehouseTransferController::class)->middleware(['auth' , 'revalidate']);
+  Route::post('warehouse-transfer/getproduct', [WarehouseTransferController::class, 'getproduct'])->name('warehouse-transfer.getproduct')->middleware(['auth' ]);
+  Route::post('warehouse-transfer/getquantity', [WarehouseTransferController::class, 'getquantity'])->name('warehouse-transfer.getquantity')->middleware(['auth' ]);
 
 
   // BiometricAttendance
@@ -1649,69 +1624,69 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
   //Storage Setting
 
-  Route::post('storage-settings', [SystemController::class, 'storageSettingStore'])->name('storage.setting.store')->middleware(['auth']);
+  Route::post('storage-settings', [SystemController::class, 'storageSettingStore'])->name('storage.setting.store')->middleware(['auth' ]);
 
   //appricalStar
 
-  Route::post('/appraisals', [AppraisalController::class, 'empByStar'])->name('empByStar')->middleware(['auth']);
-  Route::post('/appraisals1', [AppraisalController::class, 'empByStar1'])->name('empByStar1')->middleware(['auth']);
+  Route::post('/appraisals', [AppraisalController::class, 'empByStar'])->name('empByStar')->middleware(['auth' ]);
+  Route::post('/appraisals1', [AppraisalController::class, 'empByStar1'])->name('empByStar1')->middleware(['auth' ]);
   Route::post('/getemployee', [AppraisalController::class, 'getemployee'])->name('getemployee');
 
   //offer Letter
 
   Route::post('setting/offerlatter/{lang?}', [SystemController::class, 'offerletterupdate'])->name('offerlatter.update');
-  Route::get('setting/offerlatter', [SystemController::class, 'companyIndex'])->name('get.offerlatter.language');
+  Route::get('setting/offerlatter', [SystemController::class, 'companyIndex'])->name('get.offerlatter.language') ;
   Route::get('job-onboard/pdf/{id}', [JobApplicationController::class, 'offerletterPdf'])->name('offerlatter.download.pdf');
   Route::get('job-onboard/doc/{id}', [JobApplicationController::class, 'offerletterDoc'])->name('offerlatter.download.doc');
 
   //joining Letter
   Route::post('setting/joiningletter/{lang?}', [SystemController::class, 'joiningletterupdate'])->name('joiningletter.update');
-  Route::get('setting/joiningletter/', [SystemController::class, 'companyIndex'])->name('get.joiningletter.language');
+  Route::get('setting/joiningletter/', [SystemController::class, 'companyIndex'])->name('get.joiningletter.language') ;
   Route::get('employee/pdf/{id}', [EmployeeController::class, 'joiningletterPdf'])->name('joiningletter.download.pdf');
   Route::get('employee/doc/{id}', [EmployeeController::class, 'joiningletterDoc'])->name('joininglatter.download.doc');
 
   //Experience Certificate
 
   Route::post('setting/exp/{lang?}', [SystemController::class, 'experienceCertificateupdate'])->name('experiencecertificate.update');
-  Route::get('setting/exp', [SystemController::class, 'companyIndex'])->name('get.experiencecertificate.language');
+  Route::get('setting/exp', [SystemController::class, 'companyIndex'])->name('get.experiencecertificate.language') ;
   Route::get('employee/exppdf/{id}', [EmployeeController::class, 'ExpCertificatePdf'])->name('exp.download.pdf');
   Route::get('employee/expdoc/{id}', [EmployeeController::class, 'ExpCertificateDoc'])->name('exp.download.doc');
 
   //NOC
 
   Route::post('setting/noc/{lang?}', [SystemController::class, 'NOCupdate'])->name('noc.update');
-  Route::get('setting/noc', [SystemController::class, 'companyIndex'])->name('get.noc.language');
+  Route::get('setting/noc', [SystemController::class, 'companyIndex'])->name('get.noc.language') ;
   Route::get('employee/nocpdf/{id}', [EmployeeController::class, 'NocPdf'])->name('noc.download.pdf');
   Route::get('employee/nocdoc/{id}', [EmployeeController::class, 'NocDoc'])->name('noc.download.doc');
 
   //Project Reports
 
-  Route::resource('/project_report', ProjectReportController::class)->middleware(['auth']);
-  Route::post('/project_report_data', [ProjectReportController::class, 'ajax_data'])->name('projects.ajax')->middleware(['auth']);
-  Route::post('/project_report/tasks/{id}', [ProjectReportController::class, 'ajax_tasks_report'])->name('tasks.report.ajaxdata')->middleware(['auth']);
+  Route::resource('/project_report', ProjectReportController::class)->middleware(['auth' ]);
+  Route::post('/project_report_data', [ProjectReportController::class, 'ajax_data'])->name('projects.ajax')->middleware(['auth' ]);
+  Route::post('/project_report/tasks/{id}', [ProjectReportController::class, 'ajax_tasks_report'])->name('tasks.report.ajaxdata')->middleware(['auth' ]);
   Route::get('export/task_report/{id}', [ProjectReportController::class, 'export'])->name('project_report.export');
 
   //project copy module
-  Route::get('/project/copy/{id}', [ProjectController::class, 'copyproject'])->name('project.copy')->middleware(['auth']);
-  Route::post('/project/copy/store/{id}', [ProjectController::class, 'copyprojectstore'])->name('project.copy.store')->middleware(['auth']);
+  Route::get('/project/copy/{id}', [ProjectController::class, 'copyproject'])->name('project.copy')->middleware(['auth' ]);
+  Route::post('/project/copy/store/{id}', [ProjectController::class, 'copyprojectstore'])->name('project.copy.store')->middleware(['auth' ]);
 
   //Google Calendar
-  Route::any('event/get_event_data', [EventController::class, 'get_event_data'])->name('event.get_event_data')->middleware(['auth']);
+  Route::any('event/get_event_data', [EventController::class, 'get_event_data'])->name('event.get_event_data')->middleware(['auth' ]);
 
   Route::post('setting/google-calender', [SystemController::class, 'saveGoogleCalenderSettings'])->name('google.calender.settings');
-  Route::any('holiday/get_holiday_data', [HolidayController::class, 'get_holiday_data'])->name('holiday.get_holiday_data')->middleware(['auth']);
-  Route::any('interview-schedule/get_interview_data', [InterviewScheduleController::class, 'get_interview_data'])->name('holiday.get_interview_data')->middleware(['auth']);
-  Route::post('calendar/get_task_data', [ProjectTaskController::class, 'get_task_data'])->name('task.calendar.get_task_data')->middleware(['auth']);
-  Route::any('zoom-meeting/get_zoom_meeting_data', [ZoomMeetingController::class, 'get_zoom_meeting_data'])->name('zoom-meeting.get_zoom_meeting_data')->middleware(['auth']);
+  Route::any('holiday/get_holiday_data', [HolidayController::class, 'get_holiday_data'])->name('holiday.get_holiday_data')->middleware(['auth' ]);
+  Route::any('interview-schedule/get_interview_data', [InterviewScheduleController::class, 'get_interview_data'])->name('holiday.get_interview_data')->middleware(['auth' ]);
+  Route::post('calendar/get_task_data', [ProjectTaskController::class, 'get_task_data'])->name('task.calendar.get_task_data')->middleware(['auth' ]);
+  Route::any('zoom-meeting/get_zoom_meeting_data', [ZoomMeetingController::class, 'get_zoom_meeting_data'])->name('zoom-meeting.get_zoom_meeting_data')->middleware(['auth' ]);
 
-  Route::any('meeting/get_meeting_data', [MeetingController::class, 'get_meeting_data'])->name('meeting.get_meeting_data')->middleware(['auth']);
-  Route::get('meeting-calender', [MeetingController::class, 'calender'])->name('meeting.calender')->middleware(['auth']);
+  Route::any('meeting/get_meeting_data', [MeetingController::class, 'get_meeting_data'])->name('meeting.get_meeting_data')->middleware(['auth' ]);
+  Route::get('meeting-calender', [MeetingController::class, 'calender'])->name('meeting.calender')->middleware(['auth' ]);
 
-  Route::any('event/get_dashboard_event_data', [EventController::class, 'get_dashboard_event_data'])->name('event.get_dashboard_event_data')->middleware(['auth']);
+  Route::any('event/get_dashboard_event_data', [EventController::class, 'get_dashboard_event_data'])->name('event.get_dashboard_event_data')->middleware(['auth' ]);
 
   //branch wise department get in attendance report
-  Route::post('reports-monthly-attendance/getdepartment', [ReportController::class, 'getdepartment'])->name('report.attendance.getdepartment')->middleware(['auth']);
-  Route::post('reports-monthly-attendance/getemployee', [ReportController::class, 'getemployee'])->name('report.attendance.getemployee')->middleware(['auth']);
+  Route::post('reports-monthly-attendance/getdepartment', [ReportController::class, 'getdepartment'])->name('report.attendance.getdepartment')->middleware(['auth' ]);
+  Route::post('reports-monthly-attendance/getemployee', [ReportController::class, 'getemployee'])->name('report.attendance.getemployee')->middleware(['auth' ]);
 
   //shared project & copy link
   Route::any('/projects/copy/link/{id}', [ProjectController::class, 'copylinksetting'])->name('projects.copy.link');
@@ -1719,17 +1694,17 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::get('/shareproject/{lang?}', [ProjectController::class, 'shareproject'])->name('shareproject');
 
   //User Log
-  Route::get('/userlogs', [UserController::class, 'userLog'])->name('user.userlog')->middleware(['auth']);
-  Route::get('userlogs/{id}', [UserController::class, 'userLogView'])->name('user.userlogview')->middleware(['auth']);
-  Route::delete('userlogs/{id}', [UserController::class, 'userLogDestroy'])->name('user.userlogdestroy')->middleware(['auth']);
+  Route::get('/userlogs', [UserController::class, 'userLog'])->name('user.userlog')->middleware(['auth' ]);
+  Route::get('userlogs/{id}', [UserController::class, 'userLogView'])->name('user.userlogview')->middleware(['auth' ]);
+  Route::delete('userlogs/{id}', [UserController::class, 'userLogDestroy'])->name('user.userlogdestroy')->middleware(['auth' ]);
 
   //notification Template
-  Route::get('notification_templates/{id?}/{lang?}', [NotificationTemplatesController::class, 'index'])->name('notification_templates.index')->middleware(['auth']);
-  Route::get('notification-templates-lang/{id}/{lang?}', [NotificationTemplatesController::class, 'manageNotificationLang'])->name('manage.notification.language')->middleware(['auth']);
-  Route::resource('notification-templates', NotificationTemplatesController::class)->middleware(['auth']);
+  Route::get('notification_templates/{id?}/{lang?}', [NotificationTemplatesController::class, 'index'])->name('notification_templates.index')->middleware(['auth' ]);
+  Route::get('notification-templates-lang/{id}/{lang?}', [NotificationTemplatesController::class, 'manageNotificationLang'])->name('manage.notification.language')->middleware(['auth' ]);
+  Route::resource('notification-templates', NotificationTemplatesController::class)->middleware(['auth' ]);
 
   //Proposal/Invoice/Bill/Purchase/POS - footer notes
-  Route::post('system-settings/note', [SystemController::class, 'footerNoteStore'])->name('system.settings.footernote')->middleware(['auth']);
+  Route::post('system-settings/note', [SystemController::class, 'footerNoteStore'])->name('system.settings.footernote')->middleware(['auth' ]);
 
   //AI module
   Route::post('chatgpt-settings', [SystemController::class, 'chatgptSetting'])->name('chatgpt.settings');
@@ -1738,21 +1713,21 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::post('generate/response', [AiTemplateController::class, 'AiGenerate'])->name('generate.response');
 
   //AI module for grammar check
-  Route::get('grammar/{template}', [AiTemplateController::class, 'grammar'])->name('grammar')->middleware(['auth']);
-  Route::post('grammar/response', [AiTemplateController::class, 'grammarProcess'])->name('grammar.response')->middleware(['auth']);
+  Route::get('grammar/{template}', [AiTemplateController::class, 'grammar'])->name('grammar')->middleware(['auth' ]);
+  Route::post('grammar/response', [AiTemplateController::class, 'grammarProcess'])->name('grammar.response')->middleware(['auth' ]);
 
   //IP-Restrication settings
-  Route::get('create/ip', [SystemController::class, 'createIp'])->name('create.ip')->middleware(['auth']);
-  Route::post('create/ip', [SystemController::class, 'storeIp'])->name('store.ip')->middleware(['auth']);
-  Route::get('edit/ip/{id}', [SystemController::class, 'editIp'])->name('edit.ip')->middleware(['auth']);
-  Route::post('edit/ip/{id}', [SystemController::class, 'updateIp'])->name('update.ip')->middleware(['auth']);
-  Route::delete('destroy/ip/{id}', [SystemController::class, 'destroyIp'])->name('destroy.ip')->middleware(['auth']);
+  Route::get('create/ip', [SystemController::class, 'createIp'])->name('create.ip')->middleware(['auth' ]);
+  Route::post('create/ip', [SystemController::class, 'storeIp'])->name('store.ip')->middleware(['auth' ]);
+  Route::get('edit/ip/{id}', [SystemController::class, 'editIp'])->name('edit.ip')->middleware(['auth' ]);
+  Route::post('edit/ip/{id}', [SystemController::class, 'updateIp'])->name('update.ip')->middleware(['auth' ]);
+  Route::delete('destroy/ip/{id}', [SystemController::class, 'destroyIp'])->name('destroy.ip')->middleware(['auth' ]);
 
   //lang enable / disable
-  Route::post('disable-language', [LanguageController::class, 'disableLang'])->name('disablelanguage')->middleware(['auth']);
+  Route::post('disable-language', [LanguageController::class, 'disableLang'])->name('disablelanguage')->middleware(['auth' ]);
 
   //Expense Module
-  Route::get('expense/pdf/{id}', [ExpenseController::class, 'expense'])->name('expense.pdf')->middleware(['revalidate']);
+  Route::get('expense/pdf/{id}', [ExpenseController::class, 'expense'])->name('expense.pdf')->middleware([  'revalidate']);
   Route::group(
     [
       'middleware' => [
@@ -1786,4 +1761,4 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
 
 
 Route::any('/cookie-consent', [SystemController::class, 'CookieConsent'])->name('cookie-consent');
-Route::get('payslip/payslipPdf/{id}/{month}', [PaySlipController::class, 'payslipPdf'])->name('payslip.payslipPdf');
+Route::get('payslip/payslipPdf/{id}/{month}', [PaySlipController::class, 'payslipPdf'])->name('payslip.payslipPdf') ;

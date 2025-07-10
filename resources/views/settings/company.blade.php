@@ -481,7 +481,7 @@
                                 <div class="col-lg-4 col-sm-6 col-md-6">
                                     <div class="card mb-0">
                                         <div class="card-header p-3">
-                                            <h5>{{ __('Logo dark') }}</h5>
+                                            <h5>{{ __('Logo light') }}</h5>
                                         </div>
                                         <div class="card-body p-3">
                                             <div class="setting-card setting-logo-box">
@@ -512,7 +512,7 @@
                                 <div class="col-lg-4 col-sm-6 col-md-6">
                                     <div class="card mb-0">
                                         <div class="card-header p-3">
-                                            <h5>{{ __('Logo Light') }}</h5>
+                                            <h5>{{ __('Logo dark') }}</h5>
                                         </div>
                                         <div class="card-body p-3">
                                             <div class=" setting-card setting-logo-box">
@@ -579,7 +579,7 @@
                                 <div class="col-md-4 col-12">
                                     <div class="form-group mb-0">
                                         {{ Form::label('title_text', __('Title Text'), ['class' => 'form-label']) }}
-                                        {{ Form::text('title_text', Utility::getValByName('title_text') ? Utility::getValByName('title_text') : 'ErpGo Saas', ['class' => 'form-control', 'placeholder' => __('Title Text')]) }}
+                                        {{ Form::text('title_text', Utility::getValByName('title_text') ? Utility::getValByName('title_text') : 'Raqib Saas', ['class' => 'form-control', 'placeholder' => __('Title Text')]) }}
                                         @error('title_text')
                                             <span class="invalid-title_text" role="alert">
                                                 <strong class="text-danger">{{ $message }}</strong>

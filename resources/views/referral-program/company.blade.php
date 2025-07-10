@@ -1,12 +1,10 @@
 @extends('layouts.admin')
 
-@section('page-title')
-    {{ __('Referral Program') }}
-@endsection
+
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
-    <li class="breadcrumb-item">{{ __('Referral Program') }}</li>
+   
 @endsection
 
 
@@ -101,9 +99,7 @@
                                     </div>
                                 </div>
                                 </div>
-                                @if(isset($setting) && $setting->is_enable == 0 || !isset($setting))
-                                        <h6 class="text-end text-danger text-md mt-2">{{ __('Note : super admin has disabled the referral program.') }}</h6>
-                                    @endif
+
                             </div>
                         </div>
 

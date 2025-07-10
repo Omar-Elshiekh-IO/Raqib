@@ -42,7 +42,7 @@
 <html lang="en">
 
 <head>
-    <title>{{__('ERPGo')}}</title>
+    <title>{{__('Raqib')}}</title>
 
     <meta name="title" content="{{$metatitle}}">
     <meta name="description" content="{{$metsdesc}}">
