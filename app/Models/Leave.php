@@ -33,4 +33,8 @@ class Leave extends Model
     {
         return $this->hasOne('App\Models\Employee', 'id', 'employee_id');
     }
+
+    public function employee(){
+      return $this->belongsTo(Employee::class);
+    }
 }

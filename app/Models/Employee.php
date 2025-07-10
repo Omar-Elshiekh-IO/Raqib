@@ -61,6 +61,9 @@ class Employee extends Model
   {
     return $this->hasMany(Loan::class);
   }
+  public function leave(){
+    return $this->hasMany(Leave::class);
+  }
 
   public function saturationDeductions()
   {
@@ -77,8 +80,8 @@ class Employee extends Model
     return $this->hasMany(Overtime::class);
   }
 
-  public function workShift(){
-    return $this->belongsTo(WorkShift::class);
+  public function workShifts(){
+    return $this->belongsToMany(WorkShift::class);
   }
   public function employmentType(){
     return $this->belongsTo(EmploymentType::class);

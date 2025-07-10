@@ -1,0 +1,83 @@
+[33m4c156f5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mtest/merge-dev-pr[m[33m)[m resolve routes confilict
+[33m3ab89c8[m[33m ([m[1;32moe[m[33m)[m Create CRUD for requests
+[33m48a242d[m[33m ([m[1;31morigin/mega-new[m[33m)[m Merge branch 'main' of https://github.com/Omar-Elshiekh-IO/Raqib into mega-new
+[33m205166c[m Update landing page after commit removal
+[33m1056336[m Add RTL support and language switching functionality to enhance accessibility
+[33m1a90005[m Add mobile app section with features and mockup for enhanced user experience
+[33m0c34729[m Enhance hero section styling: Add responsive padding to hero content for improved layout
+[33m56be046[m responsive svg
+[33md5ad7f6[m Enhance hero section styling: Add padding to hero content for improved layout
+[33m050a9db[m Add contact and about sections with responsive design and form handling
+[33m27d1a65[m Update hero section styles and add dashboard mockup component for improved layout and visual appeal
+[33m6ea4174[m Enhance landing page navbar: Update brand logo and adjust padding for improved layout and responsiveness
+[33m03f5b62[m new landing page
+[33m75c2e8a[m remove landing page all related code
+[33m14f1346[m Remove visual indicator from menu test script to reduce UI clutter
+[33m7add564[m Fix empty submenu items in CRM menu and enhance JavaScript for automatic hiding of non-functional links
+[33m6fe9cb0[m Enhance menu item activation logic: Improve active state detection for dashboard links to ensure accurate highlighting based on current path.
+[33m7f76f31[m Enhance dashboard menu: Update active state logic and route for improved navigation
+[33m2f10639[m Implement menu stability fixes and enhancements
+[33m71b3991[m Enhance sidebar functionality: Add custom submenu styles for improved UI/UX and better spacing, including hover effects and active item styling.
+[33mc0c916e[m Enhance sidebar functionality: Implement hideEmptyMenuItems function to remove empty menu items and improve submenu visibility.
+[33m51bef00[m Enhance sidebar auto-close and auto-open functionality: Improve submenu handling on hover and collapse, ensuring non-invasive interaction and better user experience.
+[33mb7428da[m Enhance sidebar auto-close functionality: Implement non-invasive submenu handling and improve initialization logic for better user experience.
+[33mf7ea66a[m Enhance sidebar functionality: Implement auto-close behavior for submenus on collapse; improve submenu visibility and interaction during hover state.
+[33m39fdda0[m[33m ([m[1;31morigin/main[m[33m)[m Merge pull request #4 from Omar-Elshiekh-IO/oe
+[33m2c46c08[m[33m ([m[1;31morigin/oe[m[33m)[m Payroll edits,  add work shifts and employment type
+[33m35e25db[m Merge pull request #3 from Omar-Elshiekh-IO/oe
+[33mf9bef22[m Add branch login range
+[33m5b68423[m Refactor code structure for improved readability and maintainability
+[33m75c888e[m Remove image upload fields for logos and screenshots in various edit views
+[33m6f1b08d[m Update terms checkbox styling for improved accessibility and consistency
+[33m7a5277b[m Add theme color management script for dynamic styling
+[33m988189e[m Enhance plan management: Add validation and permission checks in store and update methods; improve UI with formatted timestamps and badges in plan request views.
+[33m4da35cf[m Remove 'Referral Program' menu items from dashboard and related views for cleaner navigation
+[33mbaff38e[m Refactor layout styles to prevent double scrollbars and improve overflow handling
+[33mb244763[m Refactor dashboard card styles for improved aesthetics and consistency
+[33m288b359[m cards ui
+[33m665b095[m Refactor dashboard card styles to utilize theme color variables and enhance glassmorphism effects
+[33mefca9c4[m Remove conditional transparent background checks for header and menu components
+[33mc24833d[m Implement glassmorphism styles for dashboard cards to enhance visual appeal and interactivity
+[33m22390ce[m Remove transparent layout option from theme customizer
+[33mfd7dc66[m Refactor logo handling and sidebar layout for improved theme customization
+[33m5016b4f[m Fix the create company form to look alike
+[33m7222e34[m Enhance dropdown menu styling and responsiveness for better mobile experience
+[33m8fec339[m Refactor dashboard card styles and update icons for improved visual consistency
+[33md166bf2[m Fix calculation of paid companies in super admin dashboard
+[33mfc898bc[m Refactor company filter logic and enhance dashboard styling for improved user experience
+[33m5c18bd4[m Refactor super admin dashboard styling and structur
+[33m7b632c4[m Enhance sidebar styling by removing old border and adding a pseudo-element separator
+[33m9801e07[m Refactor user profile view for improved layout and organization
+[33mc79c04b[m Remove unused payment and Chat GPT settings links from the settings page
+[33m3efb84e[m Add cache settings partial view for managing cache size and clearing cache
+[33m7abe660[m Refactor storage settings into a separate partial for improved code organization and maintainability
+[33m1014d35[m Refactor SEO settings into a separate partial for improved code organization and maintainability
+[33meedf132[m Refactor cookie settings into a separate partial for improved code organization and maintainability
+[33m76bec21[m Refactor theme customizer section into a separate partial for improved code organization and maintainability
+[33mf23869f[m Enhance sidebar styling with glassmorphism and vibrant active item effects
+[33m88e13a6[m Enhance sidebar menu transitions and active item styling for improved user experience
+[33mdc9b620[m Implement feature X to enhance user experience and fix bug Y in module Z
+[33mb91152b[m Merge branch 'main' of https://github.com/Omar-Elshiekh-IO/Raqib into mega-new
+[33m8f74c8f[m Merge pull request #2 from Omar-Elshiekh-IO/oe
+[33m8f28ebb[m Fix companies page performance issues
+[33me70ed9d[m Merge pull request #1 from Omar-Elshiekh-IO/oe
+[33me2c0d2f[m Fix langs, Add tickets count, Add branches count, Add some plan details
+[33m22c873f[m Fix superadmin broken images
+[33ma4ad2b5[m content expand sidebar collapse
+[33mf8a810f[m content expand
+[33mf169cec[m side bar smoother
+[33m396637d[m side bar collapse feature
+[33m15d5f1a[m break down dashboard code into smaller, more manageable components.
+[33m219d39c[m get filtered companies functionality
+[33m692196c[m Refactor code structure for improved readability and maintainability
+[33me28ab7f[m Refactor code structure for improved readability and maintainability
+[33m7288710[m nmnmnm
+[33m53e9dc4[m Implement code changes to enhance functionality and improve performance
+[33m58080fc[m Refactor code structure and remove redundant sections for improved readability and maintainability
+[33m53fde96[m Refactor code structure for improved readability and maintainability
+[33m85d6bcb[m Refactor code structure for improved readability and maintainability
+[33mbde6913[m Refactor code structure for improved readability and maintainability
+[33me560f0c[m Add debugbar JSON file for request analysis on landing page
+[33medd6e22[m Add composer.phar to the repository
+[33maeb0cc0[m Implement code changes to enhance functionality and improve performance
+[33mf3c6d2e[m[33m ([m[1;32mmain[m[33m)[m first commit

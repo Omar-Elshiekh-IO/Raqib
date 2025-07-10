@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
           $table->foreignId('employment_type_id')->nullable()->constrained()->nullOnDelete();
-          $table->foreignId('work_shift_id')->nullable()->constrained()->nullOnDelete();
         });
     }
 
@@ -23,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropColumn(['work_shift_id','employment_type_id']);
+            $table->dropColumn('employment_type_id');
         });
     }
 };

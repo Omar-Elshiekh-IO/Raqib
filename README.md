@@ -67,3 +67,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 step verification
 el wrdyat
+
+### 10/7
+
+- more than one work shift for employee
+- check in check out logic and connection between it and the work shifts
+- requests relation with the salary
+- leave worker security page
