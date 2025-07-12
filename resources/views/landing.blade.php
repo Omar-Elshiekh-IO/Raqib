@@ -1540,6 +1540,438 @@
                 opacity: 1;
             }
         }
+
+        /* All-in-One Solution Section */
+        .all-in-one-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .solution-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .solution-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .solution-content h5 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .solution-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .platform-showcase {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .showcase-header h4 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .showcase-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .showcase-tabs .tab {
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .showcase-tabs .tab.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .feature-highlight {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .highlight-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .benefit-card h4 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .benefit-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-stats {
+            display: flex;
+            justify-content: center;
+        }
+
+        .stat-highlight {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Industry Section */
+        .industry-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+
+        .industry-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .industry-image {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .industry-image i {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            background: linear-gradient(135deg, rgba(30, 164, 108, 0.1), rgba(6, 140, 66, 0.1));
+            width: 100px;
+            height: 100px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+        }
+
+        .industry-content h4 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .industry-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .industry-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .industry-features li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .industry-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .payment-features {
+            margin-top: 2rem;
+        }
+
+        .payment-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .payment-feature-content h5 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .payment-feature-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .payment-gateways {
+            text-align: center;
+        }
+
+        .gateway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gateway-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gateway-item:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gateway-logo {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .author-info h5 {
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .author-info span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design for New Sections */
+        @media (max-width: 768px) {
+            .solution-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .solution-item {
+                padding: 1.5rem;
+            }
+
+            .showcase-tabs {
+                gap: 0.25rem;
+            }
+
+            .showcase-tabs .tab {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .feature-highlight {
+                grid-template-columns: 1fr;
+            }
+
+            .benefit-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .industry-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .payment-feature {
+                align-items: center;
+            }
+
+            .gateway-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .gateway-item {
+                padding: 1rem 0.75rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1938,6 +2370,367 @@
         </div>
     </section>
 
+    <!-- All-in-One Solution Section -->
+    <section class="all-in-one-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="all-in-one-content">
+                        <h2 class="section-title text-start fade-in" data-translate="allInOneTitle">One Platform, Endless Possibilities</h2>
+                        <p class="section-subtitle text-start fade-in" data-translate="allInOneSubtitle">Replace multiple expensive software subscriptions with one comprehensive platform that grows with your business.</p>
+                        
+                        <div class="solution-grid fade-in">
+                            <div class="solution-item">
+                                <div class="solution-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <div class="solution-content">
+                                    <h5 data-translate="dashboardAnalytics">Dashboard & Analytics</h5>
+                                    <p data-translate="dashboardAnalyticsDesc">Smart overview dashboard with real-time reports and multiple specialized views for different departments.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="solution-item">
+                                <div class="solution-icon">
+                                    <i class="fas fa-cash-register"></i>
+                                </div>
+                                <div class="solution-content">
+                                    <h5 data-translate="posInventory">POS & Inventory</h5>
+                                    <p data-translate="posInventoryDesc">Complete point-of-sale system with inventory management, barcode support, and multi-location tracking.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="solution-item">
+                                <div class="solution-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="solution-content">
+                                    <h5 data-translate="crmLeads">CRM & Lead Management</h5>
+                                    <p data-translate="crmLeadsDesc">Capture leads, track sales pipelines, manage customer relationships, and boost conversion rates.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="solution-item">
+                                <div class="solution-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="solution-content">
+                                    <h5 data-translate="collaboration">Team Collaboration</h5>
+                                    <p data-translate="collaborationDesc">Built-in messenger, video meetings, document sharing, and real-time notifications for seamless teamwork.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="all-in-one-visual fade-in">
+                        <div class="platform-showcase">
+                            <div class="showcase-header">
+                                <h4>Raqib Business Platform</h4>
+                                <div class="showcase-tabs">
+                                    <span class="tab active">HRM</span>
+                                    <span class="tab">Accounting</span>
+                                    <span class="tab">CRM</span>
+                                    <span class="tab">POS</span>
+                                    <span class="tab">Projects</span>
+                                </div>
+                            </div>
+                            <div class="showcase-content">
+                                <div class="feature-highlight">
+                                    <div class="highlight-item">
+                                        <div class="highlight-icon">💼</div>
+                                        <span>Employee Management</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <div class="highlight-icon">📊</div>
+                                        <span>Financial Reports</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <div class="highlight-icon">🎯</div>
+                                        <span>Sales Pipeline</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <div class="highlight-icon">🛒</div>
+                                        <span>Point of Sale</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <div class="highlight-icon">📋</div>
+                                        <span>Project Tracking</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <div class="highlight-icon">💳</div>
+                                        <span>Payment Gateway</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section-title fade-in" data-translate="benefitsTitle">Why Businesses Choose Raqib</h2>
+            <p class="section-subtitle fade-in" data-translate="benefitsSubtitle">Discover how Raqib transforms business operations and drives growth</p>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card fade-in">
+                        <div class="benefit-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h4 data-translate="costEffective">Cost-Effective Solution</h4>
+                        <p data-translate="costEffectiveDesc">Save up to 70% compared to using multiple software solutions. One platform, one price, unlimited possibilities.</p>
+                        <div class="benefit-stats">
+                            <span class="stat-highlight">70% Cost Savings</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card fade-in">
+                        <div class="benefit-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4 data-translate="quickImplementation">Quick Implementation</h4>
+                        <p data-translate="quickImplementationDesc">Get your business up and running in days, not months. Our intuitive design requires minimal training.</p>
+                        <div class="benefit-stats">
+                            <span class="stat-highlight">3 Days Setup</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card fade-in">
+                        <div class="benefit-icon">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </div>
+                        <h4 data-translate="scalableGrowth">Scalable Growth</h4>
+                        <p data-translate="scalableGrowthDesc">From startup to enterprise, Raqib grows with your business. Add users, features, and modules as needed.</p>
+                        <div class="benefit-stats">
+                            <span class="stat-highlight">Unlimited Scale</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card fade-in">
+                        <div class="benefit-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 data-translate="enterpriseSecurity">Enterprise Security</h4>
+                        <p data-translate="enterpriseSecurityDesc">Bank-level encryption, secure cloud hosting, and compliance with international security standards.</p>
+                        <div class="benefit-stats">
+                            <span class="stat-highlight">99.9% Secure</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card fade-in">
+                        <div class="benefit-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 data-translate="mobileFirst">Mobile-First Design</h4>
+                        <p data-translate="mobileFirstDesc">Access your business data anywhere, anytime. Fully responsive design optimized for all devices.</p>
+                        <div class="benefit-stats">
+                            <span class="stat-highlight">100% Mobile</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card fade-in">
+                        <div class="benefit-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 data-translate="dedicatedSupport">Expert Support</h4>
+                        <p data-translate="dedicatedSupportDesc">24/7 customer support, comprehensive documentation, and training resources to ensure your success.</p>
+                        <div class="benefit-stats">
+                            <span class="stat-highlight">24/7 Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Solutions Section -->
+    <section class="industry-section">
+        <div class="container">
+            <h2 class="section-title fade-in" data-translate="industryTitle">Perfect for Every Industry</h2>
+            <p class="section-subtitle fade-in" data-translate="industrySubtitle">Raqib adapts to your business needs, regardless of your industry</p>
+            
+            <div class="row g-4">
+                <div class="col-lg-6 col-md-6">
+                    <div class="industry-card fade-in">
+                        <div class="industry-image">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="industry-content">
+                            <h4 data-translate="retailBusiness">Retail Businesses</h4>
+                            <p data-translate="retailBusinessDesc">Complete POS system, inventory management, customer tracking, and sales analytics for retail success.</p>
+                            <ul class="industry-features">
+                                <li>Multi-location inventory</li>
+                                <li>Barcode scanning</li>
+                                <li>Customer loyalty programs</li>
+                                <li>Sales reporting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6">
+                    <div class="industry-card fade-in">
+                        <div class="industry-image">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="industry-content">
+                            <h4 data-translate="serviceBusiness">Service Companies</h4>
+                            <p data-translate="serviceBusinessDesc">Project management, time tracking, client collaboration, and service delivery optimization tools.</p>
+                            <ul class="industry-features">
+                                <li>Project timelines</li>
+                                <li>Resource allocation</li>
+                                <li>Client portals</li>
+                                <li>Time billing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6">
+                    <div class="industry-card fade-in">
+                        <div class="industry-image">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div class="industry-content">
+                            <h4 data-translate="manufacturing">Manufacturing</h4>
+                            <p data-translate="manufacturingDesc">Supply chain management, production planning, quality control, and operational efficiency tools.</p>
+                            <ul class="industry-features">
+                                <li>Production tracking</li>
+                                <li>Quality management</li>
+                                <li>Supplier management</li>
+                                <li>Cost analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6">
+                    <div class="industry-card fade-in">
+                        <div class="industry-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="industry-content">
+                            <h4 data-translate="techStartups">Tech Startups</h4>
+                            <p data-translate="techStartupsDesc">Agile project management, team collaboration, rapid scaling tools, and investor reporting capabilities.</p>
+                            <ul class="industry-features">
+                                <li>Agile workflows</li>
+                                <li>Team collaboration</li>
+                                <li>Growth analytics</li>
+                                <li>Investor dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Integration Section -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="payment-content">
+                        <h2 class="section-title text-start fade-in" data-translate="paymentTitle">Global Payment Solutions</h2>
+                        <p class="section-subtitle text-start fade-in" data-translate="paymentSubtitle">Accept payments from customers worldwide with our extensive payment gateway integrations.</p>
+                        
+                        <div class="payment-features fade-in">
+                            <div class="payment-feature">
+                                <div class="payment-feature-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="payment-feature-content">
+                                    <h5 data-translate="globalPayments">Global Coverage</h5>
+                                    <p data-translate="globalPaymentsDesc">Support for 150+ currencies and payment methods across all major regions.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-feature">
+                                <div class="payment-feature-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="payment-feature-content">
+                                    <h5 data-translate="secureTransactions">Secure Transactions</h5>
+                                    <p data-translate="secureTransactionsDesc">PCI DSS compliant with end-to-end encryption for maximum security.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-feature">
+                                <div class="payment-feature-icon">
+                                    <i class="fas fa-zap"></i>
+                                </div>
+                                <div class="payment-feature-content">
+                                    <h5 data-translate="instantProcessing">Instant Processing</h5>
+                                    <p data-translate="instantProcessingDesc">Real-time payment processing with instant notifications and updates.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="payment-gateways fade-in">
+                        <h4 class="text-center mb-4" data-translate="supportedGateways">Supported Payment Gateways</h4>
+                        <div class="gateway-grid">
+                            <div class="gateway-item">
+                                <div class="gateway-logo">PayPal</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">Stripe</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">Razorpay</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">PayTabs</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">Mollie</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">PayStack</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">FedaPay</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">PayHere</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">Midtrans</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">Bank Transfer</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">Cash</div>
+                            </div>
+                            <div class="gateway-item">
+                                <div class="gateway-logo">+ More</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Stats Section -->
     <section class="stats-section">
         <div class="container">
@@ -1964,6 +2757,88 @@
                     <div class="stat-item fade-in">
                         <div class="stat-number">24/7</div>
                         <div class="stat-label" data-translate="support">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title fade-in" data-translate="testimonialsTitle">What Our Customers Say</h2>
+            <p class="section-subtitle fade-in" data-translate="testimonialsSubtitle">Real stories from businesses that transformed with Raqib</p>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p data-translate="testimonial1">"Raqib transformed our business operations completely. We eliminated 5 different software subscriptions and saved thousands while improving efficiency."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h5>Sarah Johnson</h5>
+                                <span>CEO, TechFlow Solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p data-translate="testimonial2">"The POS system and inventory management features are incredible. Our retail operations have never been smoother, and the reports help us make better decisions."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h5>Ahmed Al-Rashid</h5>
+                                <span>Owner, Modern Retail Chain</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p data-translate="testimonial3">"Project management and team collaboration features are outstanding. Our remote team is more productive than ever, and clients love the transparency."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h5>Maria Rodriguez</h5>
+                                <span>Project Manager, Digital Agency</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2278,25 +3153,83 @@
                 getStarted: 'Get Started',
                 
                 // Hero Section
-                heroTitle: 'Modern HR/ERP Solution',
-                heroSubtitle: 'Streamline your business operations with our comprehensive management platform designed for efficiency and growth.',
+                heroTitle: 'Transform Your Business with Raqib',
+                heroSubtitle: 'A comprehensive HR/ERP solution that streamlines employee management, financial operations, project tracking, and client collaboration - all in one powerful platform.',
                 
                 // Features Section
-                featuresTitle: 'Powerful Features',
-                featuresSubtitle: 'Everything you need to manage your business efficiently',
+                featuresTitle: 'Powerful Features for Modern Business',
+                featuresSubtitle: 'Everything you need to manage your business operations efficiently and effectively',
                 
                 // Feature Cards
                 hrManagement: 'HR Management',
-                hrManagementDesc: 'Complete employee lifecycle management with automated workflows and digital processes.',
+                hrManagementDesc: 'Complete employee lifecycle management from recruitment to retirement with automated workflows and comprehensive reporting.',
                 
-                financialManagement: 'Financial Management',
-                financialManagementDesc: 'Comprehensive accounting and financial reporting tools for better business insights.',
+                financialManagement: 'Financial Control',
+                financialManagementDesc: 'Track expenses, manage budgets, generate invoices, and maintain complete financial transparency across all operations.',
                 
                 projectManagement: 'Project Management',
-                projectManagementDesc: 'Streamlined project tracking and collaboration tools for team productivity.',
+                projectManagementDesc: 'Plan, execute, and monitor projects with advanced tracking, resource allocation, and team collaboration tools.',
                 
-                clientManagement: 'Client Management',
-                clientManagementDesc: 'Centralized client database with integrated communication and service tracking.',
+                clientManagement: 'Client Collaboration',
+                clientManagementDesc: 'Seamless client communication, project sharing, and feedback collection to ensure exceptional service delivery.',
+
+                // All-in-One Section
+                allInOneTitle: 'One Platform, Endless Possibilities',
+                allInOneSubtitle: 'Replace multiple expensive software subscriptions with one comprehensive platform that grows with your business.',
+                dashboardAnalytics: 'Dashboard & Analytics',
+                dashboardAnalyticsDesc: 'Smart overview dashboard with real-time reports and multiple specialized views for different departments.',
+                posInventory: 'POS & Inventory',
+                posInventoryDesc: 'Complete point-of-sale system with inventory management, barcode support, and multi-location tracking.',
+                crmLeads: 'CRM & Lead Management',
+                crmLeadsDesc: 'Capture leads, track sales pipelines, manage customer relationships, and boost conversion rates.',
+                collaboration: 'Team Collaboration',
+                collaborationDesc: 'Built-in messenger, video meetings, document sharing, and real-time notifications for seamless teamwork.',
+
+                // Benefits Section
+                benefitsTitle: 'Why Businesses Choose Raqib',
+                benefitsSubtitle: 'Discover how Raqib transforms business operations and drives growth',
+                costEffective: 'Cost-Effective Solution',
+                costEffectiveDesc: 'Save up to 70% compared to using multiple software solutions. One platform, one price, unlimited possibilities.',
+                quickImplementation: 'Quick Implementation',
+                quickImplementationDesc: 'Get your business up and running in days, not months. Our intuitive design requires minimal training.',
+                scalableGrowth: 'Scalable Growth',
+                scalableGrowthDesc: 'From startup to enterprise, Raqib grows with your business. Add users, features, and modules as needed.',
+                enterpriseSecurity: 'Enterprise Security',
+                enterpriseSecurityDesc: 'Bank-level encryption, secure cloud hosting, and compliance with international security standards.',
+                mobileFirst: 'Mobile-First Design',
+                mobileFirstDesc: 'Access your business data anywhere, anytime. Fully responsive design optimized for all devices.',
+                dedicatedSupport: 'Expert Support',
+                dedicatedSupportDesc: '24/7 customer support, comprehensive documentation, and training resources to ensure your success.',
+
+                // Industry Section
+                industryTitle: 'Perfect for Every Industry',
+                industrySubtitle: 'Raqib adapts to your business needs, regardless of your industry',
+                retailBusiness: 'Retail Businesses',
+                retailBusinessDesc: 'Complete POS system, inventory management, customer tracking, and sales analytics for retail success.',
+                serviceBusiness: 'Service Companies',
+                serviceBusinessDesc: 'Project management, time tracking, client collaboration, and service delivery optimization tools.',
+                manufacturing: 'Manufacturing',
+                manufacturingDesc: 'Supply chain management, production planning, quality control, and operational efficiency tools.',
+                techStartups: 'Tech Startups',
+                techStartupsDesc: 'Agile project management, team collaboration, rapid scaling tools, and investor reporting capabilities.',
+
+                // Payment Section
+                paymentTitle: 'Global Payment Solutions',
+                paymentSubtitle: 'Accept payments from customers worldwide with our extensive payment gateway integrations.',
+                globalPayments: 'Global Coverage',
+                globalPaymentsDesc: 'Support for 150+ currencies and payment methods across all major regions.',
+                secureTransactions: 'Secure Transactions',
+                secureTransactionsDesc: 'PCI DSS compliant with end-to-end encryption for maximum security.',
+                instantProcessing: 'Instant Processing',
+                instantProcessingDesc: 'Real-time payment processing with instant notifications and updates.',
+                supportedGateways: 'Supported Payment Gateways',
+
+                // Testimonials Section
+                testimonialsTitle: 'What Our Customers Say',
+                testimonialsSubtitle: 'Real stories from businesses that transformed with Raqib',
+                testimonial1: '"Raqib transformed our business operations completely. We eliminated 5 different software subscriptions and saved thousands while improving efficiency."',
+                testimonial2: '"The POS system and inventory management features are incredible. Our retail operations have never been smoother, and the reports help us make better decisions."',
+                testimonial3: '"Project management and team collaboration features are outstanding. Our remote team is more productive than ever, and clients love the transparency."',
                 
                 // Mobile App Section
                 mobileAppTitle: 'Take Raqib Anywhere',
@@ -2378,25 +3311,83 @@
                 getStarted: 'ابدأ الآن',
                 
                 // Hero Section
-                heroTitle: 'حلول إدارة الموارد البشرية الحديثة',
-                heroSubtitle: 'بسّط عمليات عملك مع منصة الإدارة الشاملة المصممة للكفاءة والنمو.',
+                heroTitle: 'حوّل عملك مع رقيب',
+                heroSubtitle: 'حل شامل لإدارة الموارد البشرية وتخطيط موارد المؤسسة يبسط إدارة الموظفين والعمليات المالية وتتبع المشاريع والتعاون مع العملاء - كل ذلك في منصة واحدة قوية.',
                 
                 // Features Section
-                featuresTitle: 'ميزات قوية',
-                featuresSubtitle: 'كل ما تحتاجه لإدارة عملك بكفاءة',
+                featuresTitle: 'ميزات قوية للأعمال الحديثة',
+                featuresSubtitle: 'كل ما تحتاجه لإدارة عمليات عملك بكفاءة وفعالية',
                 
                 // Feature Cards
                 hrManagement: 'إدارة الموارد البشرية',
-                hrManagementDesc: 'إدارة كاملة لدورة حياة الموظفين مع سير عمل آلي وعمليات رقمية.',
+                hrManagementDesc: 'إدارة كاملة لدورة حياة الموظفين من التوظيف إلى التقاعد مع سير عمل آلي وتقارير شاملة.',
                 
-                financialManagement: 'الإدارة المالية',
-                financialManagementDesc: 'أدوات محاسبية شاملة وتقارير مالية لرؤى أفضل للأعمال.',
+                financialManagement: 'السيطرة المالية',
+                financialManagementDesc: 'تتبع المصروفات وإدارة الميزانيات وإنشاء الفواتير والحفاظ على الشفافية المالية الكاملة عبر جميع العمليات.',
                 
                 projectManagement: 'إدارة المشاريع',
-                projectManagementDesc: 'أدوات مبسطة لتتبع المشاريع والتعاون لزيادة إنتاجية الفريق.',
+                projectManagementDesc: 'خطط ونفذ وراقب المشاريع بتتبع متقدم وتخصيص الموارد وأدوات التعاون الجماعي.',
                 
-                clientManagement: 'إدارة العملاء',
-                clientManagementDesc: 'قاعدة بيانات مركزية للعملاء مع التواصل المتكامل وتتبع الخدمات.',
+                clientManagement: 'التعاون مع العملاء',
+                clientManagementDesc: 'تواصل سلس مع العملاء ومشاركة المشاريع وجمع التعليقات لضمان تقديم خدمة استثنائية.',
+
+                // All-in-One Section
+                allInOneTitle: 'منصة واحدة، إمكانيات لا محدودة',
+                allInOneSubtitle: 'استبدل اشتراكات البرامج المتعددة والمكلفة بمنصة شاملة واحدة تنمو مع عملك.',
+                dashboardAnalytics: 'لوحة المعلومات والتحليلات',
+                dashboardAnalyticsDesc: 'لوحة معلومات ذكية مع تقارير في الوقت الفعلي ومناظر متخصصة متعددة للأقسام المختلفة.',
+                posInventory: 'نقطة البيع والمخزون',
+                posInventoryDesc: 'نظام نقطة بيع كامل مع إدارة المخزون ودعم الباركود وتتبع المواقع المتعددة.',
+                crmLeads: 'إدارة العملاء والعملاء المحتملين',
+                crmLeadsDesc: 'التقط العملاء المحتملين وتتبع خطوط المبيعات وإدارة علاقات العملاء وزيادة معدلات التحويل.',
+                collaboration: 'التعاون الجماعي',
+                collaborationDesc: 'مراسل مدمج واجتماعات فيديو ومشاركة المستندات والإشعارات في الوقت الفعلي للعمل الجماعي السلس.',
+
+                // Benefits Section
+                benefitsTitle: 'لماذا تختار الشركات رقيب',
+                benefitsSubtitle: 'اكتشف كيف يحول رقيب عمليات الأعمال ويدفع النمو',
+                costEffective: 'حل فعال من حيث التكلفة',
+                costEffectiveDesc: 'وفر حتى 70% مقارنة باستخدام حلول برمجية متعددة. منصة واحدة، سعر واحد، إمكانيات لا محدودة.',
+                quickImplementation: 'تنفيذ سريع',
+                quickImplementationDesc: 'اجعل عملك يعمل في أيام وليس شهور. تصميمنا البديهي يتطلب تدريبًا أدنى.',
+                scalableGrowth: 'نمو قابل للتوسع',
+                scalableGrowthDesc: 'من الشركة الناشئة إلى المؤسسة، ينمو رقيب مع عملك. أضف المستخدمين والميزات والوحدات حسب الحاجة.',
+                enterpriseSecurity: 'أمان المؤسسة',
+                enterpriseSecurityDesc: 'تشفير على مستوى البنوك واستضافة سحابية آمنة والامتثال لمعايير الأمان الدولية.',
+                mobileFirst: 'تصميم يركز على الهاتف المحمول',
+                mobileFirstDesc: 'اصل إلى بيانات عملك في أي مكان وأي وقت. تصميم متجاوب بالكامل محسن لجميع الأجهزة.',
+                dedicatedSupport: 'دعم خبير',
+                dedicatedSupportDesc: 'دعم عملاء على مدار الساعة وتوثيق شامل وموارد تدريبية لضمان نجاحك.',
+
+                // Industry Section
+                industryTitle: 'مثالي لكل صناعة',
+                industrySubtitle: 'رقيب يتكيف مع احتياجات عملك، بغض النظر عن صناعتك',
+                retailBusiness: 'الأعمال التجارية',
+                retailBusinessDesc: 'نظام نقطة بيع كامل وإدارة المخزون وتتبع العملاء وتحليلات المبيعات لنجاح التجارة.',
+                serviceBusiness: 'شركات الخدمات',
+                serviceBusinessDesc: 'إدارة المشاريع وتتبع الوقت وتعاون العملاء وأدوات تحسين تقديم الخدمات.',
+                manufacturing: 'التصنيع',
+                manufacturingDesc: 'إدارة سلسلة التوريد وتخطيط الإنتاج ومراقبة الجودة وأدوات الكفاءة التشغيلية.',
+                techStartups: 'الشركات التقنية الناشئة',
+                techStartupsDesc: 'إدارة المشاريع المرنة وتعاون الفريق وأدوات التوسع السريع وقدرات تقارير المستثمرين.',
+
+                // Payment Section
+                paymentTitle: 'حلول الدفع العالمية',
+                paymentSubtitle: 'اقبل المدفوعات من العملاء في جميع أنحاء العالم مع تكاملات بوابات الدفع الواسعة لدينا.',
+                globalPayments: 'تغطية عالمية',
+                globalPaymentsDesc: 'دعم لأكثر من 150 عملة وطريقة دفع عبر جميع المناطق الرئيسية.',
+                secureTransactions: 'معاملات آمنة',
+                secureTransactionsDesc: 'متوافق مع PCI DSS مع تشفير من النهاية إلى النهاية لأقصى أمان.',
+                instantProcessing: 'معالجة فورية',
+                instantProcessingDesc: 'معالجة دفع في الوقت الفعلي مع إشعارات وتحديثات فورية.',
+                supportedGateways: 'بوابات الدفع المدعومة',
+
+                // Testimonials Section
+                testimonialsTitle: 'ماذا يقول عملاؤنا',
+                testimonialsSubtitle: 'قصص حقيقية من الشركات التي تحولت مع رقيب',
+                testimonial1: '"رقيب حول عمليات أعمالنا بالكامل. ألغينا 5 اشتراكات برمجية مختلفة ووفرنا آلاف الدولارات مع تحسين الكفاءة."',
+                testimonial2: '"نظام نقاط البيع وميزات إدارة المخزون مذهلة. عملياتنا التجارية لم تكن أبدًا أكثر سلاسة، والتقارير تساعدنا على اتخاذ قرارات أفضل."',
+                testimonial3: '"ميزات إدارة المشاريع والتعاون الجماعي متميزة. فريقنا البعيد أكثر إنتاجية من أي وقت مضى، والعملاء يحبون الشفافية."',
                 
                 // Mobile App Section
                 mobileAppTitle: 'اصطحب رقيب معك',
@@ -2432,8 +3423,8 @@
                 
                 // About Section
                 aboutTitle: 'حول رقيب',
-                aboutSubtitle: 'مبني بتقنية حديثة لأعمال المستقبل',
-                aboutDesc: 'رقيب هو نظام شامل لإدارة الموارد البشرية/تخطيط موارد المؤسسة مبني على Laravel مصمم لإدارة العمليات التجارية الأساسية بما في ذلك إدارة دورة حياة الموظفين والمعاملات المالية وإدارة المشاريع وتعاون العملاء.',
+                aboutSubtitle: 'تمكين الشركات بحلول مبتكرة لإدارة الموارد البشرية منذ عام 2020.',
+                aboutDesc: 'تأسس رقيب بمهمة بسيطة: تبسيط عمليات الأعمال وتمكين المنظمات من التركيز على ما يهم أكثر - أشخاصهم ونموهم. منصة الموارد البشرية/تخطيط موارد المؤسسة الشاملة تجمع بين التكنولوجيا المتطورة والتصميم البديهي لتقديم حلول تعمل فعلاً.',
                 aboutDesc2: 'مع سنوات من الخبرة في تطوير برامج المؤسسات، يفهم فريقنا التحديات التي تواجهها الشركات في إدارة العمليات المعقدة. لهذا السبب قمنا ببناء رقيب ليكون أكثر من مجرد برنامج - إنه منصة تحول تجاري كاملة.',
                 
                 // About Features
