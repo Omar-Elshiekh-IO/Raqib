@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ApiAuthController;
+use App\Http\Controllers\Api\V1\AttendanceEmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
@@ -27,4 +28,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::prefix("v1")->group(function(){
   Route::post('login',[ApiAuthController::class,'login']);
+  Route::post('attendance/check-in',[AttendanceEmployeeController::class,'checkIn'])->middleware(['auth:sanctum']);
+  Route::put('attendance/check-out',[AttendanceEmployeeController::class,'checkOut'])->middleware(['auth:sanctum']);
 });

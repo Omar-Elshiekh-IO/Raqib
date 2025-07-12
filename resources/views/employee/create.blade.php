@@ -122,15 +122,21 @@
                                     {!! Form::select('manager_id', ['' => __('Select Manager')] + $managers, null, ['class' => 'form-control', 'id' => 'manager_id']) !!}
                                   </div>
                                 <div class="form-group col-md-6">
-                                    {{ Form::label('work_shift', __('Work Shift'), ['class' => 'form-label']) }}
-                                    {{ Form::select('work_shift', $workShifts, null, ['class' => 'form-control', 'placeholder' => 'Select Work Shift' , 'id' => 'work_shift']) }}
-                                <div class="text-xs mt-1">
-                                            {{ __('Create work shift here.') }} <a href="{{ route('work-shift.index') }}"><b>{{ __('Create work shift') }}</b></a>
-                                        </div>
+                                    {{ Form::label('work_shifts', __('Work Shifts'), ['class' => 'form-label']) }}<x-required></x-required>
+                                    {{ Form::select('work_shifts[]', $workShifts, old('work_shifts', []), [
+                                        'class' => 'form-select select2',
+                                        'multiple' => true,
+                                        'required' => 'required',
+                                        'id' => 'work_shifts',
+                                        'data-placeholder' => 'Select Work Shifts'
+                                    ]) }}
+                                    <div class="text-xs mt-1">
+                                        {{ __('Create work shift here.') }} <a href="{{ route('work-shift.index') }}"><b>{{ __('Create work shift') }}</b></a>
+                                    </div>
                                   </div>
                                 <div class="form-group col-md-6">
                                     {!! Form::label('employment_type', __('Employment Type'), ['class' => 'form-label']) !!}
-                                    {!! Form::select('employment_type', $employmentTypes, null, ['class' => 'form-control', 'placeholder' => 'Select Employment Type' , 'id' => 'employment_type']) !!}
+                                    {!! Form::select('employment_type', $employmentTypes, null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Select Employment Type' , 'id' => 'employment_type']) !!}
                                 <div class="text-xs mt-1">
                                             {{ __('Create employment type here.') }} <a href="{{ route('employment-type.index') }}"><b>{{ __('Create employment type') }}</b></a>
                                         </div>
@@ -276,5 +282,13 @@
 
             });
         }
+
+        $(document).ready(function () {
+        $('#work_shifts').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Select work shifts",
+            width: '100%' // Important for proper styling
+        });
+    });
     </script>
 @endpush

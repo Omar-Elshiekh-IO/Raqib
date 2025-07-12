@@ -80,11 +80,15 @@
                                     @else
                                         <td>-</td>
                                     @endif
-                                    @if($employee->workShift)
-                                        <td class="font-style">{{$employee->workShift->title ? $employee->workShift->title:''}}</td>
-                                    @else
-                                        <td>-</td>
-                                    @endif
+                                    <td class="font-style">
+                                        @if($employee->workShifts && $employee->workShifts->count())
+                                            @foreach($employee->workShifts as $shift)
+                                                <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-1">{{ $shift->title }}</span>
+                                            @endforeach
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     @if($employee->employmentType)
                                         <td class="font-style">{{$employee->employmentType->title ? $employee->employmentType->title:''}}</td>
                                     @else

@@ -283,7 +283,7 @@ class DashboardController extends Controller
                 $user = Auth::user();
 
                 if ($user->type != 'client' && $user->type != 'company') {
-                    $emp = Employee::where('user_id', '=', $user->id)->first();
+                    $emp = Employee::where('user_id', '=', $user->id)->with('workShifts')->first();
 
                     $announcements = Announcement::orderBy('announcements.id', 'desc')->take(5)->leftjoin('announcement_employees', 'announcements.id', '=', 'announcement_employees.announcement_id')->where('announcement_employees.employee_id', '=', $emp->id)->orWhere(function ($q) use ($emp) {
                         $q->where('announcements.department_id', '["0"]')
@@ -316,10 +316,13 @@ class DashboardController extends Controller
                     $time = date("H:i:s");
                     $employeeAttendance = AttendanceEmployee::orderBy('id', 'desc')->where('employee_id', '=', !empty(Auth::user()->employee)?Auth::user()->employee->id : 0)->where('date', '=', $date)->first();
 
-                    $officeTime['startTime'] = Utility::getValByName('company_start_time');
-                    $officeTime['endTime'] = Utility::getValByName('company_end_time');
+                    // $officeTime['startTime'] = Utility::getValByName('company_start_time');
+                    // $officeTime['endTime'] = Utility::getValByName('company_end_time');
 
-                    return view('dashboard.dashboard', compact('arrEvents', 'announcements', 'employees', 'meetings', 'employeeAttendance', 'officeTime'));
+                    $workShifts = $emp->workShifts;
+// dd($workShifts[0]->workShiftDays);
+
+                    return view('dashboard.dashboard', compact('arrEvents', 'announcements', 'employees', 'meetings', 'employeeAttendance','workShifts'));
                 } else if ($user->type == 'super admin') {
                     $user = Auth::user();
                     $user['total_user'] = $user->countCompany();

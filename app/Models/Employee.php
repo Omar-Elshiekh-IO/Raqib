@@ -32,7 +32,6 @@ class Employee extends Model
     'account',
     'salary',
     'created_by',
-    'work_shift_id',
     'employment_type_id',
     'manager_id',
   ];

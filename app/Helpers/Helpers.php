@@ -6,17 +6,17 @@ use Illuminate\Support\Facades\Http;
 class Helpers
 {
 
-  public static function haversineDistance($lat1, $lon1, $lat2, $lon2)
+  public static function haversineDistance($empLat, $empLon, $branchLat, $branchLon)
 {
     $earthRadius = 6371000; // in meters
 
-    $lat1 = deg2rad($lat1);
-    $lat2 = deg2rad($lat2);
-    $deltaLat = $lat2 - $lat1;
-    $deltaLon = deg2rad($lon2 - $lon1);
+    $empLat = deg2rad($empLat);
+    $branchLat = deg2rad($branchLat);
+    $deltaLat = $branchLat - $empLat;
+    $deltaLon = deg2rad($branchLon - $empLon);
 
     $a = sin($deltaLat / 2) ** 2 +
-         cos($lat1) * cos($lat2) *
+         cos($empLat) * cos($branchLat) *
          sin($deltaLon / 2) ** 2;
 
     $c = 2 * atan2(sqrt($a), sqrt(1 - $a));

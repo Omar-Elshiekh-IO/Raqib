@@ -70,7 +70,7 @@ el wrdyat
 
 ### 10/7
 
-- more than one work shift for employee
-- check in check out logic and connection between it and the work shifts
+- more than one work shift for employee - done i think so :)
+- check in check out logic and connection between it and the work shifts - done i think so :)
 - requests relation with the salary
 - leave worker security page

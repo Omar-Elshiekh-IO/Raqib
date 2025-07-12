@@ -89,6 +89,47 @@
                 }
             });
         }
+    document.addEventListener('DOMContentLoaded', function () {
+    const clockInButton = document.getElementById('clock_in');
+    const clockOutButton = document.getElementById('clock_out');
+
+    if (clockInButton && !clockInButton.disabled) {
+        clockInButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            getLocationAndSubmit('in');
+        });
+    }
+
+    if (clockOutButton && !clockOutButton.disabled) {
+        clockOutButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            getLocationAndSubmit('out');
+        });
+    }
+
+    function getLocationAndSubmit(type) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                if (type === 'in') {
+                    document.getElementById('latitude_in').value = lat;
+                    document.getElementById('longitude_in').value = lon;
+                    document.getElementById('clock_in_form').submit();
+                } else if (type === 'out') {
+                    document.getElementById('latitude_out').value = lat;
+                    document.getElementById('longitude_out').value = lon;
+                    document.getElementById('clock_out_form').submit();
+                }
+            }, function (error) {
+                alert("Error getting location: " + error.message);
+            });
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    }
+});
     </script>
 @endpush
 @section('breadcrumb')
@@ -109,13 +150,26 @@
                                 <h5>{{__('Mark Attandance')}}</h5>
                             </div>
                             <div class="card-body dash-card-body">
-                                <p>{{__('My Office Time: '.$officeTime['startTime'].' to '.$officeTime['endTime'])}}</p>
+                              @foreach ($workShifts as $workShift)
+                              <p>{{__('My Work Shift: '.Auth::user()->timeFormat($workShift->from).' to '.Auth::user()->timeFormat($workShift->to))}}
+                                @php
+                                  $days = [];
+                                  foreach($workShift->workShiftDays as $workshiftday){
+                                    $days[] = App\Models\WorkShiftDays::getDayName($workshiftday->day);
+                                  }
+                                @endphp
+                                <span> On Days: {{ implode(', ',$days) }}</span>
+                              </p>
+                              @endforeach
                                 <center>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            {{Form::open(array('url'=>'attendanceemployee/attendance','method'=>'post'))}}
+                                          <!-- TODO: validate that the clock in time is within work shift (time and day) and validate check in - out location -->
+                                            {{Form::open(array('url'=>'attendanceemployee/attendance','method'=>'post', 'id' => 'clock_in_form'))}}
                                             @if(empty($employeeAttendance) || $employeeAttendance->clock_out != '00:00:00')
                                                 <button type="submit" value="0" name="in" id="clock_in" class="btn btn-success ">{{__('CLOCK IN')}}</button>
+                                                <input type="hidden" name="latitude" id="latitude_in">
+                                                <input type="hidden" name="longitude" id="longitude_in">
                                             @else
                                                 <button type="submit" value="0" name="in" id="clock_in" class="btn btn-success disabled" disabled>{{__('CLOCK IN')}}</button>
                                             @endif
@@ -123,8 +177,10 @@
                                         </div>
                                         <div class="col-md-6 ">
                                             @if(!empty($employeeAttendance) && $employeeAttendance->clock_out == '00:00:00')
-                                                {{Form::model($employeeAttendance,array('route'=>array('attendanceemployee.update',$employeeAttendance->id),'method' => 'PUT')) }}
+                                                {{Form::model($employeeAttendance,array('route'=>array('attendanceemployee.update',$employeeAttendance->id),'method' => 'PUT', 'id' => 'clock_out_form')) }}
                                                 <button type="submit" value="1" name="out" id="clock_out" class="btn btn-danger">{{__('CLOCK OUT')}}</button>
+                                                <input type="hidden" name="latitude" id="latitude_out">
+                                                <input type="hidden" name="longitude" id="longitude_out">
                                             @else
                                                 <button type="submit" value="1" name="out" id="clock_out" class="btn btn-danger disabled" disabled>{{__('CLOCK OUT')}}</button>
                                             @endif

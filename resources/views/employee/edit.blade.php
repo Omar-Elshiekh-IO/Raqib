@@ -119,14 +119,20 @@
                                     {!! Form::label('manager_id', __('Manager'), ['class' => 'form-label']) !!}
                                     {!! Form::select('manager_id', ['' => __('Select Manager')] + $managers, $employee->manager_id, ['class' => 'form-control', 'id' => 'manager_id']) !!}
                                 </div>
-                                {{-- TODO: make them dynamic and backend logic --}}
+
                                 <div class="form-group col-md-6">
-                                    {{ Form::label('work_shift', __('Work Shift'), ['class' => 'form-label']) }}
-                                    {{ Form::select('work_shift', $workShifts, $employee->work_shift_id, ['class' => 'form-control', 'placeholder' => 'Select Work Shift' , 'id' => 'work_shift']) }}
-                                <div class="text-xs mt-1">
-                                            {{ __('Create work shift here.') }} <a href="{{ route('work-shift.index') }}"><b>{{ __('Create work shift') }}</b></a>
-                                        </div>
-                                  </div>
+                                    {{ Form::label('work_shifts', __('Work Shifts'), ['class' => 'form-label']) }}
+                                    {{ Form::select('work_shifts[]', $workShifts, $selectedWorkShifts ?? [], [
+                                        'class' => 'form-select select2',
+                                        'multiple' => true,
+                                        'required' => 'required',
+                                        'id' => 'work_shifts',
+                                        'data-placeholder' => 'Select Work Shifts',
+                                    ]) }}
+                                    <div class="text-xs mt-1">
+                                        {{ __('Create work shift here.') }} <a href="{{ route('work-shift.index') }}"><b>{{ __('Create work shift') }}</b></a>
+                                    </div>
+                                </div>
                                 <div class="form-group col-md-6">
                                     {!! Form::label('employment_type', __('Employment Type'), ['class' => 'form-label']) !!}
                                     {!! Form::select('employment_type', $employmentTypes, $employee->employment_type_id, ['class' => 'form-control', 'placeholder' => 'Select Employment Type' , 'id' => 'employment_type']) !!}
