@@ -19,9 +19,10 @@
     $SITE_RTL = $setting['SITE_RTL'] ?? '';
 
     $lang = \App::getLocale('lang');
-    if ($lang == 'ar' || $lang == 'he') {
-        $SITE_RTL = 'on';
-    }
+    // Automatic RTL detection disabled - RTL layout must be manually enabled
+    // if ($lang == 'ar' || $lang == 'he') {
+    //     $SITE_RTL = 'on';
+    // }
 
     $metatitle = isset($setting['meta_title']) ? $setting['meta_title'] : '';
     $metsdesc = isset($setting['meta_desc']) ? $setting['meta_desc'] : '';

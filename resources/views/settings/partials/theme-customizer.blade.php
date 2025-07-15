@@ -107,24 +107,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-2 col-sm-6 col-12">
-                <div class="card h-100 mb-0">
-                    <div class="card-header p-3">
-                        <h6 class="mb-0 d-flex align-items-center gap-2">
-                            <i class="ti ti-align-right"></i>{{ __('Enable RTL') }}
-                        </h6>
-                    </div>
-                    <div class="card-body p-3">
-                        <div class="form-check form-switch d-flex gap-2 flex-column p-0">
-                            <label class="form-check-label f-w-600 pl-1"
-                                for="SITE_RTL">{{ __('RTL Layout') }}</label>
-                            <input type="checkbox" name="SITE_RTL"
-                                id="SITE_RTL"class="form-check-input mx-0"
-                                {{ $settings['SITE_RTL'] == 'on' ? 'checked="checked"' : '' }}>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

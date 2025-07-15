@@ -3476,6 +3476,7 @@
             
             // Update HTML attributes
             document.documentElement.lang = lang;
+            // RTL works normally on landing page
             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
             
             // Update body class for font switching

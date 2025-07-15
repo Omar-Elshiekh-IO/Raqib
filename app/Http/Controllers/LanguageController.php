@@ -22,11 +22,17 @@ class LanguageController extends Controller
 
     $setting = Utility::settings();
 
+    // Automatic RTL detection disabled - RTL layout must be manually enabled
+    // Users can switch languages without affecting layout direction
+    $value = 'off'; // Always keep RTL off regardless of language
+    
+    /* Original automatic RTL code - now disabled:
     if ($user->lang == 'ar' || $user->lang == 'he') {
       $value = 'on';
     } else {
       $value = 'off';
     }
+    */
 
     if ($user->type == 'super admin') {
       \DB::insert(
@@ -48,6 +54,9 @@ class LanguageController extends Controller
       );
     }
 
+    // Debug: Log the current SITE_RTL value
+    \Log::info('Language changed to: ' . $lang . ', SITE_RTL set to: ' . $value);
+    
     return redirect()->back()->with('success', __('Language change successfully.'));
   }
 

@@ -187,22 +187,6 @@
                 }
             });
         }
-        if ($('#cust-theme-bg').length > 0) {
-            var custthemebg = document.querySelector("#cust-theme-bg");
-            custthemebg.addEventListener("click", function() {
-                if (custthemebg.checked) {
-                    document.querySelector(".dash-sidebar").classList.add("transprent-bg");
-                    document
-                        .querySelector(".dash-header:not(.dash-mob-header)")
-                        .classList.add("transprent-bg");
-                } else {
-                    document.querySelector(".dash-sidebar").classList.remove("transprent-bg");
-                    document
-                        .querySelector(".dash-header:not(.dash-mob-header)")
-                        .classList.remove("transprent-bg");
-                }
-            });
-        }
     </script>
 
     <script>
@@ -701,25 +685,6 @@
                                         <div class="card h-100 mb-0">
                                             <div class="card-header p-3">
                                                 <h6 class="mb-0 d-flex align-items-center gap-2">
-                                                    <i data-feather="layout"></i>{{ __('Sidebar settings') }}
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="form-check form-switch d-flex gap-2 flex-column p-0">
-                                                    <label class="form-check-label f-w-600 pl-1"
-                                                        for="cust-theme-bg">{{ __('Transparent layout') }}</label>
-                                                    <input type="checkbox" class="form-check-input mx-0"
-                                                        id="cust-theme-bg" name="cust_theme_bg"
-                                                        {{ !empty($setting['cust_theme_bg']) && $setting['cust_theme_bg'] == 'on' ? 'checked' : '' }} />
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-3 col-sm-6 col-12">
-                                        <div class="card h-100 mb-0">
-                                            <div class="card-header p-3">
-                                                <h6 class="mb-0 d-flex align-items-center gap-2">
                                                     <i data-feather="sun"></i>{{ __('Layout settings') }}
                                                 </h6>
                                             </div>
@@ -732,24 +697,6 @@
                                                         {{ !empty($setting['cust_darklayout']) && $setting['cust_darklayout'] == 'on' ? 'checked' : '' }} />
 
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xxl-2 col-sm-6 col-12">
-                                        <div class="card h-100 mb-0">
-                                            <div class="card-header p-3">
-                                                <h6 class="mb-0 d-flex align-items-center gap-2">
-                                                    <i class="ti ti-align-right"></i>{{ __('Enable RTL') }}
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="form-check form-switch d-flex gap-2 flex-column p-0">
-                                                    <label class="form-check-label f-w-600 pl-1"
-                                                        for="SITE_RTL">{{ __('RTL Layout') }}</label>
-                                                    <input type="checkbox" name="SITE_RTL" id="SITE_RTL"
-                                                        class="form-check-input mx-0"
-                                                        {{ $SITE_RTL == 'on' ? 'checked="checked"' : '' }}>
                                                 </div>
                                             </div>
                                         </div>
