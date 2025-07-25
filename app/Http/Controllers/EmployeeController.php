@@ -91,6 +91,7 @@ class EmployeeController extends Controller
           'designation_id' => 'required',
           'work_shifts' => 'required|array|min:1',
           'employment_type' => 'required',
+          'has_insurance' => 'nullable|boolean'
           //    'biometric_emp_id' => 'required',
         ]
       );
@@ -214,7 +215,9 @@ class EmployeeController extends Controller
           'tax_payer_id' => $request['tax_payer_id'],
           'created_by' => \Auth::user()->creatorId(),
           'manager_id' => $request->manager_id,
-          'employment_type_id' => $request->employment_type
+          'employment_type_id' => $request->employment_type,
+          'has_insurance' => $request->has_insurance ?? false,
+          'insurance_amount' => $request->insurance_amount ?? null,
         ]
       );
 
@@ -308,6 +311,7 @@ class EmployeeController extends Controller
           'address' => 'required',
           'work_shifts' => 'required|array|min:1',
           'employment_type' => 'required',
+          'has_insurance' => 'nullable|boolean',
           //                                   'document.*' => 'mimes:jpeg,png,jpg,gif,svg,pdf,doc,zip|max:20480',
         ]
       );
@@ -421,6 +425,9 @@ class EmployeeController extends Controller
       $input = $request->all();
       if (isset($input['manager_id'])) {
         $employee->manager_id = $input['manager_id'];
+      }
+      if (isset($input['insurance_amount'])) {
+        $employee->insurance_amount = $input['insurance_amount'];
       }
 
       $employee->fill($input)->save();
@@ -1042,5 +1049,9 @@ class EmployeeController extends Controller
         'response' => 'Data Imported Successfully',
       ]);
     }
+  }
+
+  public function calculateNetSalary(){
+
   }
 }

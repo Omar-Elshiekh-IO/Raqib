@@ -14,6 +14,15 @@
                 </small>
                 @enderror
             </div>
+            <div class="form-group">
+                {{Form::label('work_days',__('Work Days'),['class'=>'form-label'])}}<x-required></x-required>
+                {{Form::number('work_days',null,array('class'=>'form-control','min' => 1, 'max' => 30,'placeholder'=>__('Enter Role Work Days'),'required' => 'required'))}}
+                @error('work_days')
+                <small class="invalid-work_days" role="alert">
+                    <strong class="text-danger">{{ $message }}</strong>
+                </small>
+                @enderror
+            </div>
             <ul class="nav nav-pills mb-0" id="pills-tab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="pills-staff-tab" data-bs-toggle="pill" href="#staff" role="tab" aria-controls="pills-home" aria-selected="true">{{__('Staff')}}</a>
@@ -48,7 +57,7 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="staff" role="tabpanel" aria-labelledby="pills-home-tab">
                     @php
-                        $modules=['user','role','client','product & service','constant unit','constant tax','constant category', 'zoom meeting','company settings'];
+                        $modules=['user','role','client','product & service','constant unit','constant tax','constant category', 'zoom meeting','company settings','security'];
                        if(\Auth::user()->type == 'company'){
                            $modules[] = 'language';
                            $modules[] = 'permission';
@@ -709,7 +718,7 @@
                 </div>
                 <div class="tab-pane fade" id="hrmpermission" role="tabpanel" aria-labelledby="pills-contact-tab">
                     @php
-                        $modules=['hrm dashboard','employee','employee profile','department','designation','branch','document type','document','payslip type','allowance','commission','allowance option','loan option','deduction option','loan','saturation deduction','other payment','overtime','set salary','pay slip','company policy','appraisal','goal tracking','goal type','indicator','event','meeting','training','trainer','training type','award','award type','resignation','travel','promotion','complaint','warning','termination','termination type','job application','job application note','job onBoard','job category','job','job stage','custom question','interview schedule','career','estimation','holiday','transfer','announcement','leave','leave type','attendance'];
+                        $modules=['hrm dashboard','employee','employee profile','department','designation','branch','document type','document','payslip type','allowance','commission','allowance option','loan option','deduction option','loan','saturation deduction','other payment','overtime','set salary','pay slip','company policy','appraisal','goal tracking','goal type','indicator','event','meeting','training','trainer','training type','award','award type','resignation','travel','promotion','complaint','warning','termination','termination type','job application','job application note','job onBoard','job category','job','job stage','custom question','interview schedule','career','estimation','holiday','transfer','announcement','leave','leave type','attendance','excuse', 'business mission'];
                     @endphp
                     <div class="col-md-12">
                         <div class="form-group">
@@ -765,6 +774,14 @@
                                                             <div class="col-md-3 custom-control custom-checkbox">
                                                                 {{Form::checkbox('permissions[]',$key,$role->permission, ['class'=>'form-check-input hrm_checkall isscheck_'.str_replace(' ', '', $module),'id' =>'permission'.$key])}}
                                                                 {{Form::label('permission'.$key,'Manage',['class'=>'custom-control-label'])}}<br>
+                                                            </div>
+                                                        @endif
+                                                    @endif
+                                                    @if(in_array('approve '.$module,(array) $permissions))
+                                                        @if($key = array_search('approve '.$module,$permissions))
+                                                            <div class="col-md-3 custom-control custom-checkbox">
+                                                                {{Form::checkbox('permissions[]',$key,false, ['class'=>'form-check-input isscheck hrm_checkall isscheck_'.str_replace(' ', '', $module),'id' =>'permission'.$key])}}
+                                                                {{Form::label('permission'.$key,'Approve',['class'=>'custom-control-label'])}}<br>
                                                             </div>
                                                         @endif
                                                     @endif

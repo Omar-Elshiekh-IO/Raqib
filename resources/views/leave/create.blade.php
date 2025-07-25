@@ -66,6 +66,7 @@
                 </div>
             </div>
         </div>
+        @can('manage leave')
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -92,20 +93,14 @@
                 </div>
             </div>
         </div>
+        @endcan
         <div class="row">
-            <div class="col-md-12 text-end">
-                <a href="#" data-size="md" class="btn btn-primary btn-icon btn-sm text-right" data-ajax-popup-over="true" id="grammarCheck" data-url="{{ route('grammar',['grammar']) }}"
-                   data-bs-placement="top" data-title="{{ __('Grammar check with AI') }}">
-                    <i class="ti ti-rotate"></i> <span>{{__('Grammar check with AI')}}</span>
-                </a>
-            </div>
             <div class="col-md-12">
                 <div class="form-group">
                     {{Form::label('remark',__('Remark'),['class'=>'form-label'])}}<x-required></x-required>
                     {{Form::textarea('remark',null,array('class'=>'form-control grammer_textarea','placeholder'=>__('Leave Remark'),'required' =>'required'))}}
                 </div>
             </div>
-
         </div>
     </div>
     <div class="modal-footer">

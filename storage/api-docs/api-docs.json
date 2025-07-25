@@ -1,0 +1,1949 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Raqib Api",
+        "description": "API documentation for My App",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Local development server"
+        }
+    ],
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user and get token",
+                "operationId": "e194fbcb408c7a17f01efc1c71d5f96a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login successful"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|sometokenvalue"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Invalid credentials"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/attendance/check-in": {
+            "post": {
+                "tags": [
+                    "Attendance"
+                ],
+                "summary": "Employee check-in",
+                "operationId": "a6c74d0bf2e287e7e9e74a7237a72163",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "latitude",
+                                    "longitude"
+                                ],
+                                "properties": {
+                                    "latitude": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "longitude": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Checked in successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "branch": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden: IP or location not allowed"
+                    },
+                    "404": {
+                        "description": "Not found: Employee or branch"
+                    },
+                    "409": {
+                        "description": "Already clocked in"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/attendance/check-out": {
+            "post": {
+                "tags": [
+                    "Attendance"
+                ],
+                "summary": "Employee check-out",
+                "operationId": "652ffef28ceb0c3bd7655251aa2be123",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "latitude",
+                                    "longitude"
+                                ],
+                                "properties": {
+                                    "latitude": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "longitude": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Checked out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "branch": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden: IP or location not allowed or outside shift hours"
+                    },
+                    "404": {
+                        "description": "Not found: Missing employee or branch"
+                    },
+                    "409": {
+                        "description": "No open attendance record"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/business-mission": {
+            "get": {
+                "tags": [
+                    "Business Missions"
+                ],
+                "summary": "Get list of business missions",
+                "operationId": "f15072c82d6d070042be20604274c538",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BusinessMission"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/business-mission/store": {
+            "post": {
+                "tags": [
+                    "Business Missions"
+                ],
+                "summary": "Create a new business mission",
+                "operationId": "e7d3465c4bc1d8798b948464f0900ee2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "employee_id",
+                                    "title",
+                                    "start_date",
+                                    "end_date",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "employee_id": {
+                                        "type": "integer"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "remark": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Business mission created"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/business-mission/{id}": {
+            "get": {
+                "tags": [
+                    "Business Missions"
+                ],
+                "summary": "Get a specific business mission",
+                "operationId": "baf0c838c307ec3f80fc7a1b983aff3a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Business mission ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Business Missions"
+                ],
+                "summary": "Update a business mission",
+                "operationId": "3fa9d38fb030b87b0d0200c12cbaef18",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Business mission ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "employee_id",
+                                    "title",
+                                    "start_date",
+                                    "end_date",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "employee_id": {
+                                        "type": "integer"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "remark": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Pending",
+                                            "Approved",
+                                            "In_Progress",
+                                            "Completed",
+                                            "Canceled"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Business mission updated"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Business Missions"
+                ],
+                "summary": "Delete a business mission",
+                "operationId": "1efa8cdbf72aee3508ce8fed43ce4f4e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Business mission ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/business-mission/{id}/reject": {
+            "put": {
+                "tags": [
+                    "Business Missions"
+                ],
+                "summary": "Reject a business mission",
+                "operationId": "bbeb314fd625374bf7468beb7ea18c88",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Business mission approval ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "action": {
+                                        "type": "string",
+                                        "enum": [
+                                            "reject"
+                                        ],
+                                        "example": "reject"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rejection successful"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/business-mission/pending-approvals": {
+            "get": {
+                "tags": [
+                    "Business Missions"
+                ],
+                "summary": "Get pending business mission approvals for current user",
+                "operationId": "f39a560d39d2975726d16f03505a14f7",
+                "responses": {
+                    "200": {
+                        "description": "List of pending approvals"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/excuse": {
+            "get": {
+                "tags": [
+                    "Excuses"
+                ],
+                "summary": "Get a list of excuses",
+                "operationId": "d6d97f0c23fca11705cad3e7e122aeb4",
+                "responses": {
+                    "200": {
+                        "description": "List of excuses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Excuse"
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "excuses": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Excuse"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/excuse/store": {
+            "post": {
+                "tags": [
+                    "Excuses"
+                ],
+                "summary": "Create a new excuse",
+                "operationId": "c08a386ce1ace4960e1d599ee872dacc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "employee_id",
+                                    "excuse_date",
+                                    "duration",
+                                    "reason"
+                                ],
+                                "properties": {
+                                    "employee_id": {
+                                        "type": "integer"
+                                    },
+                                    "excuse_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "duration": {
+                                        "type": "integer",
+                                        "minimum": 5
+                                    },
+                                    "reason": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Pending",
+                                            "Approved",
+                                            "Rejected",
+                                            "Canceled"
+                                        ]
+                                    },
+                                    "remark": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "with_deduction": {
+                                        "type": "boolean"
+                                    },
+                                    "deduction_amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Excuse created"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/excuse/{id}": {
+            "get": {
+                "tags": [
+                    "Excuses"
+                ],
+                "summary": "Get a specific excuse",
+                "operationId": "2c7cd19a9d4f8226fb9c0aab41534460",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Excuse ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Excuse data"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Excuses"
+                ],
+                "summary": "Update an existing excuse",
+                "operationId": "1b00f9ece231ca53f9cf86eead662396",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Excuse ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "employee_id",
+                                    "excuse_date",
+                                    "duration",
+                                    "reason"
+                                ],
+                                "properties": {
+                                    "employee_id": {
+                                        "type": "integer"
+                                    },
+                                    "excuse_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "duration": {
+                                        "type": "integer",
+                                        "minimum": 5
+                                    },
+                                    "reason": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Pending",
+                                            "Approved",
+                                            "Rejected",
+                                            "Canceled"
+                                        ]
+                                    },
+                                    "remark": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Excuse updated"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Excuses"
+                ],
+                "summary": "Delete an excuse",
+                "operationId": "82e9b9cfc84762ed9d4bf962bfd417df",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Excuse ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/excuse/{id}/reject": {
+            "put": {
+                "tags": [
+                    "Excuses"
+                ],
+                "summary": "Reject an excuse request",
+                "operationId": "bcd4878bcc9279dbf9ce8e0b0d3f581f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Approval ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "action"
+                                ],
+                                "properties": {
+                                    "action": {
+                                        "type": "string",
+                                        "enum": [
+                                            "reject"
+                                        ],
+                                        "example": "reject"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Excuse rejected"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/excuse/pending-approvals": {
+            "get": {
+                "tags": [
+                    "Excuses"
+                ],
+                "summary": "Get pending excuse approvals for current user",
+                "operationId": "7838c81a884eb11db529693eacd732e7",
+                "responses": {
+                    "200": {
+                        "description": "List of pending approvals"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/leave": {
+            "get": {
+                "tags": [
+                    "Leaves"
+                ],
+                "summary": "List leaves",
+                "operationId": "c0e40ea444d81e1c74f1755ed1025aea",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Leave"
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "leaves": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Leave"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/leave/store": {
+            "post": {
+                "tags": [
+                    "Leaves"
+                ],
+                "summary": "Create a new leave request",
+                "operationId": "4440d1242e00e659526c70ddb99828f6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "leave_type_id",
+                                    "start_date",
+                                    "end_date",
+                                    "leave_reason",
+                                    "remark"
+                                ],
+                                "properties": {
+                                    "leave_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "leave_reason": {
+                                        "type": "string"
+                                    },
+                                    "remark": {
+                                        "type": "string"
+                                    },
+                                    "with_deduction": {
+                                        "type": "boolean"
+                                    },
+                                    "deduction_amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "start_deduction_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "end_deduction_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Leave created"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/leave/{id}": {
+            "get": {
+                "tags": [
+                    "Leaves"
+                ],
+                "summary": "Get a specific leave",
+                "operationId": "b773790790e5b13e5d1308139fb34c22",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Leave ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Leave returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Leave"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Leaves"
+                ],
+                "summary": "Update a leave",
+                "operationId": "45e51da073cfd9b5444679450ca1ffae",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Leave ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "leave_type_id",
+                                    "start_date",
+                                    "end_date",
+                                    "leave_reason",
+                                    "remark"
+                                ],
+                                "properties": {
+                                    "leave_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "leave_reason": {
+                                        "type": "string"
+                                    },
+                                    "remark": {
+                                        "type": "string"
+                                    },
+                                    "with_deduction": {
+                                        "type": "boolean"
+                                    },
+                                    "deduction_amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "start_deduction_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "end_deduction_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Leave updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Leave"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Leaves"
+                ],
+                "summary": "Delete a leave",
+                "operationId": "84438d663146dff8ee37dfd60eaf3229",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Leave ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/leave/{id}/reject": {
+            "put": {
+                "tags": [
+                    "Leaves"
+                ],
+                "summary": "Reject a leave request",
+                "operationId": "50cbf327df3fbecaaa5b158de1c01052",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Leave approval ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "action": {
+                                        "type": "string",
+                                        "enum": [
+                                            "reject"
+                                        ],
+                                        "example": "reject"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Leave rejected"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/leave/pending-approvals": {
+            "get": {
+                "tags": [
+                    "Leaves"
+                ],
+                "summary": "Get pending leave approvals for current user",
+                "operationId": "8270df0e0cc84c167c75d8a21b361e28",
+                "responses": {
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/loan": {
+            "get": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "List all loans or current user's loans with pending approvals",
+                "operationId": "19221feba98e23138e17534d721f3f51",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Loan"
+                                            }
+                                        },
+                                        {
+                                            "properties": {
+                                                "loans": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Loan"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/loan/store": {
+            "post": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Create a new loan",
+                "operationId": "a66e06f60058afd0338b5e8ba5a9c46c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "employee_id",
+                                    "loan_option",
+                                    "title",
+                                    "amount",
+                                    "reason"
+                                ],
+                                "properties": {
+                                    "employee_id": {
+                                        "type": "integer"
+                                    },
+                                    "loan_option": {
+                                        "type": "integer"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "reason": {
+                                        "type": "string"
+                                    },
+                                    "with_deduction": {
+                                        "type": "boolean"
+                                    },
+                                    "deduction_amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "nullable": true
+                                    },
+                                    "start_deduction_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "end_deduction_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Loan created"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/loan/{id}": {
+            "get": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Get a specific loan",
+                "operationId": "ab1b6e0a2cfdddfb6917865418b60622",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Loan ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Loan found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Loan"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Update a loan",
+                "operationId": "8b5ef03a2609e705c40cad8a794ee218",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Loan ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "loan_option",
+                                    "title",
+                                    "amount",
+                                    "reason"
+                                ],
+                                "properties": {
+                                    "loan_option": {
+                                        "type": "integer"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "reason": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Loan updated"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Delete a loan",
+                "operationId": "7a4f42f837c9cade4c83e9193c1cc3b0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Loan ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Loan deleted"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/loan/{id}/reject": {
+            "put": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Reject a loan",
+                "operationId": "9d43a398afd521d1c72a6b636c31ec20",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Loan approval ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "action"
+                                ],
+                                "properties": {
+                                    "action": {
+                                        "type": "string",
+                                        "enum": [
+                                            "reject"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Loan rejected"
+                    },
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/loan/pending-approvals": {
+            "get": {
+                "tags": [
+                    "Loans"
+                ],
+                "summary": "Get pending loan approvals for current user",
+                "operationId": "d7fa5b3c2414d96c5552f06b3d338d9d",
+                "responses": {
+                    "403": {
+                        "description": "Permission denied"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BusinessMission": {
+                "title": "Business Mission",
+                "description": "Details about a business mission",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "employee_id": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Client Meeting in Dubai"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-07-20"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-07-25"
+                    },
+                    "description": {
+                        "type": "text",
+                        "example": "Meeting with key client to discuss project status."
+                    },
+                    "remark": {
+                        "type": "string",
+                        "example": "Don't forget the presentation slides.",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "Pending",
+                            "Approved",
+                            "In_Progress",
+                            "Completed",
+                            "Canceled",
+                            "Rejected"
+                        ],
+                        "example": "Pending"
+                    },
+                    "employee": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 12
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "John Doe"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "approvals": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "approver_id": {
+                                    "type": "integer",
+                                    "example": 8
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "example": "pending"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Excuse": {
+                "title": "Excuse",
+                "description": "An employee excuse request",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "employee_id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "excuse_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-07-20"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "example": 30
+                    },
+                    "reason": {
+                        "type": "string",
+                        "example": "Doctor appointment"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "Pending",
+                            "Approved",
+                            "Rejected",
+                            "Canceled"
+                        ],
+                        "example": "Pending"
+                    },
+                    "remark": {
+                        "type": "string",
+                        "example": "Submitted late",
+                        "nullable": true
+                    },
+                    "with_deduction": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "deduction_amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 0,
+                        "nullable": true
+                    },
+                    "employee": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Ahmed Ali"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Leave": {
+                "title": "Leave",
+                "description": "Leave request",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "employee_id": {
+                        "type": "integer",
+                        "example": 7
+                    },
+                    "leave_type_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "applied_on": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-07-20"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-01"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-10"
+                    },
+                    "total_leave_days": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "leave_reason": {
+                        "type": "string",
+                        "example": "Family trip"
+                    },
+                    "remark": {
+                        "type": "string",
+                        "example": "Approved by team lead"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Pending"
+                    },
+                    "with_deduction": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "deduction_amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 100
+                    },
+                    "start_deduction_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-01"
+                    },
+                    "end_deduction_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-31"
+                    },
+                    "total_deduction_months": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "employee": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 7
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Omar Elsayed"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "leaveType": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Annual Leave"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Loan": {
+                "title": "Loan",
+                "description": "Loan model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "employee_id": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "loan_option": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Home Renovation"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 5000
+                    },
+                    "reason": {
+                        "type": "string",
+                        "example": "Need funds for kitchen remodel"
+                    },
+                    "with_deduction": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "deduction_amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 250
+                    },
+                    "start_deduction_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-08-01"
+                    },
+                    "end_deduction_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-08-01"
+                    },
+                    "total_deduction_months": {
+                        "type": "integer",
+                        "example": 12
+                    },
+                    "employee": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 5
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Omar Elsayed"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "loanOption": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Emergency Loan"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Attendance",
+            "description": "Attendance"
+        },
+        {
+            "name": "Business Missions",
+            "description": "Business Missions"
+        },
+        {
+            "name": "Excuses",
+            "description": "Excuses"
+        },
+        {
+            "name": "Leaves",
+            "description": "Leaves"
+        },
+        {
+            "name": "Loans",
+            "description": "Loans"
+        }
+    ]
+}

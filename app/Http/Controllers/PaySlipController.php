@@ -15,6 +15,7 @@ use App\Models\SaturationDeduction;
 use App\Models\Utility;
 use App\Models\Termination;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -90,6 +91,7 @@ class PaySlipController extends Controller
 
             return redirect()->back()->with('error', $messages->first());
         }
+        $errors = [];
 
         $month = $request->month;
         $year  = $request->year;
@@ -105,17 +107,23 @@ class PaySlipController extends Controller
 
         if($payslip_employee > count($validatePaysilp))
         {
-            $employees = Employee::where('created_by', \Auth::user()->creatorId())->where('company_doj', '<=', date($year . '-' . $month . '-t'))->whereNotIn('employee_id', $validatePaysilp)->whereNotIn('id', $resignation)->whereNotIn('id', $termination)->whereNot('salary', '<=', 0)->get();
-
+            $employees = Employee::where('created_by', \Auth::user()->creatorId())->where('company_doj', '<=', date($year . '-' . $month . '-t'))->whereNotIn('employee_id', $validatePaysilp)->whereNotIn('id', $resignation)->whereNotIn('id', $termination)->where('salary','>',0)->get();
 
             foreach($employees as $employee)
             {
                 $chek = PaySlip::where(['employee_id' => $employee->id, 'salary_month' => $formate_month_year])->first();
+                if (!$chek) {
 
-                if (!$chek && $chek == null) {
+                  try {
+                    $net_salary = $employee->get_net_salary();
+                  } catch (Exception $e) {
+                    $errors[] = 'Employee: ' . ($employee->name ?? 'Unknown') . ' - ' . $e->getMessage();
+                    continue;
+                  }
+
                     $payslipEmployee                       = new PaySlip();
                     $payslipEmployee->employee_id          = $employee->id;
-                    $payslipEmployee->net_payble           = $employee->get_net_salary();
+                    $payslipEmployee->net_payble           = $net_salary;
                     $payslipEmployee->salary_month         = $formate_month_year;
                     $payslipEmployee->status               = 0;
                     $payslipEmployee->basic_salary         = !empty($employee->salary) ? $employee->salary : 0;
@@ -127,7 +135,6 @@ class PaySlipController extends Controller
                     $payslipEmployee->overtime             = Employee::overtime($employee->id);
                     $payslipEmployee->created_by           = \Auth::user()->creatorId();
                     $payslipEmployee->save();
-
                     //For Notification
                     $setting  = Utility::settings(\Auth::user()->creatorId());
                     $payslipNotificationArr = [
@@ -165,8 +172,12 @@ class PaySlipController extends Controller
                 }
 
             }
-
-            return redirect()->route('payslip.index')->with('success', __('Payslip successfully created.'));
+            if(!empty($errors)){
+              session()->flash('errors',$errors);
+              return redirect()->route('payslip.index')->with('success', __('Payslip successfully created with some errors.'));
+            }else{
+              return redirect()->route('payslip.index')->with('success', __('Payslip successfully created.'));
+            }
         }
         else
         {
@@ -331,7 +342,7 @@ class PaySlipController extends Controller
 
 
         $payslipDetail = Utility::employeePayslipDetail($id,$month);
-
+// dd($payslipDetail);
 
         return view('payslip.pdf', compact('payslip', 'employee', 'payslipDetail'));
     }

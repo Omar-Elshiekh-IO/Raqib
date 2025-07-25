@@ -181,6 +181,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Utility'=> App\Models\Utility::class,
         'Chatify' => Chatify\Facades\ChatifyMessenger::class,
+        'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'PaytmWallet' => Anand\LaravelPaytmWallet\Facades\PaytmWallet::class,
         'MP' => LivePixel\MercadoPago\Facades\MP::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,

@@ -43,6 +43,7 @@
                                 <th>{{__('Work Shift') }}</th>
                                 <th>{{__('Employment Type') }}</th>
                                 <th>{{__('Date Of Joining') }}</th>
+                                <th>{{__('Has Insurance') }}</th>
                                 <th> {{__('Last Login')}}</th>
                                 <th width="200px">{{__('Action')}}</th>
 
@@ -99,6 +100,7 @@
                                     @else
                                         <td>-</td>
                                     @endif
+                                    <td class="font-style">{{ $employee->has_insurance ? 'Yes' : 'No' }}</td>
                                     <td>
                                         {{ (!empty($employee->user->last_login_at)) ? $employee->user->last_login_at : '-' }}
                                     </td>

@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+
     <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mt-4">
         <div class="card">
             <div class="card-body">
@@ -93,6 +94,11 @@
                         </tbody>
                     </table>
                 </div>
+                @if (session('errors'))
+                  @foreach (session('errors') as $error)
+                    <p style="color: red;">{{ __($error) }}</p>
+                  @endforeach
+                @endif
             </div>
         </div>
     </div>

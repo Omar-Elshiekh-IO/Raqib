@@ -134,15 +134,29 @@
                                         {{ __('Create work shift here.') }} <a href="{{ route('work-shift.index') }}"><b>{{ __('Create work shift') }}</b></a>
                                     </div>
                                   </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     {!! Form::label('employment_type', __('Employment Type'), ['class' => 'form-label']) !!}
                                     {!! Form::select('employment_type', $employmentTypes, null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Select Employment Type' , 'id' => 'employment_type']) !!}
                                 <div class="text-xs mt-1">
                                             {{ __('Create employment type here.') }} <a href="{{ route('employment-type.index') }}"><b>{{ __('Create employment type') }}</b></a>
                                         </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <div class="form-check">
+                                      {!! Form::checkbox('has_insurance', 1, false, [
+                                          'class' => 'form-check-input',
+                                          'id' => 'has_insurance',
+                                          'required' => 'required'
+                                      ]) !!}
+                                      {!! Form::label('has_insurance', __('Has Insurance'), [
+                                          'class' => 'form-check-label'
+                                      ]) !!}
                                   </div>
-
-                            </div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                {!! Form::label('insurance_amount', __('Insurance Amount'), ['class' => 'form-check-label']) !!}
+                                {!! Form::number('insurance_amount', null, ['class' => 'form-control','step' => 0.01,'min' => 0,'id' => 'insurance_amount']) !!}
+                              </div>
                         </div>
                     </div>
                 </div>

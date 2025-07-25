@@ -25,9 +25,10 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->alias([
       'auth' => \App\Http\Middleware\Authenticate::class,
       'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-      // 'XSS' => \App\Http\Middleware\XSS::class,
+      'XSS' => \App\Http\Middleware\XSS::class,
       'revalidate' => \App\Http\Middleware\RevalidateBackHistory::class,
       'pusher' => \App\Http\Middleware\pusherConfig::class,
+      'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
     ]);
 
     // middlewareGroups / Group Middleware

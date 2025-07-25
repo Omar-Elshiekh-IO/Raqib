@@ -164,7 +164,6 @@
                                 <center>
                                     <div class="row">
                                         <div class="col-md-6">
-                                          <!-- TODO: validate that the clock in time is within work shift (time and day) and validate check in - out location -->
                                             {{Form::open(array('url'=>'attendanceemployee/attendance','method'=>'post', 'id' => 'clock_in_form'))}}
                                             @if(empty($employeeAttendance) || $employeeAttendance->clock_out != '00:00:00')
                                                 <button type="submit" value="0" name="in" id="clock_in" class="btn btn-success ">{{__('CLOCK IN')}}</button>

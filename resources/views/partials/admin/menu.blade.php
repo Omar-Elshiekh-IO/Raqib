@@ -1406,6 +1406,20 @@
                     </li>
                 @endif
 
+                <!--------------------- Start Security Setup ----------------------------------->
+
+                @if(Auth::user()->type != 'super admin')
+                  @can('manage security')
+                    <li class="dash-item dash-hasmenu {{ Request::segment(1) == 'security' ? 'active' : '' }}">
+                        <a href="{{ route('security.index') }}" class="dash-link">
+                            <span class="dash-micon"><i class="ti ti-shield"></i></span><span
+                                class="dash-mtext">{{ __('Security') }}</span>
+                        </a>
+                    </li>
+                  @endcan
+                @endif
+
+                <!--------------------- End Security Setup ----------------------------------->
                 <!--------------------- Start System Setup ----------------------------------->
 
                 @if (\Auth::user()->type != 'super admin')

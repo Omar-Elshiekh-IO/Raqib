@@ -1,6 +1,4 @@
-<!-- TODO: create routes and make models - migrations - controllers for loans leavs excuses etc... -->
 <ul class="card flex-row nav nav-pills nav-fill information-tab hrm_setup_tab" id="pills-tab" role="tablist">
-    @can('manage leave')
         <li class="nav-item" role="presentation">
             <a href="{{ route('leave.index') }}" class="list-group-item list-group-item-action border-0">
                 <button class="nav-link {{ request()->is('leave*') ? 'active' : '' }} "
@@ -8,8 +6,6 @@
                     type="button">{{ __('Leave') }}</button>
             </a>
         </li>
-    @endcan
-    @can('manage loan')
         <li class="nav-item" role="presentation">
             <a href="{{ route('loan.index') }}" class="list-group-item list-group-item-action border-0">
                 <button class="nav-link {{ request()->is('loan*') ? 'active' : '' }} " id="loan-setting-tab"
@@ -17,8 +13,6 @@
                     type="button">{{ __('Loan') }}</button>
             </a>
         </li>
-    @endcan
-    @can('manage business mission')
         <li class="nav-item" role="presentation">
             <a href="{{ route('business-mission.index') }}" class="list-group-item list-group-item-action border-0">
                 <button class="nav-link {{ request()->is('business-mission*') ? 'active' : '' }} "
@@ -26,8 +20,6 @@
                     type="button">{{ __('Business Mission') }}</button>
             </a>
         </li>
-    @endcan
-    @can('manage excuse')
         <li class="nav-item" role="presentation">
             <a href="{{ route('excuse.index') }}" class="list-group-item list-group-item-action border-0">
                 <button class="nav-link {{ request()->is('excuse*') ? 'active' : '' }} "
@@ -35,5 +27,4 @@
                     type="button">{{ __('Excuse') }}</button>
             </a>
         </li>
-    @endcan
 </ul>

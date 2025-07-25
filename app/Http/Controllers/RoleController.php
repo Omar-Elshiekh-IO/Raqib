@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FormulaValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
@@ -65,6 +66,7 @@ class RoleController extends Controller
                 $request->all(), [
                                    'name' => 'required|max:100|unique:roles,name,NULL,id,created_by,' . \Auth::user()->creatorId(),
                                    'permissions' => 'required',
+                                   'work_days' => 'required|integer',
                                ]
             );
 
@@ -80,6 +82,7 @@ class RoleController extends Controller
             $role->name       = $name;
             $role->created_by = \Auth::user()->creatorId();
             $permissions      = $request['permissions'];
+            $role->work_days = $request['work_days'];
             $role->save();
 
             foreach($permissions as $permission)
@@ -135,6 +138,7 @@ class RoleController extends Controller
                 $request->all(), [
                                    'name' => 'required|max:100|unique:roles,name,' . $role['id'] . ',id,created_by,' . \Auth::user()->creatorId(),
                                    'permissions' => 'required',
+                                   'work_days' => 'required|integer',
                                ]
             );
             if($validator->fails())
@@ -184,5 +188,38 @@ class RoleController extends Controller
         {
             return redirect()->back()->with('error', 'Permission denied.');
         }
+    }
+
+    public function salaryFormula(Role $role){
+      if(Auth::user()->can('manage role')){
+        $allowedVars = FormulaValidator::getSupportedVariables();
+        return view('role.salaryformula', compact('role','allowedVars'));
+      }else{
+        return redirect()->back()->with('error','Permission denied.');
+      }
+    }
+
+    public function setSalaryFormula(Request $request, Role $role){
+      if(Auth::user()->can('manage role')){
+
+        $request->validate([
+          'salary_formula' => 'required|string',
+        ]);
+
+        $formula = $request->input('salary_formula');
+
+        $formulaResult = FormulaValidator::validateFormula($formula);
+        if (str_starts_with($formulaResult, "Invalid Formula")) {
+          return redirect()->back()->with('error', $formulaResult);
+        }
+
+        $role->update(['salary_function' => $formulaResult]);
+        
+
+        return redirect()->back()->with('success', 'Salary formula updated successfully.');
+
+      }else{
+        return redirect()->back()->with('error','Permission denied.');
+      }
     }
 }

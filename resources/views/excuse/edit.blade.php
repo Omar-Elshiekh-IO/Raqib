@@ -9,13 +9,9 @@
             {{ Form::label('excuse_date', __('Excuse Date'), ['class' => 'form-label']) }}<x-required></x-required>
             {{ Form::date('excuse_date', null, ['class' => 'form-control', 'required' => 'required']) }}
         </div>
-        <div class="form-group col-md-6">
-            {{ Form::label('start_time', __('Start Time'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::time('start_time', null, ['class' => 'form-control', 'required' => 'required']) }}
-        </div>
-        <div class="form-group col-md-6">
-            {{ Form::label('end_time', __('End Time'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::time('end_time', null, ['class' => 'form-control', 'required' => 'required']) }}
+        <div class="form-group col-md-12">
+            {{ Form::label('duration', __('Duration'), ['class' => 'form-label']) }}<x-required></x-required>
+            {{ Form::number('duration', null, ['class' => 'form-control','placeholder' => 'Duration in minutes','min' => 5, 'required' => 'required']) }}
         </div>
         <div class="col-md-12">
             <div class="form-group">

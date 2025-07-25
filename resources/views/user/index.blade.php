@@ -36,7 +36,6 @@
     </div>
 @endsection
 @section('content')
-{{-- TODO: add filter button plans --}}
 <div class="row">
     @foreach ($users as $user)
     <div class="col-xxl-3 col-lg-4 col-sm-6 mb-4">

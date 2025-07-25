@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->date('excuse_date');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->integer('duration');
+            $table->time('actual_leave_time')->nullable();
             $table->text('reason');
             $table->enum('status', ['Pending', 'Approved', 'Rejected', 'Canceled'])->default('Pending');
             $table->foreignId('created_by')->constrained('users', 'id')->cascadeOnDelete();

@@ -21,4 +21,8 @@ class BusinessMission extends Model
   {
     return $this->belongsTo(Employee::class);
   }
+
+  public function approvals(){
+    return $this->hasMany(BusinessMissionApproval::class);
+  }
 }

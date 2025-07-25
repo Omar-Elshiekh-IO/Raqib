@@ -23,9 +23,70 @@
       <div class="col-12">
             @include('layouts.manage_requests')
       </div>
-    <div class="col-xl-12">
+      
+      {{-- Show pending approvals for managers --}}
+      @if(isset($pendingApprovals) && $pendingApprovals->count() > 0)
+        <div class="col-12">
             <div class="card">
-            <div class="card-body table-border-style">
+                <div class="card-header">
+                    <h5 class="mb-0">{{ __('Pending Approvals') }}</h5>
+                </div>
+                <div class="card-body table-border-style">
+                    <div class="table-responsive">
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    @if(\Auth::user()->type!='Employee')
+                                        <th>{{__('Employee')}}</th>
+                                    @endif
+                                    <th>{{__('Leave Type')}}</th>
+                                    <th>{{__('Applied On')}}</th>
+                                    <th>{{__('Start Date')}}</th>
+                                    <th>{{__('End Date')}}</th>
+                                    <th>{{__('Total Days')}}</th>
+                                    <th>{{__('Leave Reason')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th width="200px">{{__('Action')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pendingApprovals as $approval)
+                                    <tr>
+                                        @if(\Auth::user()->type!='Employee')
+                                            <td>{{ !empty($approval->leave->employee) ? $approval->leave->employee->name : '-'}}</td>
+                                        @endif
+                                        <td>{{ !empty($approval->leave->leaveType) ? $approval->leave->leaveType->title : '-'}}</td>
+                                        <td>{{ \Auth::user()->dateFormat($approval->leave->applied_on )}}</td>
+                                        <td>{{ \Auth::user()->dateFormat($approval->leave->start_date ) }}</td>
+                                        <td>{{ \Auth::user()->dateFormat($approval->leave->end_date )  }}</td>
+                                        <td>{{ $approval->leave->total_leave_days }}</td>
+                                        <td>{{ $approval->leave->leave_reason }}</td>
+                                        <td>
+                                            <div class="status_badge badge bg-warning p-2 px-3 rounded">{{ __('Pending Approval') }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="action-btn me-2">
+                                                <a href="#" data-url="{{ route('leave.action', $approval->id) }}" data-size="lg" data-ajax-popup="true" data-title="{{__('Leave Action')}}" class="mx-3 btn btn-sm  align-items-center bg-warning" data-bs-toggle="tooltip" title="{{__('Take Action')}}" data-original-title="{{__('Take Action')}}">
+                                                    <i class="ti ti-caret-right text-white"></i> </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      @endif
+      
+      {{-- Show regular leaves list --}}
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">{{ __('My Leaves') }}</h5>
+                </div>
+                <div class="card-body table-border-style">
                     <div class="table-responsive">
                     <table class="table datatable">
                             <thead>
@@ -93,10 +154,12 @@
                                                 @endcan
                                             @endif
                                         @else
+                                        @can('manage leave')
                                         <div class="action-btn me-2">
                                             <a href="#" data-url="{{ URL::to('leave/'.$item->id.'/action') }}" data-size="lg" data-ajax-popup="true" data-title="{{__('Leave Action')}}" class="mx-3 btn btn-sm  align-items-center bg-warning" data-bs-toggle="tooltip" title="{{__('Leave Action')}}" data-original-title="{{__('Leave Action')}}">
                                                 <i class="ti ti-caret-right text-white"></i> </a>
                                         </div>
+                                        @endcan
                                             @can('edit leave')
                                             <div class="action-btn me-2">
                                                 <a href="#" data-url="{{ URL::to('leave/'.$item->id.'/edit') }}" data-size="lg" data-ajax-popup="true" data-title="{{__('Edit Leave')}}" class="mx-3 btn btn-sm  align-items-center bg-info" data-bs-toggle="tooltip" title="{{__('Edit')}}" data-original-title="{{__('Edit')}}">
@@ -111,7 +174,7 @@
                                             <i class="ti ti-trash text-white"></i></a>
                                             {!! Form::close() !!}
                                         </div>
-                                        @endif
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

@@ -1,5 +1,4 @@
 <?php
-// TODO: add manage deduction permissions
 namespace Database\Seeders;
 
 use App\Models\ExperienceCertificate;
@@ -3206,6 +3205,12 @@ class UsersTableSeeder extends Seeder
         'updated_at' => date('Y-m-d H:i:s')
       ],
       [
+        'name' => 'approve leave',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s')
+      ],
+      [
         'name' => 'create leave request',
         'guard_name' => 'web',
         'created_at' => date('Y-m-d H:i:s'),
@@ -3343,6 +3348,222 @@ class UsersTableSeeder extends Seeder
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s')
       ],
+      [
+        'name' => 'view employee',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view department',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view designation',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view branch',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view company policy',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view announcement',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view holiday',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view event',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view meeting',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view award',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view payslip',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view leave',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view leave request',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view excuse',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view business mission',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view loan',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view complaint',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view warning',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view termination',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view promotion',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view resignation',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view training',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view appraisal',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view goal',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view goal tracking',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view indicator',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view attendance',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view set salary',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view overtime',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view assets',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view project',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view task',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view timesheet',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view estimation',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'view form response',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
+      [
+        'name' => 'manage security',
+        'guard_name' => 'web',
+        'created_at' => date('Y-m-d H:i:s'),
+        'updated_at' => date('Y-m-d H:i:s'),
+      ],
     ];
 
     foreach ($arrPermissions as $perm) {
@@ -3425,6 +3646,7 @@ class UsersTableSeeder extends Seeder
       'show hrm dashboard',
       'show project dashboard',
       'show account dashboard',
+      'manage security',
       'manage user',
       'create user',
       'edit user',
@@ -3941,7 +4163,9 @@ class UsersTableSeeder extends Seeder
       'edit leave request',
       'delete leave request',
       'view leave request',
+      'view leave',
       'approve leave request',
+      'approve leave',
       'manage excuse',
       'create excuse',
       'edit excuse',
@@ -4129,7 +4353,9 @@ class UsersTableSeeder extends Seeder
       'edit leave request',
       'delete leave request',
       'view leave request',
+      'view leave',
       'approve leave request',
+      'approve leave',
       'manage excuse',
       'create excuse',
       'edit excuse',

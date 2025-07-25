@@ -275,7 +275,13 @@ class Utility extends Model
             'zkteco_api_url' => '',
             'username' => '',
             'user_password' => '',
-            'auth_token' => ''
+            'auth_token' => '',
+
+            'excuse_levels' => '',
+            'leave_levels' => '',
+            'business_levels' => '',
+            'loan_levels' => '',
+            
         ];
 
         foreach ($data as $row) {
@@ -4658,21 +4664,21 @@ class Utility extends Model
     {
         $languages = [
             "ar" => "Arabic",
-            "zh" => "Chinese",
-            "da" => "Danish",
-            "de" => "German",
+            // "zh" => "Chinese",
+            // "da" => "Danish",
+            // "de" => "German",
             "en" => "English",
-            "es" => "Spanish",
-            "fr" => "French",
-            "he" => "Hebrew",
-            "it" => "Italian",
-            "ja" => "Japanese",
-            "nl" => "Dutch",
-            "pl" => "Polish",
-            "pt" => "Portuguese",
-            "ru" => "Russian",
-            "tr" => "Turkish",
-            "pt-br" => "Portuguese (Brazil)",
+            // "es" => "Spanish",
+            // "fr" => "French",
+            // "he" => "Hebrew",
+            // "it" => "Italian",
+            // "ja" => "Japanese",
+            // "nl" => "Dutch",
+            // "pl" => "Polish",
+            // "pt" => "Portuguese",
+            // "ru" => "Russian",
+            // "tr" => "Turkish",
+            // "pt-br" => "Portuguese (Brazil)",
         ];
         return $languages;
     }

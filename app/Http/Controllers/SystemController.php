@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\TestMail;
 use App\Models\EmailTemplate;
+use App\Models\Employee;
 use App\Models\ExperienceCertificate;
 use App\Models\GenerateOfferLetter;
 use App\Models\IpRestrict;
@@ -323,7 +324,6 @@ class SystemController extends Controller
             }
 
             $settings = Utility::settings();
-
             foreach ($post as $key => $data) {
                 if (in_array($key, array_keys($settings))) {
                     \DB::insert(
@@ -531,6 +531,7 @@ class SystemController extends Controller
             $comSetting = DB::table('settings')->where('created_by', '=', \Auth::user()->id)->pluck('value', 'name')->toArray();
 
             $timezones = config('timezones');
+            ksort($timezones);
             $company_payment_setting = Utility::getCompanyPaymentSetting(\Auth::user()->creatorId());
 
 
@@ -555,11 +556,17 @@ class SystemController extends Controller
 
             $emailSetting = DB::table('settings')->where('created_by', '=', \Auth::user()->id)->pluck('value', 'name')->toArray();
 
+            $employees = Employee::where('created_by',Auth::user()->creatorId())->get();
+
+            $loan_value = DB::selectOne('SELECT value FROM settings WHERE created_by = ? AND name = "loan_levels"',[Auth::user()->creatorId()])->value;
+
             $post = $request->all();
 
             return view('settings.company', compact(
                 'setting',
                 'company_payment_setting',
+                'loan_value',
+                'employees',
                 'timezones',
                 'ips',
                 'EmailTemplates',

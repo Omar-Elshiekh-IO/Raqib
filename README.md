@@ -73,4 +73,15 @@ el wrdyat
 - more than one work shift for employee - done i think so :)
 - check in check out logic and connection between it and the work shifts - done i think so :)
 - requests relation with the salary
-- leave worker security page
+- leave worker security page DONE
+- the approval of requests hierarchy (almost done test it and make the loan) fix the hierarchy to follow steps (currently all till end) try to improve the check of kind of approval for loan cuz come on '_' rly?? DONE
+
+- edit the sidebar permissions and add security tab DONE
+
+----------------------------------------------
+
+- fix loan edit (maybe also add loan status in employee set salary page) 
+
+----------------------------------------------
+
+- merge frontend and backend

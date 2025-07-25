@@ -1,19 +1,19 @@
 {{Form::open(array('url' => 'loan', 'method' => 'post', 'class' => 'needs-validation', 'novalidate'))}}
 <div class="modal-body">
-  @if(\Auth::user()->type == 'company' || \Auth::user()->type == 'HR')
     <div class="row">
     <div class="col-md-12">
       <div class="form-group">
       {{Form::label('employee_id', __('Employee'), ['class' => 'form-label'])}}<x-required></x-required>
-      {{Form::select('employee_id', $employees, null, array('class' => 'form-control select', 'id' => 'employee_id', 'placeholder' => __('Select Employee'), 'required' => 'required'))}}
+      {{Form::select('employee_id', $employees, 1, array('class' => 'form-control select', 'id' => 'employee_id', 'placeholder' => __('Select Employee'), 'required' => 'required'))}}
+      @can('create employee')
       <div class="text-xs mt-1">
         {{ __('Create employee here.') }} <a
         href="{{ route('employee.index') }}"><b>{{ __('Create employee') }}</b></a>
       </div>
+      @endcan
       </div>
     </div>
     </div>
-  @endif
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -25,10 +25,12 @@
         </option>
       @endforeach
         </select>
+        @can('create loan option')
         <div class="text-xs mt-1">
           {{ __('Create loan option here.') }} <a
             href="{{ route('loanoption.index') }}"><b>{{ __('Create loan option') }}</b></a>
         </div>
+        @endcan
       </div>
     </div>
   </div>
@@ -54,6 +56,7 @@
       </div>
     </div>
   </div>
+  @can('manage loan')
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -80,6 +83,7 @@
       </div>
     </div>
   </div>
+  @endcan
 </div>
 <div class="modal-footer">
   <input type="button" value="{{__('Cancel')}}" class="btn  btn-secondary" data-bs-dismiss="modal">

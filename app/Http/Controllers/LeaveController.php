@@ -4,25 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Leave;
+use App\Models\LeaveApproval;
 use App\Models\LeaveType;
 use App\Models\Utility;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class LeaveController extends Controller
 {
   public function index()
   {
-
-    if (\Auth::user()->can('manage leave')) {
+    if (\Auth::user()->can('view leave')) {
       if (\Auth::user()->type == 'company' || \Auth::user()->type == 'HR') {
         $leaves = Leave::where('created_by', '=', \Auth::user()->creatorId())->with(['leaveType', 'employees'])->get();
       } else {
+        // For managers, show only pending approvals for them
+        $pendingApprovals = LeaveApproval::where('approver_id', Auth::id())
+          ->where('status', 'pending')
+          ->with('leave.employee')
+          ->get();
+
+        // For employees, show their own leaves
         $user = \Auth::user();
         $employee = Employee::where('user_id', '=', $user->id)->first();
         $leaves = Leave::where('employee_id', '=', $employee->id)->with(['leaveType', 'employees'])->get();
+
+        return view('leave.index', compact('leaves', 'pendingApprovals'));
       }
 
       return view('leave.index', compact('leaves'));
@@ -52,7 +62,6 @@ class LeaveController extends Controller
 
   public function store(Request $request)
   {
-
     if (\Auth::user()->can('create leave')) {
       $validator = \Validator::make(
         $request->all(),
@@ -72,7 +81,6 @@ class LeaveController extends Controller
         $messages = $validator->getMessageBag();
         return redirect()->back()->with('error', $messages->first());
       }
-
 
       $employee = Employee::where('user_id', '=', Auth::user()->id)->first();
       $leave_type = LeaveType::find($request->leave_type_id);
@@ -111,6 +119,18 @@ class LeaveController extends Controller
         }
 
         $leave->save();
+
+        // Get the employee who submitted the request
+        $requestEmployee = Employee::find($leave->employee_id);
+
+        // Create only the first approval for the direct manager
+        if ($requestEmployee && $requestEmployee->manager) {
+          LeaveApproval::create([
+            'leave_id' => $leave->id,
+            'approver_id' => $requestEmployee->manager->user_id, // Use user_id of the manager
+            'status' => 'pending',
+          ]);
+        }
 
         if (\Auth::user()->type != 'company' || \Auth::user()->type != 'HR') {
           $setting = Utility::settings(\Auth::user()->creatorId());
@@ -166,7 +186,6 @@ class LeaveController extends Controller
 
   public function update(Request $request, $leave)
   {
-
     $leave = Leave::find($leave);
     if (\Auth::user()->can('edit leave')) {
       if ($leave->created_by == Auth::user()->creatorId()) {
@@ -247,17 +266,64 @@ class LeaveController extends Controller
     }
   }
 
-  public function action($id)
+  public function action($approvalId)
   {
-    $leave = Leave::find($id);
-    $employee = Employee::find($leave->employee_id);
-    $leavetype = LeaveType::find($leave->leave_type_id);
+    $approval = LeaveApproval::findOrFail($approvalId);
+    $leave = $approval->leave;
+    $employee = $leave->employee;
+    $leavetype = $leave->leaveType;
 
-    return view('leave.action', compact('employee', 'leavetype', 'leave'));
+    return view('leave.action', compact('employee', 'leavetype', 'leave', 'approval'));
   }
 
   public function changeaction(Request $request)
   {
+    // Handle new hierarchical approval system
+    if ($request->has('approval_id')) {
+      $approval = LeaveApproval::findOrFail($request->approval_id);
+
+      // Check if the current user is the approver
+      if ($approval->approver_id != Auth::id()) {
+        return redirect()->back()->with('error', __('Permission denied.'));
+      }
+
+      if ($request->action == 'Approve') {
+        $approval->update(['status' => 'approved']);
+
+        $settings = Utility::settings();
+        $countApproval = LeaveApproval::where('status','approved')
+          ->where('leave_id',$approval->leave_id)
+          ->count();
+
+
+        if($countApproval == $settings['leave_levels']){
+          $approval->leave->update(['status' => 'Approved']);
+          return redirect()->back()->with('success', __('Leave approved successfully.'));
+        }
+        // Get the manager of the current approver
+        $currentApprover = Employee::where('user_id', $approval->approver_id)->first();
+        $nextManager = $currentApprover ? $currentApprover->manager : null;
+
+        if ($nextManager) {
+          LeaveApproval::create([
+            'leave_id' => $approval->leave_id,
+            'approver_id' => $nextManager->user_id,
+            'status' => 'pending',
+          ]);
+        } else {
+          $approval->leave->update(['status' => 'Approved']);
+        }
+
+        return redirect()->route('leave.index')->with('success', __('Leave approved successfully.'));
+      } else {
+        $approval->update(['status' => 'rejected']);
+        $approval->leave->update(['status' => 'Rejected']);
+
+        return redirect()->route('leave.index')->with('success', __('Leave rejected successfully.'));
+      }
+    }
+
+    // Handle old approval system
     $leave = Leave::find($request->leave_id);
 
     $leave->status = $request->status;
@@ -273,8 +339,6 @@ class LeaveController extends Controller
 
     $leave->save();
 
-
-    //Send Email
     $setings = Utility::settings();
     if (!empty($employee->id)) {
       if ($setings['leave_action_sent'] == 1) {
@@ -294,7 +358,6 @@ class LeaveController extends Controller
         ];
         $resp = Utility::sendEmailTemplate('leave_action_sent', [$employee->id => $employee->email], $actionArr);
 
-
         return redirect()->route('leave.index')->with('success', __('Leave status successfully updated.') . (($resp['is_success'] == false && !empty($resp['error'])) ? '<br> <span class="text-danger">' . $resp['error'] . '</span>' : ''));
       }
     }
@@ -302,22 +365,58 @@ class LeaveController extends Controller
     return redirect()->route('leave.index')->with('success', __('Leave status successfully updated.'));
   }
 
+  // public function approve($approvalId)
+  // {
+  //   $approval = LeaveApproval::findOrFail($approvalId);
+
+  //   // Check if the current user is the approver
+  //   if ($approval->approver_id != Auth::id()) {
+  //     return redirect()->back()->with('error', __('Permission denied.'));
+  //   }
+
+  //   $approval->update(['status' => 'approved']);
+
+  //   // Get the manager of the current approver
+  //   $currentApprover = Employee::where('user_id', $approval->approver_id)->first();
+  //   $nextManager = $currentApprover ? $currentApprover->manager : null;
+
+  //   if ($nextManager) {
+  //     // Create approval for the next manager
+  //     LeaveApproval::create([
+  //       'leave_id' => $approval->leave_id,
+  //       'approver_id' => $nextManager->user_id,
+  //       'status' => 'pending',
+  //     ]);
+  //   } else {
+  //     // No more managers, mark the leave as fully approved
+  //     $approval->leave->update(['status' => 'Approved']);
+  //   }
+
+  //   return redirect()->back()->with('success', __('Leave approved successfully.'));
+  // }
+
+  // public function reject($approvalId)
+  // {
+  //   $approval = LeaveApproval::findOrFail($approvalId);
+
+  //   // Check if the current user is the approver
+  //   if ($approval->approver_id != Auth::id()) {
+  //     return redirect()->back()->with('error', __('Permission denied.'));
+  //   }
+
+  //   $approval->update(['status' => 'rejected']);
+
+  //   // Mark the leave as rejected
+  //   $approval->leave->update(['status' => 'Rejected']);
+
+  //   return redirect()->back()->with('success', __('Leave rejected successfully.'));
+  // }
 
   public function jsoncount(Request $request)
   {
-
-    // $leave_counts = LeaveType::select(\DB::raw('COALESCE(SUM(leaves.total_leave_days),0) AS total_leave, leave_types.title, leave_types.days,leave_types.id'))
-    //                          ->leftjoin('leaves', function ($join) use ($request){
-    //     $join->on('leaves.leave_type_id', '=', 'leave_types.id');
-    //     $join->where('leaves.employee_id', '=', $request->employee_id);
-    // }
-    // )->groupBy('leaves.leave_type_id')->get();
-
     $leave_counts = [];
     $leave_types = LeaveType::where('created_by', \Auth::user()->creatorId())->get();
     foreach ($leave_types as $type) {
-      // $counts=Leave::select(\DB::raw('COALESCE(SUM(leaves.total_leave_days),0) AS total_leave'))->where('leave_type_id',$type->id)->groupBy('leaves.leave_type_id')->where('employee_id',$request->employee_id)->where('status', '!=', 'Reject')->whereYear('start_date', date('Y'))->whereYear('end_date', date('Y'))->first();
-
       $year = date('Y');
       $counts = Leave::select(\DB::raw('
                 COALESCE(SUM(

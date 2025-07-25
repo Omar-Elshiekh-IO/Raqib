@@ -15,7 +15,7 @@ class CreateLeavesTable extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('employee_id');
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->integer('leave_type_id');
             $table->date('applied_on');
             $table->date('start_date');

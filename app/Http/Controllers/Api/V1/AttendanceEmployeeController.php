@@ -10,9 +10,32 @@ use App\Models\Utility;
 use App\Models\WorkShiftDays;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use OpenApi\Annotations as OA;
+
 
 class AttendanceEmployeeController extends Controller
 {
+  /**
+ * @OA\Post(
+ *     path="/api/v1/attendance/check-in",
+ *     summary="Employee check-in",
+ *     tags={"Attendance"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"latitude","longitude"},
+ *             @OA\Property(property="latitude", type="number", format="float"),
+ *             @OA\Property(property="longitude", type="number", format="float")
+ *         )
+ *     ),
+ *     @OA\Response(response=201, description="Checked in successfully", @OA\JsonContent(type="object", @OA\Property(property="branch", type="object"))),
+ *     @OA\Response(response=403, description="Forbidden: IP or location not allowed"),
+ *     @OA\Response(response=404, description="Not found: Employee or branch"),
+ *     @OA\Response(response=409, description="Already clocked in")
+ * )
+ */
   public function checkIn(Request $request)
   {
     $request->validate([
@@ -179,6 +202,10 @@ class AttendanceEmployeeController extends Controller
 
     $employeeAttendance->save();
 
+    $workDays = DB::selectOne('SELECT work_days FROM roles WHERE name = ? AND created_by = ?',[Auth::user()->type,Auth::user()->creatorId()]);
+    $dailyEarning = $employee->salary / $workDays;
+    $employee->increment('earned_salary',$dailyEarning);
+
     return response()->json([
       'status' => true,
       'message' => 'Employee Successfully Clocked In.',
@@ -186,6 +213,26 @@ class AttendanceEmployeeController extends Controller
     ], 201);
   }
 
+  /**
+ * @OA\Post(
+ *     path="/api/v1/attendance/check-out",
+ *     summary="Employee check-out",
+ *     tags={"Attendance"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"latitude","longitude"},
+ *             @OA\Property(property="latitude", type="number", format="float"),
+ *             @OA\Property(property="longitude", type="number", format="float")
+ *         )
+ *     ),
+ *     @OA\Response(response=200, description="Checked out successfully", @OA\JsonContent(type="object", @OA\Property(property="branch", type="object"))),
+ *     @OA\Response(response=403, description="Forbidden: IP or location not allowed or outside shift hours"),
+ *     @OA\Response(response=404, description="Not found: Missing employee or branch"),
+ *     @OA\Response(response=409, description="No open attendance record")
+ * )
+ */
   public function checkOut(Request $request)
   {
     $request->validate([

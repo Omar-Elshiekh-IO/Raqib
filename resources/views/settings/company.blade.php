@@ -856,6 +856,60 @@
                                     </select>
                                 </div>
 
+                                
+
+                                <div class="form-group col-md-6">
+                                    {{ Form::label('excuse_levels', __('Excuse Approval Levels'), ['class' => 'form-label']) }}
+                                    {{ Form::select('excuse_levels', [0 => 'Till End',1 => '1/Step',2 => '2/Step',3 => '3/Step'], null, ['class' => 'form-control select', 'placeholder' => __('Select Excuse Approval Levels')]) }}
+                                    @error('excuse_levels')
+                                        <span class="invalid-excuse_levels" role="alert">
+                                            <strong class="text-danger">{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ Form::label('leave_levels', __('Leave Approval Levels'), ['class' => 'form-label']) }}
+                                    {{ Form::select('leave_levels', [0 => 'Till End',1 => '1/Step',2 => '2/Step',3 => '3/Step'], null, ['class' => 'form-control select', 'placeholder' => __('Select Leave Approval Levels')]) }}
+                                    @error('leave_levels')
+                                        <span class="invalid-leave_levels" role="alert">
+                                            <strong class="text-danger">{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                  {{ Form::label('loan_levels', __('Loan Approval Levels'), ['class' => 'form-label']) }}
+
+                                  <select name="loan_levels" class="form-control select" required>
+                                      <option value="">{{ __('Select Loan Approval Levels') }}</option>
+                                      <optgroup label="Levels">
+                                          <option value="0" {{ $loan_value == 0 ? 'selected' : '' }}>Till End</option>
+                                          <option value="1" {{ $loan_value == 1 ? 'selected' : '' }}>1/Step</option>
+                                          <option value="2" {{ $loan_value == 2 ? 'selected' : '' }}>2/Step</option>
+                                          <option value="3" {{ $loan_value == 3 ? 'selected' : '' }}>3/Step</option>
+                                      </optgroup>
+
+                                      <optgroup label="Employee Approval">
+                                        @foreach($employees as $employee)
+                                        <option value="{{ $employee->id . '_' . $employee->name }}" {{ $loan_value == $employee->id . '_' . $employee->name ? 'selected' : '' }}>{{ $employee->id . '_' . $employee->name }}</option>
+                                        @endforeach
+                                      </optgroup>
+                                  </select>
+
+                                  @error('loan_levels')
+                                      <span class="invalid-loan_levels" role="alert">
+                                          <strong class="text-danger">{{ $message }}</strong>
+                                      </span>
+                                  @enderror
+                              </div>
+                                <div class="form-group col-md-6">
+                                    {{ Form::label('business_levels', __('Busines Approval Levels'), ['class' => 'form-label']) }}
+                                    {{ Form::select('business_levels', [0 => 'Till End',1 => '1/Step',2 => '2/Step',3 => '3/Step'], null, ['class' => 'form-control select', 'placeholder' => __('Select Busines Approval Levels')]) }}
+                                    @error('business_levels')
+                                        <span class="invalid-business_levels" role="alert">
+                                            <strong class="text-danger">{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                                 <div class="form-group col-md-6">
                                     {{ Form::label('customer_prefix', __('Customer Prefix'), ['class' => 'form-label']) }}
                                     {{ Form::text('customer_prefix', null, ['class' => 'form-control', 'placeholder' => __('Enter Customer Prefix')]) }}
@@ -1083,8 +1137,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
-
                                 <div class="form-group col-md-12">
                                     {{ Form::label('timezone', __('Timezone'), ['class' => 'form-label']) }}
                                     <select type="text" name="timezone" class="form-control custom-select"
@@ -1100,11 +1152,19 @@
                                 </div>
 
 
-
+                                <div class="form-group col-md-6">
+                                    {{ Form::label('insurance_percentage', __('Insurance Percentage From Base Salary'), ['class' => 'form-label']) }}
+                                    {{ Form::number('insurance_percentage', null, ['class' => 'form-control', 'min' => 0, 'max' => 100,'step' => 0.01, 'placeholder' => __('Enter Insurance Percentage From Base Salary')]) }}
+                                    @error('insurance_percentage')
+                                        <span class="invalid-insurance_percentage" role="alert">
+                                            <strong class="text-danger">{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
                                 <div class="form-group col-xxl-3 col-sm-6">
                                     <div class="card mb-0">
-                                        <div class="card-body p-3">
+                                        <div class="card-body p-2">
                                             <label class="form-check-label"
                                                 for="ip_restrict">{{ __('Ip Restrict') }}</label>
                                             <div class="form-check form-switch custom-switch-v1 float-end">
@@ -1120,7 +1180,7 @@
 
                                 <div class="form-group col-xxl-3 col-sm-6">
                                     <div class="card mb-0">
-                                        <div class="card-body p-3">
+                                        <div class="card-body p-2">
                                             <label for="vat_gst_number_switch">{{ __('Tax Number') }}</label>
                                             <div class="form-check form-switch custom-switch-v1 float-end">
                                                 <input type="checkbox" name="vat_gst_number_switch"

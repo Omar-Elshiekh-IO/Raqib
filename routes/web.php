@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\FormulaValidator;
 use App\Http\Controllers\AamarpayController;
 use App\Http\Controllers\AiTemplateController;
 use App\Http\Controllers\AllowanceController;
@@ -96,6 +97,7 @@ use App\Http\Controllers\PaystackPaymentController;
 use App\Http\Controllers\PaytabController;
 use App\Http\Controllers\PaytmPaymentController;
 use App\Http\Controllers\PaytrController;
+use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\WorkShiftController;
 use App\Http\Controllers\YooKassaController;
 use App\Http\Controllers\PerformanceTypeController;
@@ -163,6 +165,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\PaymentWallPaymentController;
 use App\Http\Controllers\PaypalController;
 use App\Models\BusinessMission;
+use NXP\MathExecutor;
 
 /*
 |--------------------------------------------------------------------------
@@ -367,6 +370,8 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
   Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode');
 
   Route::resource('roles', RoleController::class)->middleware(['auth', 'revalidate']);
+  Route::get('roles/{role}/salary-formula',[RoleController::class,'salaryFormula'])->middleware(['auth','XSS','revalidate'])->name('roles.salaryformula');
+  Route::put('roles/{role}/salary-formula',[RoleController::class,'setSalaryFormula'])->middleware(['auth','XSS','revalidate'])->name('roles.setsalaryformula');
 
   Route::resource('permissions', PermissionController::class)->middleware(['auth', 'revalidate']);
 
@@ -420,7 +425,7 @@ Route::group(['middleware' => ['verified', 'XSS']], function () {
       Route::post('currency-settings', [SystemController::class, 'saveCurrencySettings'])->name('currency.settings');
       Route::post('company-preview', [SystemController::class, 'currencyPreview'])->name('currency.preview');
 
-Route::any('testpage',[BusinessMissionController::class,'create']);
+      Route::any('testpage', [BusinessMissionController::class, 'create']);
 
       Route::any('test-mail', [SystemController::class, 'testMail'])->name('test.mail');
       Route::post('test-mail/send', [SystemController::class, 'testSendMail'])->name('test.send.mail');
@@ -910,8 +915,8 @@ Route::any('testpage',[BusinessMissionController::class,'create']);
   Route::resource('loanoption', LoanOptionController::class)->middleware(['auth']);
   Route::resource('deductionoption', DeductionOptionController::class)->middleware(['auth']);
   Route::resource('loan', LoanController::class)->middleware(['auth']);
-  Route::get('loan-edit/{id}',[LoanController::class,'editPopUp'])->name('loan.edit-pop-up')->middleware(['auth']);
-  Route::put('loan-edit/{loan}',[LoanController::class,'updatePopUp'])->name('loan.update-pop-up')->middleware(['auth']);
+  Route::get('loan-edit/{id}', [LoanController::class, 'editPopUp'])->name('loan.edit-pop-up')->middleware(['auth']);
+  Route::put('loan-edit/{loan}', [LoanController::class, 'updatePopUp'])->name('loan.update-pop-up')->middleware(['auth']);
   Route::resource('saturationdeduction', SaturationDeductionController::class)->middleware(['auth']);
   Route::resource('otherpayment', OtherPaymentController::class)->middleware(['auth']);
   Route::resource('overtime', OvertimeController::class)->middleware(['auth']);
@@ -993,9 +998,7 @@ Route::any('testpage',[BusinessMissionController::class,'create']);
   Route::resource('job-category', JobCategoryController::class)->middleware(['auth']);
   Route::resource('employment-type', EmploymentTypeController::class)->middleware(['auth']);
   Route::resource('work-shift', WorkShiftController::class)->middleware(['auth']);
-  Route::get('test',function(){
-    return view('work_shift.test');
-  });
+
   Route::resource('job-stage', JobStageController::class)->middleware(['auth']);
   Route::post('job-stage/order', [JobStageController::class, 'order'])->name('job.stage.order');
 
@@ -1036,13 +1039,40 @@ Route::any('testpage',[BusinessMissionController::class,'create']);
   Route::resource('leavetype', LeaveTypeController::class)->middleware(['auth']);
   Route::get('report-leave', [ReportController::class, 'leave'])->name('report.leave')->middleware(['auth']);
   Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth']);
-  Route::get('leave/{id}/action', [LeaveController::class, 'action'])->name('leave.action')->middleware(['auth']);
-  Route::post('leave/changeaction', [LeaveController::class, 'changeaction'])->name('leave.changeaction')->middleware(['auth']);
-  Route::post('leave/jsoncount', [LeaveController::class, 'jsoncount'])->name('leave.jsoncount')->middleware(['auth']);
-
-  Route::resource('leave', LeaveController::class)->middleware(['auth']);
-  Route::resource('business-mission',BusinessMissionController::class)->middleware(['auth']);
-  Route::resource('excuse',ExcuseController::class)->middleware(['auth']);
+  
+  Route::prefix('leave')
+    ->middleware([
+    'auth',
+    'XSS',
+    'revalidate'
+  ])->group(function(){
+  Route::resource('/', LeaveController::class)->names('leave');
+  Route::get('/{id}/action', [LeaveController::class, 'action'])->name('leave.action');
+  Route::post('/changeaction', [LeaveController::class, 'changeaction'])->name('leave.changeaction');
+  Route::post('/jsoncount', [LeaveController::class, 'jsoncount'])->name('leave.jsoncount');
+  });
+  Route::prefix('excuse')
+  ->middleware([
+    'auth',
+    'XSS',
+    'revalidate'
+    ])->group(function(){
+    Route::resource('/', ExcuseController::class)->names('excuse');
+    Route::get('/{id}/action', [ExcuseController::class, 'action'])->name('excuse.action');
+    Route::post('/changeaction', [ExcuseController::class, 'changeaction'])->name('excuse.changeaction');
+  });
+  Route::prefix('business-mission')
+    ->middleware([
+    'auth',
+    'XSS',
+    'revalidate'
+  ])->group(function(){
+  Route::resource('/', BusinessMissionController::class)->names('business-mission');
+  Route::get('/{id}/action', [BusinessMissionController::class, 'action'])->name('business-mission.action');
+  Route::post('/changeaction', [BusinessMissionController::class, 'changeaction'])->name('business-mission.changeaction');
+  });
+  Route::get('loan/{id}/action', [LoanController::class, 'action'])->name('loan.action')->middleware(['auth']);
+  Route::post('loan/changeaction', [LoanController::class, 'changeaction'])->name('loan.changeaction')->middleware(['auth']);
 
   Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth']);
 
@@ -1794,3 +1824,91 @@ Route::any('testpage',[BusinessMissionController::class,'create']);
 
 Route::any('/cookie-consent', [SystemController::class, 'CookieConsent'])->name('cookie-consent');
 Route::get('payslip/payslipPdf/{id}/{month}', [PaySlipController::class, 'payslipPdf'])->name('payslip.payslipPdf');
+
+// Security routes
+Route::prefix('security')
+  ->middleware([
+  'auth',
+  'XSS',
+  'revalidate'
+])->group(function (){
+  Route::get('/', [SecurityController::class, 'index'])->name('security.index');
+  Route::post('/mark-leave', [SecurityController::class, 'markLeave'])->name('security.markLeave');
+  Route::post('/mark-leave/{id}', [SecurityController::class, 'markLeave'])->name('security.markLeave');
+});
+
+Route::get('test',function(){
+// $testCases = [
+//     // Valid formulas
+//     'basic_salary + allowances',
+//     '(basic_salary + allowances) * 2',
+//     'basic_salary - deductions',
+//     'basic_salary / 2.5',
+    
+//     // Invalid formulas
+//     'basic_salary basic_salary',     // Consecutive variables
+//     '5basic_salary',                 // Number adjacent to variable-
+//     'basic_salary5',                 // Variable adjacent to number
+//     '++basic_salary',                // Double operators
+//     'basic_salary+',                 // Ends with operator
+//     '*basic_salary',                 // Starts with invalid operator
+//     'basic_salary / 0',              // Division by zero
+//     '()',                           // Empty parentheses
+//     '(+basic_salary)',              // Operator after open paren-
+//     '(basic_salary+)',              // Operator before close paren-
+//     '5(basic_salary)',              // Missing operator before paren-
+//     'unknown_var + basic_salary',    // Unknown variable
+//     'basic_salary..5',              // Invalid decimal-
+// ];
+
+// foreach ($testCases as $formula) {
+//     $result = FormulaValidator::validateFormula($formula);
+//     echo "Formula: '$formula' -> " . ($result === $formula ? "VALID" : $result) . "<br>";
+// }
+
+$testCases = [
+    // Valid formulas
+    'basic_salary + allowances' => 'SHOULD BE VALID',
+    '(basic_salary + allowances) * 2' => 'SHOULD BE VALID',
+    'basic_salary - deductions' => 'SHOULD BE VALID',
+    'basic_salary / 2.5' => 'SHOULD BE VALID',
+    
+    // Invalid formulas - Consecutive variables
+    'basic_salary basic_salary' => 'SHOULD BE INVALID - Consecutive variables',
+    
+    // Invalid formulas - Number adjacent to variable  
+    '5basic_salary' => 'SHOULD BE INVALID - Number before variable',
+    'basic_salary5' => 'SHOULD BE INVALID - Number after variable',
+    '123allowances' => 'SHOULD BE INVALID - Number before variable',
+    
+    // Invalid formulas - Multiple dots
+    'basic_salary..5' => 'SHOULD BE INVALID - Multiple dots',
+    '5..3' => 'SHOULD BE INVALID - Multiple dots',  
+    'basic_salary...allowances' => 'SHOULD BE INVALID - Multiple dots',
+    
+    // Invalid formulas - Operator issues
+    '++basic_salary' => 'SHOULD BE INVALID - Double operators',
+    'basic_salary+' => 'SHOULD BE INVALID - Ends with operator',
+    '*basic_salary' => 'SHOULD BE INVALID - Starts with invalid operator',
+    
+    // Invalid formulas - Other issues
+    'basic_salary / 0' => 'SHOULD BE INVALID - Division by zero',
+    '()' => 'SHOULD BE INVALID - Empty parentheses',
+    '(+basic_salary)' => 'SHOULD BE INVALID - Operator after open paren',
+    '(basic_salary+)' => 'SHOULD BE INVALID - Operator before close paren',
+    '5(basic_salary)' => 'SHOULD BE INVALID - Missing operator before paren',
+    'unknown_var + basic_salary' => 'SHOULD BE INVALID - Unknown variable',
+];
+
+echo "Testing Formula Validator: <br>";
+echo "======================== <br>";
+
+foreach ($testCases as $formula => $expected) {
+    $result = FormulaValidator::validateFormula($formula);
+    $status = ($result === $formula) ? "✓ VALID" : "✗ INVALID: " . $result;
+    echo "Formula: '$formula' <br>";
+    echo "Expected: $expected <br>"; 
+    echo "Result: $status <br>";
+    echo "<br>";
+}
+});

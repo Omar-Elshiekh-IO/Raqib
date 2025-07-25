@@ -14,6 +14,7 @@ use App\Models\Utility;
 use App\Models\WorkShiftDays;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceEmployeeController extends Controller
 {
@@ -463,6 +464,10 @@ class AttendanceEmployeeController extends Controller
     $employeeAttendance->created_by = \Auth::user()->id;
 
     $employeeAttendance->save();
+
+    $workDays = DB::selectOne('SELECT work_days FROM roles WHERE name = ? AND created_by = ?',[Auth::user()->type,Auth::user()->creatorId()]);
+    $dailyEarning = $employee->salary / $workDays;
+    $employee->increment('earned_salary',$dailyEarning);
 
     return redirect()->back()->with('success', __('Employee Successfully Clock In.'));
   }

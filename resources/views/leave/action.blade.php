@@ -31,15 +31,19 @@
                         <th>{{__('Status')}}</th>
                         <td>{{ !empty($leave->status)?$leave->status:'' }}</td>
                     </tr>
-                    <input type="hidden" value="{{ $leave->id }}" name="leave_id">
+                    @if(isset($approval))
+                        <input type="hidden" value="{{ $approval->id }}" name="approval_id">
+                    @else
+                        <input type="hidden" value="{{ $leave->id }}" name="leave_id">
+                    @endif
                 </table>
         </div>
     </div>
 </div>
-@if(\Auth::user()->type == 'company')
+@can('manage leave')
 <div class="modal-footer">
-    <input type="submit" value="{{__('Approval')}}" class="btn btn-success" data-bs-dismiss="modal" name="status">
-    <input type="submit" value="{{__('Reject')}}" class="btn btn-danger" name="status">
+    <input type="submit" value="{{__('Approve')}}" class="btn btn-success" data-bs-dismiss="modal" name="action">
+    <input type="submit" value="{{__('Reject')}}" class="btn btn-danger" name="action">
 </div>
-@endif
+@endcan
 {{Form::close()}}

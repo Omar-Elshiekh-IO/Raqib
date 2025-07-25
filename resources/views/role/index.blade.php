@@ -47,6 +47,18 @@
                                             </td>
                                             <td class="Action">
                                                 <span>
+                                                    @can('manage role')
+                                                    <div class="action-btn me-2">
+                                                        <a href="#"
+                                                            class="mx-3 btn btn-sm align-items-center bg-success"
+                                                            data-url="{{ route('roles.salaryformula', $role->id) }}"
+                                                            data-ajax-popup="true" data-size="lg" data-bs-toggle="tooltip"
+                                                            title="{{ __('Salary Formula') }}"
+                                                            data-title="{{ __('Salary Formula') }}">
+                                                            <i class="ti ti-calculator text-white"></i>
+                                                        </a>
+                                                    </div>
+                                                    @endcan
                                                     @can('edit role')
                                                         <div class="action-btn me-2">
                                                             <a href="#"

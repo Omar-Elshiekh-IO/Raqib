@@ -264,7 +264,7 @@
 
                                         <h5 class="mb-0">{{ __('Loan') }}</h5>
                                     @can('create loan')
-                                            <a href="#!" data-url="{{ route('loans.create', $employee->id) }}"
+                                            <a href="#!" data-url="{{ route('loan.create', $employee->id) }}"
                                                 data-size="lg" data-ajax-popup="true" data-title="{{ __('Create Loan') }}"
                                                 data-bs-toggle="tooltip" title="{{ __('Create') }}"
                                                 data-original-title="{{ __('Create Loan') }}"
@@ -282,7 +282,6 @@
                                                     <th>{{ __('Employee') }}</th>
                                                     <th>{{ __('Loan Options') }}</th>
                                                     <th>{{ __('Title') }}</th>
-                                                    <th>{{ __('Type') }}</th>
                                                     <th>{{ __('Loan Amount') }}</th>
                                                     @if (\Auth::user()->type != 'Employee')
                                                         <th>{{ __('Action') }}</th>
@@ -296,12 +295,7 @@
                                                         <td>{{ !empty($loan->loanOption) ? $loan->loanOption->name : '' }}
                                                         </td>
                                                         <td>{{ $loan->title }}</td>
-                                                        <td>{{ ucfirst($loan->type) }}</td>
-                                                        @if ($loan->type == 'fixed')
                                                             <td>{{ \Auth::user()->priceFormat($loan->amount) }}</td>
-                                                        @else
-                                                            <td>{{ $loan->amount }}% (${{ $loan->tota_allow }})</td>
-                                                        @endif
                                                         @if (\Auth::user()->type != 'Employee')
                                                             <td class="">
                                                                 @can('edit loan')

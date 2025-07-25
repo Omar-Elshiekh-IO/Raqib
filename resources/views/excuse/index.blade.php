@@ -20,8 +20,14 @@
       <div class="col-12">
         @include('layouts.manage_requests')
       </div>
+      
+      {{-- Show pending approvals for managers --}}
+      @if(isset($pendingApprovals) && $pendingApprovals->count() > 0)
         <div class="col-12">
             <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">{{ __('Pending Approvals') }}</h5>
+                </div>
                 <div class="card-body table-border-style">
                     <div class="table-responsive">
                         <table class="table datatable">
@@ -29,8 +35,62 @@
                                 <tr>
                                     <th>{{ __('Employee') }}</th>
                                     <th>{{ __('Excuse Date') }}</th>
-                                    <th>{{ __('Start Time') }}</th>
-                                    <th>{{ __('End Time') }}</th>
+                                    <th>{{ __('Duration') }}</th>
+                                    <th>{{ __('Reason') }}</th>
+                                    <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Remark') }}</th>
+                                    <th width="200px">{{ __('Action') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pendingApprovals as $approval)
+                                    <tr>
+                                        <td>{{ $approval->excuse->employee->name ?? '-' }}</td>
+                                        <td>{{ $approval->excuse->excuse_date }}</td>
+                                        <td>{{ $approval->excuse->duration }}</td>
+                                        <td>{{ $approval->excuse->reason }}</td>
+                                        <td>
+                                            <div class="badge bg-warning p-2 px-3 rounded">{{ __('Pending Approval') }}</div>
+                                        </td>
+                                        <td>{{ $approval->excuse->remark }}</td>
+                                        <td class="Action">
+                                            <span>
+                                                <div class="action-btn me-2">
+                                                    <a href="#" data-url="{{ route('excuse.action', $approval->id) }}" data-ajax-popup="true" data-title="{{ __('Excuse Action') }}" class="mx-3 btn btn-sm align-items-center bg-warning" data-bs-toggle="tooltip" title="{{ __('Take Action') }}">
+                                                        <i class="ti ti-caret-right text-white"></i>
+                                                    </a>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      @endif
+      
+      {{-- Show regular excuses list --}}
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                  @if (Auth::user()->type == 'company' || Auth::user()->type == 'HR')
+                  <h5 class="mb-0">{{ __('Excuses') }}</h5>
+                  @else
+                  <h5 class="mb-0">{{ __('My Excuses') }}</h5>
+                  @endif
+                </div>
+                <div class="card-body table-border-style">
+                    <div class="table-responsive">
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>{{ __('Employee') }}</th>
+                                    <th>{{ __('Excuse Date') }}</th>
+                                    <th>{{ __('Duration') }}</th>
                                     <th>{{ __('Reason') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Remark') }}</th>
@@ -43,8 +103,7 @@
                                     <tr>
                                         <td>{{ $excuse->employee->name ?? '-' }}</td>
                                         <td>{{ $excuse->excuse_date }}</td>
-                                        <td>{{ $excuse->start_time }}</td>
-                                        <td>{{ $excuse->end_time }}</td>
+                                        <td>{{ $excuse->duration }}</td>
                                         <td>{{ $excuse->reason }}</td>
                                         <td>
                                             @if($excuse->status=="Pending")<div class="badge bg-warning p-2 px-3 rounded">{{ $excuse->status }}</div>
@@ -82,5 +141,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection 

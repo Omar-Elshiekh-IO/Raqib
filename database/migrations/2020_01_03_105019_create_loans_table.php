@@ -15,7 +15,7 @@ class CreateLoansTable extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('employee_id');
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->integer('loan_option');
             $table->string('title');
             $table->decimal('amount',15,2)->default('0.0');

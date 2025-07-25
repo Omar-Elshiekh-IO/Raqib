@@ -17,10 +17,6 @@
             </div>
         </div>
         <div class="form-group col-md-6">
-            {{ Form::label('type', __('Type'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::select('type', $loan_types, null, ['class' => 'form-control select amount_type', 'required' => 'required']) }}
-        </div>
-        <div class="form-group col-md-6">
             {{ Form::label('amount', __('Loan Amount'),['class'=>'form-label amount_label']) }}<x-required></x-required>
             {{ Form::number('amount',null, array('class' => 'form-control ','required'=>'required','step'=>'0.01', 'placeholder'=>__('Enter Amount'))) }}
         </div>

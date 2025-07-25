@@ -14,6 +14,7 @@ class Loan extends Model
         'start_date',
         'end_date',
         'reason',
+        'status',
         'created_by',
         'with_deduction',
         'deduction_amount',
@@ -39,4 +40,7 @@ class Loan extends Model
         'fixed'=>'Fixed',
         'percentage'=> 'Percentage',
     ];
+    public function approvals(){
+      return $this->hasMany(LoanApproval::class);
+    }
 }
