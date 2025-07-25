@@ -489,17 +489,23 @@ class PaySlipController extends Controller
             }
         }
 
-
         $payslipEmployee                       = PaySlip::find($request->payslip_id);
-        $payslipEmployee->allowance            = Employee::allowance($payslipEmployee->employee_id);
-        $payslipEmployee->commission           = Employee::commission($payslipEmployee->employee_id);
-        $payslipEmployee->loan                 = Employee::loan($payslipEmployee->employee_id);
-        $payslipEmployee->saturation_deduction = Employee::saturation_deduction($payslipEmployee->employee_id);
-        $payslipEmployee->other_payment        = Employee::other_payment($payslipEmployee->employee_id);
-        $payslipEmployee->overtime             = Employee::overtime($payslipEmployee->employee_id);
-        $payslipEmployee->net_payble           = Employee::find($payslipEmployee->employee_id)->get_net_salary();
-        $payslipEmployee->save();
-
+        $employee = Employee::find($payslipEmployee->employee_id);
+        try {
+          
+          $payslipEmployee->allowance            = Employee::allowance($payslipEmployee->employee_id);
+          $payslipEmployee->commission           = Employee::commission($payslipEmployee->employee_id);
+          $payslipEmployee->loan                 = Employee::loan($payslipEmployee->employee_id);
+          $payslipEmployee->saturation_deduction = Employee::saturation_deduction($payslipEmployee->employee_id);
+          $payslipEmployee->other_payment        = Employee::other_payment($payslipEmployee->employee_id);
+          $payslipEmployee->overtime             = Employee::overtime($payslipEmployee->employee_id);
+          $payslipEmployee->net_payble           = $employee->get_net_salary();
+          $payslipEmployee->save();
+          
+        } catch (Exception $e) {
+          $error = 'Employee: ' . ($employee->name ?? 'Unknown') . ' - ' . $e->getMessage();
+          return redirect()->route('payslip.index')->with('error', __($error));
+        }
         return redirect()->route('payslip.index')->with('success', __('Employee payroll successfully updated.'));
     }
 

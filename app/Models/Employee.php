@@ -121,7 +121,7 @@ class Employee extends Model
 
     $role = $this->user->type;
 
-    $roleData = Role::where('name', $role)->where('created_by', Auth::user()->creatorId())->first();
+    $roleData = $this->user->roleData;
     $salaryFormula = $roleData->salary_function ?: '0';
 
 

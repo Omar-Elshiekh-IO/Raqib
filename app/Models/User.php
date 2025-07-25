@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Lab404\Impersonate\Models\Impersonate;
 
@@ -1036,6 +1037,11 @@ class User extends Authenticatable implements MustVerifyEmail
             $projectstatus = $user_projects[$project_id] == 'owner' ? 'Owner' : 'Shared';
         }
         return 'Owner';
+    }
+
+    public function roleData()
+    {
+        return $this->hasOne(Role::class, 'name', 'type')->where('created_by', $this->creatorId());
     }
 
     // Make new attribute for directly get image

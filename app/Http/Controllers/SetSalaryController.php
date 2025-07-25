@@ -22,7 +22,31 @@ class SetSalaryController extends Controller
     {
         if(\Auth::user()->can('manage set salary'))
         {
-            $employees = Employee::where('created_by' , \Auth::user()->creatorId())->with('salaryType')->get();
+            $employees = Employee::where('created_by', \Auth::user()->creatorId())
+            ->with([
+                'salaryType',
+                'designation',
+                'allowances',
+                'commissions',
+                'loans',
+                'saturationDeductions',
+                'otherPayments',
+                'overtimes',
+                'excuses',
+                'leave',
+                'user',
+                'user.roleData'
+            ])
+            ->get();
+
+            foreach ($employees as $employee) {
+                try {
+                    $employee->calculated_net_salary = $employee->get_net_salary();
+                } catch (\Throwable $e) {
+                    $employee->calculated_net_salary = null;
+                }
+            }
+
 
             return view('setsalary.index', compact('employees'));
         }

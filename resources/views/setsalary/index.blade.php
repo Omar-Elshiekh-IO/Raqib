@@ -38,7 +38,7 @@
                                     <td>{{ $employee->designation->name }}</td>
                                     <td>{{ !empty($employee->salaryType) ? $employee->salaryType->name : '-' }}</td>
                                     <td>{{  \Auth::user()->priceFormat($employee->salary) }}</td>
-                                    <td>{{  !empty($employee->get_net_salary()) ?\Auth::user()->priceFormat($employee->get_net_salary()):'' }}</td>
+                                    <td>{{  !empty($employee->calculated_net_salary) ?\Auth::user()->priceFormat($employee->calculated_net_salary):'' }}</td>
                                     <td>{{ $employee->payment_method }}</td>
                                     <td>{{ $employee->updated_at }}</td>
                                     <td>
