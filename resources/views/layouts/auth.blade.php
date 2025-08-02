@@ -150,25 +150,32 @@
         .overlay-right { right: 0; transform: translateX(0); }
         .container.right-panel-active .overlay-right { transform: translateX(20%); }
         @media (max-width: 900px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                padding: 20px 0;
+            }
             .container {
                 width: 100% !important;
+                max-width: 100% !important;
                 min-width: 0 !important;
-                border-radius: 0;
-            }
-            .form-container, .overlay-container {
-                width: 100% !important;
-                left: 0 !important;
-                min-width: 0 !important;
-            }
-            .overlay {
-                width: 100% !important;
-                left: 0 !important;
+                border-radius: 10px;
+                min-height: auto !important;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: visible;
             }
             .form-container {
                 position: static !important;
+                width: 100% !important;
                 height: auto !important;
                 min-height: 0 !important;
                 box-shadow: none !important;
+                transform: none !important;
+                animation: none !important;
+                opacity: 1 !important;
+                z-index: 2 !important;
             }
             .sign-in-container, .sign-up-container {
                 width: 100% !important;
@@ -178,12 +185,45 @@
                 transform: none !important;
                 animation: none !important;
                 position: static !important;
+                display: block !important;
+                margin-bottom: 20px;
             }
             .container.right-panel-active .sign-in-container,
             .container.right-panel-active .sign-up-container {
                 transform: none !important;
+                opacity: 1 !important;
+                display: block !important;
             }
             .overlay-container {
+                display: none !important;
+            }
+            /* Add mobile toggle buttons */
+            .mobile-toggle {
+                display: flex !important;
+                justify-content: center;
+                gap: 10px;
+                margin: 20px 0;
+                padding: 0 20px;
+            }
+            .mobile-toggle button {
+                flex: 1;
+                max-width: 150px;
+                padding: 10px 20px;
+                border-radius: 25px;
+                border: 2px solid var(--accent-main, #2B8B68);
+                background: transparent;
+                color: var(--accent-main, #2B8B68);
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .mobile-toggle button.active,
+            .mobile-toggle button:hover {
+                background: var(--accent-main, #2B8B68);
+                color: white;
+            }
+            /* Hide inactive form on mobile */
+            .mobile-hide {
                 display: none !important;
             }
         }
@@ -209,7 +249,13 @@
 </head>
 <body>
     <div class="container" id="container">
-        <div class="form-container sign-up-container">
+        <!-- Mobile Toggle Buttons (hidden on desktop) -->
+        <div class="mobile-toggle" style="display: none;">
+            <button type="button" id="mobileSignIn" class="active">Sign In</button>
+            <button type="button" id="mobileSignUp">Sign Up</button>
+        </div>
+        
+        <div class="form-container sign-up-container" id="signUpForm">
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <h1>Create Account</h1>
@@ -241,7 +287,7 @@
                 <button type="submit">Sign Up</button>
             </form>
         </div>
-        <div class="form-container sign-in-container">
+        <div class="form-container sign-in-container" id="signInForm">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <h1>Sign in</h1>
@@ -290,18 +336,83 @@
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
         const container = document.getElementById('container');
-        signUpButton.addEventListener('click', () => {
-            container.classList.add("right-panel-active");
-        });
-        signInButton.addEventListener('click', () => {
-            container.classList.remove("right-panel-active");
-        });
+        
+        // Desktop toggle functionality
+        if (signUpButton) {
+            signUpButton.addEventListener('click', () => {
+                container.classList.add("right-panel-active");
+            });
+        }
+        
+        if (signInButton) {
+            signInButton.addEventListener('click', () => {
+                container.classList.remove("right-panel-active");
+            });
+        }
+
+        // Mobile toggle functionality
+        const mobileSignInBtn = document.getElementById('mobileSignIn');
+        const mobileSignUpBtn = document.getElementById('mobileSignUp');
+        const signInForm = document.getElementById('signInForm');
+        const signUpForm = document.getElementById('signUpForm');
+
+        function showSignIn() {
+            if (signInForm && signUpForm) {
+                signInForm.classList.remove('mobile-hide');
+                signUpForm.classList.add('mobile-hide');
+                mobileSignInBtn.classList.add('active');
+                mobileSignUpBtn.classList.remove('active');
+            }
+        }
+
+        function showSignUp() {
+            if (signInForm && signUpForm) {
+                signInForm.classList.add('mobile-hide');
+                signUpForm.classList.remove('mobile-hide');
+                mobileSignInBtn.classList.remove('active');
+                mobileSignUpBtn.classList.add('active');
+            }
+        }
+
+        if (mobileSignInBtn && mobileSignUpBtn) {
+            mobileSignInBtn.addEventListener('click', showSignIn);
+            mobileSignUpBtn.addEventListener('click', showSignUp);
+        }
+
+        // Initialize mobile view
+        function initializeMobileView() {
+            if (window.innerWidth <= 900) {
+                // Show mobile toggle buttons
+                const mobileToggle = document.querySelector('.mobile-toggle');
+                if (mobileToggle) {
+                    mobileToggle.style.display = 'flex';
+                }
+                // Initially show sign in form on mobile
+                showSignIn();
+            } else {
+                // Hide mobile toggle buttons on desktop
+                const mobileToggle = document.querySelector('.mobile-toggle');
+                if (mobileToggle) {
+                    mobileToggle.style.display = 'none';
+                }
+                // Remove mobile hide classes on desktop
+                if (signInForm && signUpForm) {
+                    signInForm.classList.remove('mobile-hide');
+                    signUpForm.classList.remove('mobile-hide');
+                }
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initializeMobileView);
+        
+        // Re-initialize on resize
+        window.addEventListener('resize', initializeMobileView);
 
         // Forgot Password Modal logic
         const forgotPasswordLink = document.getElementById('forgotPasswordLink');
         const forgotPasswordModal = document.getElementById('forgotPasswordModal');
         const closeForgotModal = document.getElementById('closeForgotModal');
-        const overlayPanels = document.querySelectorAll('.overlay-panel');
 
         if (forgotPasswordLink && forgotPasswordModal && closeForgotModal) {
             forgotPasswordLink.addEventListener('click', function(e) {

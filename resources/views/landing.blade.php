@@ -3618,13 +3618,10 @@
 
     <!-- Floating Social Media Icons -->
     <div class="floating-social">
-        <a href="https://www.facebook.com/YourCompanyPage" class="social-icon facebook" target="_blank" rel="noopener noreferrer" data-tooltip="Follow us on Facebook">
+        <a href="https://www.facebook.com/share/16pP6WCwyC/?mibextid=wwXIfr" class="social-icon facebook" target="_blank" rel="noopener noreferrer" data-tooltip="Follow us on Facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="https://www.linkedin.com/company/YourCompany" class="social-icon linkedin" target="_blank" rel="noopener noreferrer" data-tooltip="Connect on LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a href="https://wa.me/1234567890?text=Hello!%20I'm%20interested%20in%20Raqib%20ERP%20system" class="social-icon whatsapp" target="_blank" rel="noopener noreferrer" data-tooltip="Chat on WhatsApp">
+        <a href="https://wa.link/18ljxv" class="social-icon whatsapp" target="_blank" rel="noopener noreferrer" data-tooltip="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
