@@ -1,0 +1,132 @@
+/**
+ * HRM Submenu Visibility CSS
+ * Ensures HRM submenu items are always visible and properly styled
+ */
+
+/* Force HRM submenu items to be visible */
+.dash-submenu .dash-item a[href*="training"],
+.dash-submenu .dash-item a[href*="trainer"],
+.dash-submenu .dash-item a[href*="payslip"],
+.dash-submenu .dash-item a[href*="setsalary"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #6c757d !important;
+    text-decoration: none !important;
+    padding: 10px 16px 10px 45px !important;
+    margin: 2px 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    font-weight: 400 !important;
+}
+
+/* Force HRM submenu list items to be visible */
+.dash-submenu .dash-item:has(a[href*="training"]),
+.dash-submenu .dash-item:has(a[href*="trainer"]),
+.dash-submenu .dash-item:has(a[href*="payslip"]),
+.dash-submenu .dash-item:has(a[href*="setsalary"]) {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    list-style: none !important;
+}
+
+/* Fallback for browsers that don't support :has() */
+.dash-submenu .dash-item {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.dash-submenu .dash-item .dash-link {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Hover effects for HRM submenu items */
+.dash-submenu .dash-item:hover > a[href*="training"],
+.dash-submenu .dash-item:hover > a[href*="trainer"],
+.dash-submenu .dash-item:hover > a[href*="payslip"],
+.dash-submenu .dash-item:hover > a[href*="setsalary"],
+.dash-submenu .dash-item:hover > .dash-link {
+    background: rgba(81, 69, 157, 0.08) !important;
+    color: #51459d !important;
+    transform: translateX(2px) !important;
+}
+
+/* Active state for HRM submenu items */
+.dash-submenu .dash-item.active > a[href*="training"],
+.dash-submenu .dash-item.active > a[href*="trainer"],
+.dash-submenu .dash-item.active > a[href*="payslip"],
+.dash-submenu .dash-item.active > a[href*="setsalary"],
+.dash-submenu .dash-item.active > .dash-link {
+    background: rgba(81, 69, 157, 0.12) !important;
+    color: #51459d !important;
+    font-weight: 500 !important;
+}
+
+/* Ensure HRM parent menus show their submenus when triggered */
+.dash-item.dash-hasmenu.dash-trigger .dash-submenu {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+/* Specific styling for Training Setup and Payroll Setup parent menus */
+.dash-item.dash-hasmenu:has(.dash-link:contains("Training Setup")) .dash-submenu,
+.dash-item.dash-hasmenu:has(.dash-link:contains("Payroll Setup")) .dash-submenu {
+    min-height: auto !important;
+    overflow: visible !important;
+}
+
+/* Override any scripts that might hide these items */
+.dash-submenu .dash-item[style*="display: none"]:has(a[href*="training"]),
+.dash-submenu .dash-item[style*="display: none"]:has(a[href*="trainer"]),
+.dash-submenu .dash-item[style*="display: none"]:has(a[href*="payslip"]),
+.dash-submenu .dash-item[style*="display: none"]:has(a[href*="setsalary"]) {
+    display: block !important;
+}
+
+/* Additional fallbacks for text-based matching */
+.dash-submenu .dash-item .dash-link:contains("Training"),
+.dash-submenu .dash-item .dash-link:contains("Trainer"),
+.dash-submenu .dash-item .dash-link:contains("Payslip"),
+.dash-submenu .dash-item .dash-link:contains("Set salary") {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.dash-submenu .dash-item:has(.dash-link:contains("Training")),
+.dash-submenu .dash-item:has(.dash-link:contains("Trainer")),
+.dash-submenu .dash-item:has(.dash-link:contains("Payslip")),
+.dash-submenu .dash-item:has(.dash-link:contains("Set salary")) {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Debug styles - remove in production */
+.dash-submenu .dash-item[data-debug="hrm"] {
+    border: 1px solid #28a745 !important;
+    background: rgba(40, 167, 69, 0.1) !important;
+}
+
+.dash-submenu .dash-item[data-debug="hrm"]:before {
+    content: "HRM Item";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    background: #28a745;
+    color: white;
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: 3px;
+    z-index: 1000;
+}

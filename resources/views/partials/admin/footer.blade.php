@@ -30,10 +30,61 @@
 <script src="{{ asset('assets/js/dash.js') }}"></script>
 <script src="{{ asset('assets/js/immediate-submenu-fix.js') }}"></script>
 <script src="{{ asset('assets/js/menu-fix.js') }}"></script>
+<script src="{{ asset('assets/js/hrm-submenu-fix.js') }}"></script>
 <script src="{{ asset('assets/js/sidebar-auto-close.js') }}"></script>
 @if(config('app.debug'))
 <script src="{{ asset('assets/js/menu-test.js') }}"></script>
 @endif
+
+<!-- HRM Submenu Override Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Force visibility of HRM submenu items
+    function forceHRMVisibility() {
+        const hrmLinks = document.querySelectorAll('a[href*="training"], a[href*="trainer"], a[href*="payslip"], a[href*="setsalary"]');
+        hrmLinks.forEach(link => {
+            const parentItem = link.closest('.dash-item');
+            if (parentItem && parentItem.closest('.dash-submenu')) {
+                parentItem.style.display = 'block';
+                parentItem.style.visibility = 'visible';
+                parentItem.style.opacity = '1';
+                link.style.display = 'block';
+                link.style.visibility = 'visible';
+            }
+        });
+        
+        // Also check by text content
+        const submenuItems = document.querySelectorAll('.dash-submenu .dash-item');
+        submenuItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (link) {
+                const text = link.textContent.trim().toLowerCase();
+                if (text.includes('training') || text.includes('trainer') || 
+                    text.includes('payslip') || text.includes('set salary')) {
+                    item.style.display = 'block';
+                    item.style.visibility = 'visible';
+                    item.style.opacity = '1';
+                    link.style.display = 'block';
+                    link.style.visibility = 'visible';
+                }
+            }
+        });
+    }
+    
+    // Apply immediately and repeatedly to override other scripts
+    forceHRMVisibility();
+    setTimeout(forceHRMVisibility, 100);
+    setTimeout(forceHRMVisibility, 500);
+    setTimeout(forceHRMVisibility, 1000);
+    
+    // Apply whenever menu is clicked
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.dash-hasmenu')) {
+            setTimeout(forceHRMVisibility, 50);
+        }
+    });
+});
+</script>
 <script src="{{ asset('js/moment.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/plugins/bootstrap-switch-button.min.js') }}"></script>

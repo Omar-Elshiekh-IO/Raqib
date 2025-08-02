@@ -35,7 +35,7 @@
                                         </a>
                                     </td>
                                     <td>{{ $employee->name }}</td>
-                                    <td>{{ $employee->designation->name }}</td>
+                                    <td>{{ !empty($employee->designation) ? $employee->designation->name : '-' }}</td>
                                     <td>{{ !empty($employee->salaryType) ? $employee->salaryType->name : '-' }}</td>
                                     <td>{{  \Auth::user()->priceFormat($employee->salary) }}</td>
                                     <td>{{  !empty($employee->get_net_salary()) ?\Auth::user()->priceFormat($employee->get_net_salary()):'' }}</td>

@@ -21,7 +21,9 @@
                     const linkText = link.textContent.trim();
                     const linkHrefAttr = link.getAttribute('href');
                     
-                    if (!linkText || linkText === '' || !linkHrefAttr || linkHrefAttr === '' || linkHrefAttr === '#') {
+                    // Only hide items that are truly empty (no text AND no href)
+                    // Allow items with href="#" if they have text content (for parent menu items)
+                    if ((!linkText || linkText === '') && (!linkHrefAttr || linkHrefAttr === '')) {
                         // Hide empty menu items
                         item.style.display = 'none';
                         return;
